@@ -24,7 +24,7 @@ export function HeroSection() {
         paddingTop: "calc(var(--header-h) + var(--sp-10))",
       }}
     >
-      {/* Build-plate stage: grid concentrated behind the hero object, warm bloom, bottom fade. */}
+      {/* Build-plate stage: grid concentrated behind the hero object, plus the bottom fade. */}
       <div
         aria-hidden="true"
         className="plate-grid pointer-events-none absolute inset-0"
@@ -32,10 +32,6 @@ export function HeroSection() {
           maskImage: "radial-gradient(70% 60% at 62% 45%, #000 0%, transparent 78%)",
           WebkitMaskImage: "radial-gradient(70% 60% at 62% 45%, #000 0%, transparent 78%)",
         }}
-      />
-      <div
-        aria-hidden="true"
-        className="bloom-hot pointer-events-none absolute right-[2%] top-[18%] h-[560px] w-[560px] rounded-full"
       />
       <div
         aria-hidden="true"

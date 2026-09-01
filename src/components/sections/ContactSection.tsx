@@ -21,10 +21,6 @@ export function ContactSection() {
       aria-labelledby={CONTACT_HEADING_ID}
       className="section-pad relative overflow-hidden bg-background"
     >
-      <div
-        aria-hidden="true"
-        className="bloom-hot pointer-events-none absolute left-[88%] top-[85%] h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-      />
 
       <div className="shell relative grid gap-sp-8 lg:grid-cols-12 lg:gap-sp-10">
         <div className="order-2 flex flex-col gap-sp-6 lg:order-1 lg:col-span-5">
