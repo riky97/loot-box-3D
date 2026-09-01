@@ -1,37 +1,59 @@
+import { BrandMark } from "@/components/common/BrandMark"
 import { cn } from "@/lib/utils"
 
 interface WordmarkProps {
   className?: string
-  /** Font size of the "LOOT BOX" half; the "3D" badge scales with it. */
+  /**
+   * `inline` pairs the chest symbol with the name for the header bar;
+   * `stacked` uses the complete logo artwork as supplied.
+   */
+  variant?: "inline" | "stacked"
   size?: "sm" | "lg"
+  /** Accessible name for the lockup. Supply the localized brand name. */
+  label: string
 }
 
+// The wordmark is the mark itself, not copy: identical in every locale, so it
+// stays out of the translation files. It is set in the brand display face,
+// lowercase, matching the logo artwork.
+const BRAND_WORD = "loot box"
+
 /**
- * Text-only brand lockup: the name in the expanded display face, followed by a
- * chamfered "3D" badge in the mono face. No image asset involved, so it stays
- * crisp at any size and follows the palette.
+ * The brand lockup. The artwork is painted with `currentColor` (see BrandMark),
+ * so both variants follow the palette rather than carrying a fixed background.
  */
-export function Wordmark({ className, size = "sm" }: WordmarkProps) {
-  return (
-    <span className={cn("group inline-flex items-center gap-sp-2", className)}>
+export function Wordmark({ className, variant = "inline", size = "sm", label }: WordmarkProps) {
+  if (variant === "stacked") {
+    return (
       <span
-        className={cn(
-          "type-display uppercase leading-none tracking-h2 text-foreground",
-          size === "sm" ? "text-[18px]" : "text-[22px]",
-        )}
+        role="img"
+        aria-label={label}
+        className={cn("block text-foreground", size === "sm" ? "w-40" : "w-52", className)}
       >
-        Loot Box
+        <BrandMark variant="full" />
       </span>
+    )
+  }
+
+  return (
+    <span
+      role="img"
+      aria-label={label}
+      className={cn("group inline-flex items-center gap-sp-2 text-foreground", className)}
+    >
+      <BrandMark
+        className={cn(
+          "shrink-0 transition-transform duration-base ease-out group-hover:-translate-y-px",
+          size === "sm" ? "w-9" : "w-11",
+        )}
+      />
       <span
         className={cn(
-          "cut-shape type-chip inline-flex items-center px-[5px] py-[2px] text-primary",
-          "shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.35)]",
-          "transition-shadow duration-fast ease-out group-hover:shadow-glow-hot",
-          "[--chamfer:6px]",
-          size === "sm" ? "text-[13px]" : "text-[15px]",
+          "type-display leading-none tracking-h2",
+          size === "sm" ? "text-[21px]" : "text-[28px]",
         )}
       >
-        3D
+        {BRAND_WORD}
       </span>
     </span>
   )

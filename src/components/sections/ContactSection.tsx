@@ -1,4 +1,5 @@
-import { Mail, MapPin } from "lucide-react"
+// `Mail` goes back in the import when the email contact row below is re-enabled.
+import { MapPin } from "lucide-react"
 import { useId, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -21,10 +22,6 @@ export function ContactSection() {
       aria-labelledby={CONTACT_HEADING_ID}
       className="section-pad relative overflow-hidden bg-background"
     >
-      <div
-        aria-hidden="true"
-        className="bloom-hot pointer-events-none absolute left-[88%] top-[85%] h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-      />
 
       <div className="shell relative grid gap-sp-8 lg:grid-cols-12 lg:gap-sp-10">
         <div className="order-2 flex flex-col gap-sp-6 lg:order-1 lg:col-span-5">
@@ -100,12 +97,17 @@ export function ContactSection() {
               className="plate-grid pointer-events-none absolute inset-0 opacity-[0.05]"
             />
 
+            {/* Email row is disabled: the mailbox does not exist yet, and publishing
+                an address that bounces is worse than not showing one. Re-enable this
+                block once the real address is live — the copy already lives under the
+                `contact.emailLabel` / `contact.emailValue` keys in the locale file.
             <ContactRow
               icon={<Mail className="h-5 w-5 text-accent" aria-hidden="true" />}
               label={t("contact.emailLabel")}
               value={t("contact.emailValue")}
               href={`mailto:${t("contact.emailValue")}`}
             />
+            */}
             <ContactRow
               icon={<MapPin className="h-5 w-5 text-accent" aria-hidden="true" />}
               label={t("contact.locationLabel")}

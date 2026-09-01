@@ -21,9 +21,9 @@
     @apply bg-background text-foreground font-body antialiased;
     font-size: var(--fs-body);
     line-height: var(--leading-body);
-    // The page is intentionally dark-only for v1; keep the UA form controls in
-    // step so native widgets and scrollbars do not flash light.
-    color-scheme: dark;
+    // The page is intentionally light-only for v1; keep the UA form controls in
+    // step so native widgets and scrollbars match.
+    color-scheme: light;
   }
 
   // Sticky header must never cover the heading of a linked section.
@@ -48,11 +48,12 @@
   // Typographic roles
   // ---------------------------------------------------------------------------
 
-  // Display face. Archivo is variable: the expanded width is what gives the
-  // brand its poster weight, so it is applied through variation settings.
+  // Display face. Outfit is the geometric sans that matches the brand wordmark:
+  // circular bowls, low contrast, set in lowercase/sentence case like the logo.
+  // It is a weight-only variable font, so there is no width axis to set.
   .type-display {
     font-family: var(--font-display);
-    font-variation-settings: "wdth" 125, "wght" 800;
+    font-variation-settings: "wght" 800;
     font-weight: 800;
     text-transform: none;
   }
@@ -66,7 +67,7 @@
 
   .type-h2 {
     font-family: var(--font-display);
-    font-variation-settings: "wdth" 115, "wght" 700;
+    font-variation-settings: "wght" 700;
     font-weight: 700;
     font-size: var(--fs-h2);
     line-height: var(--leading-h2);
@@ -75,7 +76,7 @@
 
   .type-h3 {
     font-family: var(--font-display);
-    font-variation-settings: "wdth" 110, "wght" 700;
+    font-variation-settings: "wght" 700;
     font-weight: 700;
     font-size: var(--fs-h3);
     line-height: var(--leading-h3);
@@ -253,24 +254,6 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Ambient blooms — the warm/cool stage lighting behind a section
-  // ---------------------------------------------------------------------------
-  .bloom-hot,
-  .bloom-cyan {
-    border-radius: 9999px;
-    filter: blur(48px);
-    pointer-events: none;
-  }
-
-  .bloom-hot {
-    background: var(--bloom-hot);
-  }
-
-  .bloom-cyan {
-    background: var(--bloom-cyan);
-  }
-
-  // ---------------------------------------------------------------------------
   // Signature device 5 — rarity chip
   // ---------------------------------------------------------------------------
   // `--tier` is set per instance to one of the four rarity tokens.
@@ -312,7 +295,7 @@
   // Outline type used by the marquee and the footer closing wordmark.
   .type-outline {
     color: transparent;
-    -webkit-text-stroke: 1px hsl(var(--border));
+    -webkit-text-stroke: 1px hsl(var(--layer-line));
   }
 }
 

@@ -15,13 +15,13 @@ export function SiteFooter() {
   const { t } = useTranslation()
 
   return (
-    <footer className="relative overflow-hidden border-t border-border bg-popover">
+    <footer className="relative overflow-hidden border-t border-border bg-surface-2">
       <span aria-hidden="true" className="layer-strip absolute inset-x-0 top-0 z-10 h-1" />
 
       <div className="shell relative z-10 pb-sp-6 pt-sp-10">
         <div className="grid gap-sp-8 md:grid-cols-[2fr_1fr_1fr]">
           <div className="flex flex-col gap-sp-3">
-            <Wordmark size="lg" />
+            <Wordmark variant="stacked" size="lg" label={t("common.brandName")} className="items-start self-start" />
             <p className="text-sm text-muted-foreground">{t("footer.tagline")}</p>
           </div>
 
@@ -66,7 +66,7 @@ export function SiteFooter() {
       <p
         aria-hidden="true"
         className={cn(
-          "type-display type-outline pointer-events-none absolute inset-x-0 bottom-0 z-0",
+          "type-display type-outline pointer-events-none absolute inset-x-0 bottom-0 z-0 opacity-60",
           "translate-y-[45%] select-none whitespace-nowrap text-center leading-none",
         )}
         style={{ fontSize: "clamp(4rem, 16vw, 12rem)" }}

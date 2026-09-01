@@ -31,14 +31,6 @@ export function ShowcaseSection() {
       <div aria-hidden="true" className="layer-strip absolute inset-x-0 top-0 h-[10px]" />
       <div aria-hidden="true" className="layer-strip absolute inset-x-0 bottom-0 h-[10px]" />
 
-      <div
-        aria-hidden="true"
-        className="bloom-cyan pointer-events-none absolute left-[20%] top-0 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-      />
-      <div
-        aria-hidden="true"
-        className="bloom-hot pointer-events-none absolute left-[85%] top-[90%] h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-      />
 
       <div className="shell relative flex flex-col gap-sp-8">
         <div className="flex flex-col gap-sp-6 md:flex-row md:items-end md:justify-between">

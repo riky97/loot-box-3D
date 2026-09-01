@@ -15,54 +15,56 @@
 // -----------------------------------------------------------------------------
 // 1. Palette (edit these to re-skin the brand)
 // -----------------------------------------------------------------------------
+// The cream ground and the ink are sampled from the brand logo artwork
+// (docs/brand/logo-original.jpeg): #FEF5E6 and #190502.
 
 // shadcn/ui semantic set
-$color-background: 222 33% 8%;
-$color-foreground: 210 25% 96%;
-$color-card: 221 27% 13%;
-$color-card-foreground: 210 25% 96%;
-$color-popover: 221 30% 10%;
-$color-popover-foreground: 210 25% 96%;
-$color-primary: 22 96% 55%;
-$color-primary-foreground: 24 60% 8%;
-$color-secondary: 220 24% 17%;
-$color-secondary-foreground: 210 25% 96%;
-$color-muted: 220 22% 16%;
-$color-muted-foreground: 214 18% 72%;
-$color-accent: 188 90% 50%;
-$color-accent-foreground: 195 80% 8%;
-$color-destructive: 358 70% 52%;
-$color-destructive-foreground: 0 0% 100%;
-$color-border: 220 18% 22%;
-$color-input: 220 18% 22%;
-$color-ring: 188 90% 55%;
+$color-background: 38 92% 95%;
+$color-foreground: 10 65% 9%;
+$color-card: 40 100% 98%;
+$color-card-foreground: 10 65% 9%;
+$color-popover: 40 100% 98%;
+$color-popover-foreground: 10 65% 9%;
+$color-primary: 20 94% 37%;
+$color-primary-foreground: 38 92% 97%;
+$color-secondary: 40 45% 90%;
+$color-secondary-foreground: 10 65% 9%;
+$color-muted: 40 40% 88%;
+$color-muted-foreground: 18 14% 40%;
+$color-accent: 186 82% 26%;
+$color-accent-foreground: 38 92% 97%;
+$color-destructive: 0 68% 42%;
+$color-destructive-foreground: 38 92% 97%;
+$color-border: 36 26% 82%;
+$color-input: 36 26% 82%;
+$color-ring: 186 82% 32%;
 
 // Brand-specific extras
-$color-brand-hot: 22 96% 55%;
-$color-brand-hot-deep: 12 88% 46%;
-$color-brand-cyan: 188 90% 50%;
-$color-brand-cyan-deep: 200 92% 40%;
-$color-brand-violet: 268 84% 66%;
-$color-surface-2: 221 30% 11%;
-$color-plate: 220 26% 12%;
-$color-plate-deep: 222 35% 6%;
-$color-layer-line: 220 16% 28%;
-$color-grid-line: 190 60% 60%;
-$color-foreground-dim: 212 20% 84%;
-$color-shadow-base: 222 60% 2%;
+$color-brand-hot: 20 94% 37%;
+$color-brand-hot-deep: 12 88% 32%;
+$color-brand-cyan: 186 82% 26%;
+$color-brand-cyan-deep: 192 80% 20%;
+$color-brand-violet: 280 45% 42%;
+$color-surface-2: 40 45% 90%;
+$color-plate: 40 38% 87%;
+$color-plate-deep: 38 32% 80%;
+$color-layer-line: 36 24% 74%;
+$color-grid-line: 24 30% 45%;
+$color-foreground-dim: 16 22% 26%;
+$color-shadow-base: 20 40% 20%;
 
 // Rarity tiers (decorative labels on showcase tiles)
-$color-rarity-common: 214 15% 62%;
-$color-rarity-rare: 200 90% 55%;
-$color-rarity-epic: 268 84% 66%;
-$color-rarity-legendary: 33 95% 58%;
+$color-rarity-common: 20 10% 45%;
+$color-rarity-rare: 205 74% 34%;
+$color-rarity-epic: 280 45% 42%;
+$color-rarity-legendary: 32 88% 33%;
 
 // -----------------------------------------------------------------------------
 // 2. Typography
 // -----------------------------------------------------------------------------
 // Families are loaded from Google Fonts in index.html. Changing a family here
 // means updating that <link> as well.
-$font-display: "Archivo", "Arial Black", system-ui, sans-serif;
+$font-display: "Outfit", "Trebuchet MS", system-ui, sans-serif;
 $font-body: "Chivo", system-ui, -apple-system, "Segoe UI", sans-serif;
 $font-mono: "Martian Mono", ui-monospace, "SFMono-Regular", "Consolas", monospace;
 
@@ -188,20 +190,6 @@ $dur-hero: 900ms;
   );
   --grad-travel: linear-gradient(90deg, hsl(var(--brand-cyan-deep)) 0%, hsl(var(--brand-cyan)) 100%);
   --grad-plate: radial-gradient(120% 80% at 50% 0%, hsl(var(--surface-2)) 0%, hsl(var(--background)) 65%);
-  // Ambient section blooms. These are gradients rather than box-shadows so the
-  // light falls off smoothly instead of ringing the edge of its own element.
-  --bloom-hot: radial-gradient(
-    circle at center,
-    hsl(var(--primary) / 0.28) 0%,
-    hsl(var(--primary) / 0.1) 38%,
-    transparent 70%
-  );
-  --bloom-cyan: radial-gradient(
-    circle at center,
-    hsl(var(--accent) / 0.2) 0%,
-    hsl(var(--accent) / 0.07) 38%,
-    transparent 70%
-  );
   --grad-border: linear-gradient(
     135deg,
     hsl(var(--border)) 0%,
@@ -269,15 +257,17 @@ $dur-hero: 900ms;
   --chamfer: #{$chamfer};
 
   // -- Shadow & glow ----------------------------------------------------------
-  --shadow-card: 0 1px 0 0 hsl(var(--foreground) / 0.04) inset,
-    0 12px 32px -12px hsl(var(--shadow-base) / 0.8);
-  --shadow-card-hover: 0 1px 0 0 hsl(var(--foreground) / 0.07) inset,
-    0 22px 48px -16px hsl(var(--shadow-base) / 0.9);
-  --shadow-header: 0 1px 0 0 hsl(var(--border)), 0 10px 30px -20px hsl(var(--shadow-base) / 0.9);
-  --glow-hot: 0 0 0 1px hsl(var(--primary) / 0.35), 0 0 24px -4px hsl(var(--primary) / 0.55);
-  --glow-hot-soft: 0 0 60px 0 hsl(var(--primary) / 0.18);
-  --glow-cyan: 0 0 0 1px hsl(var(--accent) / 0.4), 0 0 20px -4px hsl(var(--accent) / 0.5);
-  --glow-cyan-soft: 0 0 80px 0 hsl(var(--accent) / 0.12);
+  // On a light ground the raised edge is a highlight, not a rim light, and the
+  // drop shadow is a warm brown at low alpha rather than a near-black.
+  --shadow-card: 0 1px 0 0 hsl(var(--card)) inset,
+    0 10px 24px -14px hsl(var(--shadow-base) / 0.28);
+  --shadow-card-hover: 0 1px 0 0 hsl(var(--card)) inset,
+    0 18px 36px -18px hsl(var(--shadow-base) / 0.34);
+  --shadow-header: 0 1px 0 0 hsl(var(--border)), 0 10px 30px -22px hsl(var(--shadow-base) / 0.35);
+  --glow-hot: 0 0 0 1px hsl(var(--primary) / 0.4), 0 8px 20px -8px hsl(var(--primary) / 0.45);
+  --glow-hot-soft: 0 8px 40px -16px hsl(var(--primary) / 0.3);
+  --glow-cyan: 0 0 0 1px hsl(var(--accent) / 0.45), 0 8px 18px -8px hsl(var(--accent) / 0.4);
+  --glow-cyan-soft: 0 8px 40px -16px hsl(var(--accent) / 0.25);
   --ring-focus: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
 
   // -- Motion -----------------------------------------------------------------

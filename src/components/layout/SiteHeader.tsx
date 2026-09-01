@@ -35,7 +35,7 @@ export function SiteHeader() {
     >
       <div className="shell grid h-full grid-cols-[1fr_auto] items-center lg:grid-cols-[1fr_auto_1fr]">
         <a href={ROUTES.home} className="justify-self-start">
-          <Wordmark />
+          <Wordmark label={t("common.brandName")} />
         </a>
 
         <MainNav activeId={activeId} className="hidden justify-self-center lg:flex" />

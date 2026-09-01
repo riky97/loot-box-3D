@@ -42,6 +42,26 @@ token there restyles the whole site, shadcn/ui components included.
 Font families are the one thing that also needs a second edit: the Google Fonts `<link>` in
 [`index.html`](index.html) must load whatever families the token file names.
 
+## Brand assets
+
+The palette is sampled directly from the supplied logo artwork: the cream ground is `#FEF5E6` and
+the ink is `#190502`. The original file is kept for reference at
+[`docs/brand/logo-original.jpeg`](docs/brand/logo-original.jpeg).
+
+That file is a raster logo drawn in one ink on a flat cream ground, so placing it as an image would
+carry the cream rectangle onto every surface. Instead the ink is extracted into two alpha masks in
+`public/brand/` and painted with `currentColor` by
+[`BrandMark`](src/components/common/BrandMark.tsx) — the logo therefore follows the palette and sits
+cleanly on any background:
+
+- `logo-mark.png` — the chest symbol alone, used beside the name in the header
+- `logo-full.png` — the complete stacked lockup, used in the footer
+
+⚠️ **These are raster masks.** Ask the designer for the vector original (SVG / AI / PDF) and swap
+both assets when it arrives; a raster mask cannot be redrawn for very large display sizes. A
+horizontal version of the lockup would also let the header show the full logo instead of the
+symbol-plus-type pairing used today.
+
 ## Adding a page
 
 1. Create the component under `src/pages/`.

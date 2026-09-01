@@ -62,10 +62,6 @@ export function HeroPrintScene() {
         </filter>
       </defs>
 
-      {/* Ambient bloom behind the crate and the plate's far edge. */}
-      <circle cx="200" cy="210" r="150" fill="hsl(var(--primary) / 0.10)" />
-      <circle cx="120" cy="150" r="120" fill="hsl(var(--accent) / 0.08)" />
-
       {/* Build plate. */}
       <polygon points={PLATE_POINTS} fill="hsl(var(--plate))" />
       <g clipPath={`url(#${PLATE_ID})`} stroke="hsl(var(--grid-line) / 0.25)" strokeWidth="1">
