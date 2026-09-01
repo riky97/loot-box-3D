@@ -1,0 +1,304 @@
+// =============================================================================
+// DESIGN TOKENS — SINGLE SOURCE OF TRUTH
+// =============================================================================
+// Every color, font, size, spacing, radius, shadow and motion value used by the
+// site is declared here. Tailwind (tailwind.config.js) holds no literal values:
+// it only maps utility names onto the custom properties emitted below.
+//
+// To restyle the whole site, edit ONLY this file.
+//
+// Colors are stored as bare HSL triplets ("H S% L%") so they can be consumed as
+// hsl(var(--token)) and, in Tailwind, as hsl(var(--token) / <alpha-value>).
+// This is also the format shadcn/ui expects for its semantic tokens.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// 1. Palette (edit these to re-skin the brand)
+// -----------------------------------------------------------------------------
+
+// shadcn/ui semantic set
+$color-background: 222 33% 8%;
+$color-foreground: 210 25% 96%;
+$color-card: 221 27% 13%;
+$color-card-foreground: 210 25% 96%;
+$color-popover: 221 30% 10%;
+$color-popover-foreground: 210 25% 96%;
+$color-primary: 22 96% 55%;
+$color-primary-foreground: 24 60% 8%;
+$color-secondary: 220 24% 17%;
+$color-secondary-foreground: 210 25% 96%;
+$color-muted: 220 22% 16%;
+$color-muted-foreground: 214 18% 72%;
+$color-accent: 188 90% 50%;
+$color-accent-foreground: 195 80% 8%;
+$color-destructive: 358 70% 52%;
+$color-destructive-foreground: 0 0% 100%;
+$color-border: 220 18% 22%;
+$color-input: 220 18% 22%;
+$color-ring: 188 90% 55%;
+
+// Brand-specific extras
+$color-brand-hot: 22 96% 55%;
+$color-brand-hot-deep: 12 88% 46%;
+$color-brand-cyan: 188 90% 50%;
+$color-brand-cyan-deep: 200 92% 40%;
+$color-brand-violet: 268 84% 66%;
+$color-surface-2: 221 30% 11%;
+$color-plate: 220 26% 12%;
+$color-plate-deep: 222 35% 6%;
+$color-layer-line: 220 16% 28%;
+$color-grid-line: 190 60% 60%;
+$color-foreground-dim: 212 20% 84%;
+$color-shadow-base: 222 60% 2%;
+
+// Rarity tiers (decorative labels on showcase tiles)
+$color-rarity-common: 214 15% 62%;
+$color-rarity-rare: 200 90% 55%;
+$color-rarity-epic: 268 84% 66%;
+$color-rarity-legendary: 33 95% 58%;
+
+// -----------------------------------------------------------------------------
+// 2. Typography
+// -----------------------------------------------------------------------------
+// Families are loaded from Google Fonts in index.html. Changing a family here
+// means updating that <link> as well.
+$font-display: "Archivo", "Arial Black", system-ui, sans-serif;
+$font-body: "Chivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-mono: "Martian Mono", ui-monospace, "SFMono-Regular", "Consolas", monospace;
+
+// Fluid type scale
+$fs-display: clamp(2.5rem, 9vw, 4.5rem);
+$fs-h1: clamp(2rem, 5.5vw, 3rem);
+$fs-h2: clamp(1.625rem, 3.4vw, 2rem);
+$fs-h3: 1.375rem;
+$fs-lead: 1.25rem;
+$fs-body: 1rem;
+$fs-sm: 0.875rem;
+$fs-eyebrow: 0.75rem;
+$fs-chip: 0.6875rem;
+$fs-meta: 0.75rem;
+
+$leading-display: 0.94;
+$leading-h1: 1;
+$leading-h2: 1.08;
+$leading-h3: 1.2;
+$leading-lead: 1.55;
+$leading-body: 1.65;
+$leading-tight: 1.2;
+
+$tracking-display: -0.03em;
+$tracking-h1: -0.025em;
+$tracking-h2: -0.02em;
+$tracking-h3: -0.01em;
+$tracking-eyebrow: 0.18em;
+$tracking-chip: 0.14em;
+$tracking-meta: 0.04em;
+
+// Reading measures
+$measure-body: 62ch;
+$measure-lead: 54ch;
+$measure-hero: 46ch;
+
+// -----------------------------------------------------------------------------
+// 3. Spacing, layout, radius
+// -----------------------------------------------------------------------------
+$sp-1: 0.25rem;
+$sp-2: 0.5rem;
+$sp-3: 0.75rem;
+$sp-4: 1rem;
+$sp-5: 1.5rem;
+$sp-6: 2rem;
+$sp-8: 3rem;
+$sp-10: 4.5rem;
+$sp-12: 6.5rem;
+$sp-14: 8.5rem;
+
+$container: 76rem;
+$container-narrow: 52rem;
+$gutter-mobile: 1.25rem;
+$gutter-tablet: 2rem;
+$gutter-desktop: 2.5rem;
+$header-h-mobile: 4rem;
+$header-h-desktop: 4.5rem;
+
+$radius: 0.375rem;
+$radius-sm: 0.25rem;
+$radius-lg: 0.75rem;
+$chamfer: 18px;
+
+// -----------------------------------------------------------------------------
+// 4. Motion
+// -----------------------------------------------------------------------------
+$ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+$ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+$dur-fast: 140ms;
+$dur-base: 240ms;
+$dur-slow: 420ms;
+$dur-hero: 900ms;
+
+// =============================================================================
+// 5. Emit as CSS custom properties
+// =============================================================================
+:root {
+  // -- Colors: shadcn/ui semantic set -----------------------------------------
+  --background: #{$color-background};
+  --foreground: #{$color-foreground};
+  --card: #{$color-card};
+  --card-foreground: #{$color-card-foreground};
+  --popover: #{$color-popover};
+  --popover-foreground: #{$color-popover-foreground};
+  --primary: #{$color-primary};
+  --primary-foreground: #{$color-primary-foreground};
+  --secondary: #{$color-secondary};
+  --secondary-foreground: #{$color-secondary-foreground};
+  --muted: #{$color-muted};
+  --muted-foreground: #{$color-muted-foreground};
+  --accent: #{$color-accent};
+  --accent-foreground: #{$color-accent-foreground};
+  --destructive: #{$color-destructive};
+  --destructive-foreground: #{$color-destructive-foreground};
+  --border: #{$color-border};
+  --input: #{$color-input};
+  --ring: #{$color-ring};
+
+  // -- Colors: brand extras ---------------------------------------------------
+  --brand-hot: #{$color-brand-hot};
+  --brand-hot-deep: #{$color-brand-hot-deep};
+  --brand-cyan: #{$color-brand-cyan};
+  --brand-cyan-deep: #{$color-brand-cyan-deep};
+  --brand-violet: #{$color-brand-violet};
+  --surface-2: #{$color-surface-2};
+  --plate: #{$color-plate};
+  --plate-deep: #{$color-plate-deep};
+  --layer-line: #{$color-layer-line};
+  --grid-line: #{$color-grid-line};
+  --foreground-dim: #{$color-foreground-dim};
+  --shadow-base: #{$color-shadow-base};
+  --rarity-common: #{$color-rarity-common};
+  --rarity-rare: #{$color-rarity-rare};
+  --rarity-epic: #{$color-rarity-epic};
+  --rarity-legendary: #{$color-rarity-legendary};
+
+  // -- Gradients --------------------------------------------------------------
+  --grad-extrude: linear-gradient(
+    90deg,
+    hsl(var(--brand-hot-deep)) 0%,
+    hsl(var(--brand-hot)) 55%,
+    hsl(var(--rarity-legendary)) 100%
+  );
+  --grad-travel: linear-gradient(90deg, hsl(var(--brand-cyan-deep)) 0%, hsl(var(--brand-cyan)) 100%);
+  --grad-plate: radial-gradient(120% 80% at 50% 0%, hsl(var(--surface-2)) 0%, hsl(var(--background)) 65%);
+  // Ambient section blooms. These are gradients rather than box-shadows so the
+  // light falls off smoothly instead of ringing the edge of its own element.
+  --bloom-hot: radial-gradient(
+    circle at center,
+    hsl(var(--primary) / 0.28) 0%,
+    hsl(var(--primary) / 0.1) 38%,
+    transparent 70%
+  );
+  --bloom-cyan: radial-gradient(
+    circle at center,
+    hsl(var(--accent) / 0.2) 0%,
+    hsl(var(--accent) / 0.07) 38%,
+    transparent 70%
+  );
+  --grad-border: linear-gradient(
+    135deg,
+    hsl(var(--border)) 0%,
+    hsl(var(--accent) / 0.45) 50%,
+    hsl(var(--border)) 100%
+  );
+
+  // -- Typography -------------------------------------------------------------
+  --font-display: #{$font-display};
+  --font-body: #{$font-body};
+  --font-mono: #{$font-mono};
+
+  --fs-display: #{$fs-display};
+  --fs-h1: #{$fs-h1};
+  --fs-h2: #{$fs-h2};
+  --fs-h3: #{$fs-h3};
+  --fs-lead: #{$fs-lead};
+  --fs-body: #{$fs-body};
+  --fs-sm: #{$fs-sm};
+  --fs-eyebrow: #{$fs-eyebrow};
+  --fs-chip: #{$fs-chip};
+  --fs-meta: #{$fs-meta};
+
+  --leading-display: #{$leading-display};
+  --leading-h1: #{$leading-h1};
+  --leading-h2: #{$leading-h2};
+  --leading-h3: #{$leading-h3};
+  --leading-lead: #{$leading-lead};
+  --leading-body: #{$leading-body};
+  --leading-tight: #{$leading-tight};
+
+  --tracking-display: #{$tracking-display};
+  --tracking-h1: #{$tracking-h1};
+  --tracking-h2: #{$tracking-h2};
+  --tracking-h3: #{$tracking-h3};
+  --tracking-eyebrow: #{$tracking-eyebrow};
+  --tracking-chip: #{$tracking-chip};
+  --tracking-meta: #{$tracking-meta};
+
+  --measure-body: #{$measure-body};
+  --measure-lead: #{$measure-lead};
+  --measure-hero: #{$measure-hero};
+
+  // -- Spacing & layout -------------------------------------------------------
+  --sp-1: #{$sp-1};
+  --sp-2: #{$sp-2};
+  --sp-3: #{$sp-3};
+  --sp-4: #{$sp-4};
+  --sp-5: #{$sp-5};
+  --sp-6: #{$sp-6};
+  --sp-8: #{$sp-8};
+  --sp-10: #{$sp-10};
+  --sp-12: #{$sp-12};
+  --sp-14: #{$sp-14};
+
+  --container: #{$container};
+  --container-narrow: #{$container-narrow};
+  --gutter: #{$gutter-mobile};
+  --header-h: #{$header-h-mobile};
+
+  // -- Radius -----------------------------------------------------------------
+  --radius: #{$radius};
+  --radius-sm: #{$radius-sm};
+  --radius-lg: #{$radius-lg};
+  --chamfer: #{$chamfer};
+
+  // -- Shadow & glow ----------------------------------------------------------
+  --shadow-card: 0 1px 0 0 hsl(var(--foreground) / 0.04) inset,
+    0 12px 32px -12px hsl(var(--shadow-base) / 0.8);
+  --shadow-card-hover: 0 1px 0 0 hsl(var(--foreground) / 0.07) inset,
+    0 22px 48px -16px hsl(var(--shadow-base) / 0.9);
+  --shadow-header: 0 1px 0 0 hsl(var(--border)), 0 10px 30px -20px hsl(var(--shadow-base) / 0.9);
+  --glow-hot: 0 0 0 1px hsl(var(--primary) / 0.35), 0 0 24px -4px hsl(var(--primary) / 0.55);
+  --glow-hot-soft: 0 0 60px 0 hsl(var(--primary) / 0.18);
+  --glow-cyan: 0 0 0 1px hsl(var(--accent) / 0.4), 0 0 20px -4px hsl(var(--accent) / 0.5);
+  --glow-cyan-soft: 0 0 80px 0 hsl(var(--accent) / 0.12);
+  --ring-focus: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+
+  // -- Motion -----------------------------------------------------------------
+  --ease-out: #{$ease-out};
+  --ease-in-out: #{$ease-in-out};
+  --dur-fast: #{$dur-fast};
+  --dur-base: #{$dur-base};
+  --dur-slow: #{$dur-slow};
+  --dur-hero: #{$dur-hero};
+}
+
+// Responsive overrides for layout tokens.
+@media (min-width: 768px) {
+  :root {
+    --gutter: #{$gutter-tablet};
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: #{$gutter-desktop};
+    --header-h: #{$header-h-desktop};
+  }
+}

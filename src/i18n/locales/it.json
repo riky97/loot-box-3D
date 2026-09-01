@@ -1,0 +1,159 @@
+{
+  "_placeholderNotice": "Tutti i testi di questo file sono contenuti segnaposto (copy, numeri, prezzi, contatti e prodotti di esempio) e vanno rivisti e approvati con il cliente prima della pubblicazione.",
+  "meta": {
+    "pageTitle": "Loot Box 3D — Collezionabili stampati in 3D per anime, cosplay e gaming",
+    "description": "Loot Box 3D crea pezzi da collezione stampati in 3D dedicati ad anime, cosplay e gaming: props, statuette e accessori su misura, rifiniti a mano da veri nerd per altri nerd."
+  },
+  "common": {
+    "brandName": "Loot Box 3D",
+    "skipToContent": "Vai al contenuto principale",
+    "ctaPrimary": "Scopri la collezione",
+    "ctaSecondary": "Scrivici su Instagram"
+  },
+  "nav": {
+    "hero": "Home",
+    "about": "Chi siamo",
+    "categories": "Categorie",
+    "showcase": "Galleria",
+    "howItWorks": "Come funziona",
+    "contact": "Contatti",
+    "menuLabel": "Menu",
+    "openMenu": "Apri il menu",
+    "closeMenu": "Chiudi il menu"
+  },
+  "hero": {
+    "eyebrow": "Stampa 3D da collezione",
+    "titleLead": "Il tuo fandom preferito, ",
+    "titleHighlight": "stampato in 3D",
+    "subtitle": "Loot Box 3D trasforma anime, cosplay e videogiochi in pezzi fisici da tenere in mano: statuette, props e accessori rifiniti a mano, pensati da appassionati per altri appassionati.",
+    "ctaPrimary": "Scopri la collezione",
+    "ctaSecondary": "Scrivici su Instagram",
+    "stats": [
+      { "value": "500+", "label": "pezzi consegnati" },
+      { "value": "1200+", "label": "ore di stampa" },
+      { "value": "30+", "label": "fandom coperti" }
+    ]
+  },
+  "about": {
+    "eyebrow": "Chi siamo",
+    "title": "Nerd veri, stampanti sempre accese",
+    "paragraphOne": "Siamo un piccolo laboratorio italiano nato dalla passione per anime, manga, cosplay e videogiochi. Ogni pezzo che esce dalle nostre stampanti è stato prima di tutto qualcosa che avremmo voluto noi sulla scrivania o nella vetrina.",
+    "paragraphTwo": "Lavoriamo modello per modello, curando ogni dettaglio dalla scelta del materiale alla rifinitura finale, per consegnarti un oggetto che sembra uscito direttamente dallo schermo o dal fumetto.",
+    "pillars": [
+      {
+        "title": "Materiali selezionati",
+        "description": "Filamenti PLA e resine di qualità, scelti in base al pezzo per resistenza, dettaglio e finitura."
+      },
+      {
+        "title": "Rifinitura a mano",
+        "description": "Ogni stampa viene carteggiata, pulita e verniciata a mano da noi, un pezzo alla volta."
+      },
+      {
+        "title": "Pezzi su misura",
+        "description": "Hai un'idea, un personaggio o un prop specifico? Lo progettiamo e stampiamo su richiesta."
+      }
+    ]
+  },
+  "categories": {
+    "eyebrow": "Cosa stampiamo",
+    "title": "Un universo di categorie",
+    "subtitle": "Dalla tua serie anime preferita al setup da gaming, fino ai props per il prossimo cosplay: trovi il tuo angolo di collezione.",
+    "items": [
+      {
+        "id": "anime",
+        "name": "Anime & Manga",
+        "description": "Statuette, portachiavi e diorami ispirati ai tuoi personaggi e alle tue serie preferite.",
+        "tagline": "Per chi ha il poster in camera"
+      },
+      {
+        "id": "cosplay",
+        "name": "Cosplay & Props",
+        "description": "Armi, accessori e dettagli su misura per completare il tuo prossimo costume.",
+        "tagline": "Pronto per la convention"
+      },
+      {
+        "id": "gaming",
+        "name": "Gaming",
+        "description": "Miniature, gadget da scrivania e collezionabili dedicati ai tuoi videogiochi preferiti.",
+        "tagline": "Level up per la tua postazione"
+      },
+      {
+        "id": "other",
+        "name": "Altro / Su richiesta",
+        "description": "Hai in mente qualcosa che non rientra nelle altre categorie? Raccontacelo e lo valutiamo insieme.",
+        "tagline": "Se puoi immaginarlo, ne parliamo"
+      }
+    ]
+  },
+  "showcase": {
+    "eyebrow": "Galleria",
+    "title": "Alcuni pezzi usciti dal laboratorio",
+    "subtitle": "Una selezione dei nostri lavori più recenti, tra statuette, props e accessori.",
+    "filterAll": "Tutti",
+    "note": "Prodotti e immagini segnaposto: da sostituire con il catalogo reale e le foto definitive da concordare con il cliente.",
+    "items": [
+      { "id": "kitsune-mask", "name": "Kitsune Mask", "category": "cosplay", "tag": "Prop" },
+      { "id": "chibi-ronin", "name": "Chibi Ronin", "category": "anime", "tag": "Statuetta" },
+      { "id": "ranger-helm", "name": "Elmo da Ranger", "category": "cosplay", "tag": "Prop" },
+      { "id": "obsidian-die", "name": "Dado d'Ossidiana", "category": "gaming", "tag": "Collezionabile" },
+      { "id": "cyber-katana", "name": "Cyber Katana", "category": "gaming", "tag": "Replica" },
+      { "id": "moon-guardian", "name": "Moon Guardian", "category": "anime", "tag": "Diorama" },
+      { "id": "spirit-fox-keychain", "name": "Spirit Fox", "category": "anime", "tag": "Portachiavi" },
+      { "id": "custom-badge", "name": "Distintivo Personalizzato", "category": "other", "tag": "Su richiesta" }
+    ]
+  },
+  "howItWorks": {
+    "eyebrow": "Come funziona",
+    "title": "Dal messaggio al pacco a casa tua",
+    "subtitle": "Un percorso semplice, pensato per non farti perdere nemmeno un dettaglio del tuo pezzo.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Scegli o scrivici",
+        "description": "Sfoglia la galleria o mandaci un messaggio con l'idea, il personaggio o il prop che hai in mente."
+      },
+      {
+        "number": "02",
+        "title": "Confermiamo idea e preventivo",
+        "description": "Valutiamo fattibilità, tempi e costo insieme a te, senza sorprese dell'ultimo minuto."
+      },
+      {
+        "number": "03",
+        "title": "Stampiamo e rifiniamo",
+        "description": "Il pezzo prende forma stampa dopo stampa, poi viene carteggiato, pulito ed eventualmente verniciato a mano."
+      },
+      {
+        "number": "04",
+        "title": "Spedizione e consegna",
+        "description": "Imballiamo con cura e ti spediamo il pacco, con aggiornamenti fino alla consegna."
+      }
+    ],
+    "disclaimer": "Tempi e costi indicativi: variano in base a dimensione, dettaglio e finitura richiesta per ogni pezzo."
+  },
+  "contact": {
+    "eyebrow": "Contatti",
+    "title": "Parliamone su Instagram",
+    "subtitle": "Il modo più veloce per raggiungerci è un messaggio diretto: raccontaci la tua idea e iniziamo a lavorarci insieme.",
+    "instagramLabel": "Instagram",
+    "instagramHandle": "@loot.box.3d",
+    "instagramCta": "Scrivici su Instagram",
+    "emailLabel": "Email",
+    "emailValue": "info@lootbox3d.it",
+    "locationLabel": "Sede",
+    "locationValue": "Italia",
+    "responseTime": "Rispondiamo di solito entro 24-48 ore."
+  },
+  "footer": {
+    "tagline": "Il tuo fandom, stampato in 3D.",
+    "sectionsLabel": "Sezioni",
+    "followLabel": "Seguici",
+    "copyright": "© {{year}} Loot Box 3D. Tutti i diritti riservati.",
+    "disclaimer": "Loot Box 3D è un progetto indipendente non affiliato ai brand, agli studi o alle serie da cui i prodotti traggono ispirazione.",
+    "credits": "Sito realizzato con cura, un pixel alla volta."
+  },
+  "notFound": {
+    "title": "404 — Pagina non trovata",
+    "description": "Sembra che questo loot non esista, o sia già stato aperto da qualcun altro.",
+    "backHome": "Torna alla home"
+  }
+}

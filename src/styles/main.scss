@@ -1,0 +1,361 @@
+// Global stylesheet.
+// Design values live exclusively in `_tokens.scss`; nothing below hardcodes a
+// color, font or size — everything references a custom property from there.
+@use "./tokens";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-size: var(--fs-body);
+    line-height: var(--leading-body);
+    // The page is intentionally dark-only for v1; keep the UA form controls in
+    // step so native widgets and scrollbars do not flash light.
+    color-scheme: dark;
+  }
+
+  // Sticky header must never cover the heading of a linked section.
+  :where([id]) {
+    scroll-margin-top: calc(var(--header-h) + var(--sp-4));
+  }
+
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--ring-focus);
+    border-radius: var(--radius-sm);
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.85);
+    color: hsl(var(--primary-foreground));
+  }
+}
+
+@layer components {
+  // ---------------------------------------------------------------------------
+  // Typographic roles
+  // ---------------------------------------------------------------------------
+
+  // Display face. Archivo is variable: the expanded width is what gives the
+  // brand its poster weight, so it is applied through variation settings.
+  .type-display {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 125, "wght" 800;
+    font-weight: 800;
+    text-transform: none;
+  }
+
+  .type-h1 {
+    @apply type-display;
+    font-size: var(--fs-h1);
+    line-height: var(--leading-h1);
+    letter-spacing: var(--tracking-h1);
+  }
+
+  .type-h2 {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 115, "wght" 700;
+    font-weight: 700;
+    font-size: var(--fs-h2);
+    line-height: var(--leading-h2);
+    letter-spacing: var(--tracking-h2);
+  }
+
+  .type-h3 {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 110, "wght" 700;
+    font-weight: 700;
+    font-size: var(--fs-h3);
+    line-height: var(--leading-h3);
+    letter-spacing: var(--tracking-h3);
+  }
+
+  .type-hero {
+    @apply type-display;
+    font-size: var(--fs-display);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+  }
+
+  .type-lead {
+    font-size: var(--fs-lead);
+    line-height: var(--leading-lead);
+    max-width: var(--measure-lead);
+  }
+
+  // Uppercase belongs exclusively to the mono face: it separates the brand
+  // "voice" (display) from the "machine" labels (mono).
+  .type-eyebrow {
+    font-family: var(--font-mono);
+    font-variation-settings: "wdth" 112.5, "wght" 600;
+    font-size: var(--fs-eyebrow);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .type-meta {
+    font-family: var(--font-mono);
+    font-variation-settings: "wdth" 100, "wght" 400;
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-meta);
+  }
+
+  .type-chip {
+    font-family: var(--font-mono);
+    font-variation-settings: "wdth" 112.5, "wght" 600;
+    font-size: var(--fs-chip);
+    line-height: 1.1;
+    letter-spacing: var(--tracking-chip);
+    text-transform: uppercase;
+  }
+
+  .measure-body {
+    max-width: var(--measure-body);
+  }
+
+  .measure-hero {
+    max-width: var(--measure-hero);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Layout helpers
+  // ---------------------------------------------------------------------------
+  .shell {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .shell-narrow {
+    width: 100%;
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .section-pad {
+    padding-block: var(--sp-10);
+
+    @media (min-width: 768px) {
+      padding-block: var(--sp-12);
+    }
+
+    @media (min-width: 1024px) {
+      padding-block: var(--sp-14);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Signature device 1 — layer-line strip (FDM striations)
+  // ---------------------------------------------------------------------------
+  .layer-strip {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      hsl(var(--layer-line)) 0px,
+      hsl(var(--layer-line)) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Signature device 2 — build-plate grid
+  // ---------------------------------------------------------------------------
+  .plate-grid {
+    background-image:
+      linear-gradient(hsl(var(--grid-line) / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-line) / 0.1) 1px, transparent 1px),
+      linear-gradient(hsl(var(--grid-line) / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-line) / 0.05) 1px, transparent 1px);
+    background-size: 192px 192px, 192px 192px, 48px 48px, 48px 48px;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Signature device 3 — chamfered "sprue-cut" card
+  // ---------------------------------------------------------------------------
+  // clip-path removes borders, so the 1px edge is drawn by a wrapper filled
+  // with the gradient border and padded by 1px; both share the same clip.
+  .cut-shape {
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--chamfer)) 0,
+      100% var(--chamfer),
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .cut-frame {
+    @apply cut-shape;
+    position: relative;
+    padding: 1px;
+    background: hsl(var(--border));
+    transition: background var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out),
+      box-shadow var(--dur-base) var(--ease-out);
+  }
+
+  .cut-frame > * {
+    @apply cut-shape;
+  }
+
+  .cut-frame:hover,
+  .cut-frame:focus-within {
+    background: var(--grad-border);
+  }
+
+  // The diagonal tick that makes the cut read as intentional, not as a
+  // rendering artifact.
+  .cut-tick {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(var(--chamfer) * 1.414);
+    height: 1px;
+    background: hsl(var(--accent) / 0.5);
+    transform-origin: top right;
+    transform: rotate(-45deg) translateX(0);
+    pointer-events: none;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Signature device 4 — extrusion underline
+  // ---------------------------------------------------------------------------
+  .extrude-rule {
+    display: block;
+    height: 3px;
+    background: var(--grad-extrude);
+    box-shadow: 0 0 12px -2px hsl(var(--primary) / 0.7);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .is-inview .extrude-rule,
+  .extrude-rule.is-inview {
+    transform: scaleX(1);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Ambient blooms — the warm/cool stage lighting behind a section
+  // ---------------------------------------------------------------------------
+  .bloom-hot,
+  .bloom-cyan {
+    border-radius: 9999px;
+    filter: blur(48px);
+    pointer-events: none;
+  }
+
+  .bloom-hot {
+    background: var(--bloom-hot);
+  }
+
+  .bloom-cyan {
+    background: var(--bloom-cyan);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Signature device 5 — rarity chip
+  // ---------------------------------------------------------------------------
+  // `--tier` is set per instance to one of the four rarity tokens.
+  .chip {
+    @apply type-chip;
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    --chamfer: 6px;
+    @apply cut-shape;
+    background: hsl(var(--tier, var(--muted-foreground)) / 0.14);
+    color: hsl(var(--tier, var(--muted-foreground)));
+    box-shadow: inset 0 0 0 1px hsl(var(--tier, var(--muted-foreground)) / 0.35);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Marquee
+  // ---------------------------------------------------------------------------
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .marquee__track {
+    display: flex;
+    flex: none;
+    gap: var(--sp-6);
+    padding-right: var(--sp-6);
+    animation: marquee 40s linear infinite;
+  }
+
+  .marquee:hover .marquee__track,
+  .marquee:focus-within .marquee__track {
+    animation-play-state: paused;
+  }
+
+  // Outline type used by the marquee and the footer closing wordmark.
+  .type-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px hsl(var(--border));
+  }
+}
+
+@layer utilities {
+  // Scroll-entrance primitive, toggled by the useInView hook.
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal].is-inview {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee__track {
+    animation: none;
+    transform: none;
+  }
+
+  .marquee {
+    overflow-x: auto;
+  }
+
+  .extrude-rule {
+    transform: scaleX(1);
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
