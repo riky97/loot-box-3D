@@ -193,20 +193,23 @@ the palette instead of carrying a baked-in background.
 
 ## 9. Deployment
 
-Static build, output `dist/`, build command `npm run build`.
+Static build, output `dist/`, build command `npm run build`. Configuration lives
+in `netlify.toml`.
 
-An SPA rewrite is required — React Router owns the routes, so every path must
-serve `index.html`.
+**Target: Netlify.** An SPA rewrite is mandatory — React Router owns the routes,
+so every path must serve `index.html` or a hard refresh on `/qualcosa` returns a
+404 from the CDN rather than reaching the router.
 
-> ⚠️ **Hosting constraint.** Vercel's Hobby (free) plan forbids commercial use,
-> and its fair-use guidelines name *"advertising the sale of a product or
-> service"* as commercial. This site qualifies. Hobby is therefore fine for
-> previews and for this exercise, but **production must go to Vercel Pro ($20/mo)
-> or to a free tier that permits commercial use** (Cloudflare Pages, Netlify).
->
-> Keep the deploy config portable so the move costs minutes, not a rewrite.
+> **Why not Vercel.** Vercel's Hobby (free) plan forbids commercial use, and its
+> fair-use guidelines name *"advertising the sale of a product or service"* as
+> commercial — which is exactly what this site does. Netlify's terms carry no
+> equivalent clause, so the question does not arise there. Note the asymmetry
+> accurately: Vercel explicitly prohibits it; Netlify is simply silent, which is
+> not the same as an explicit grant.
 
----
+The config is deliberately portable — build command, publish directory and an
+SPA fallback are all any static host needs — so moving is a small change, not a
+rewrite.
 
 ## 10. Experiment setup
 
