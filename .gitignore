@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Vendored agent skills. The set is pinned in skills-lock.json and restored
+# with `npx skills experimental_install`, so the 2.7 MB of skill content
+# itself does not belong in the repository.
+.agents/
+.claude/skills/
