@@ -228,6 +228,10 @@ Everything in sections 1–9 is held constant. Both runs are then compared on:
 2. **Distinctiveness** — does it read as designed, or as a template?
 3. **Accessibility** — measured, per section 7.
 4. **Token maintainability** — how cleanly does the palette swap?
+5. **Compositional variety** — how many distinct layout archetypes does the page
+   use, and does any section repeat another's? `master` uses six archetypes with
+   two splits and two grids among them; `DESIGN.md` §11 specifies seven distinct
+   ones for this run.
 
 The `exercise/rebuild-v2` run rebuilds `src/` from empty. It does not read the
 existing implementation — that would contaminate the comparison.

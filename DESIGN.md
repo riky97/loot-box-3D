@@ -414,6 +414,11 @@ rarity coding legible at 11px.
 Generous radii are load-bearing in this direction. Nothing on the page is a
 sharp rectangle except the layer-line rules.
 
+> Per-section composition — the layout archetype each section uses — is specified
+> separately in [§11](#11-section-composition). That section is load-bearing:
+> it is what makes two sites built from the same tokens feel structurally
+> different rather than merely recoloured.
+
 **Grid — the showcase is deliberately uneven**
 
 ```css
@@ -686,3 +691,212 @@ category tiles use Unsplash placeholders, declared in a single `const IMG` map a
 the top of the data module and flagged in the UI copy as placeholder. Solid
 colour blocks are not acceptable. Swapping to real photography must be a
 one-file change.
+
+---
+
+## 11. Section Composition
+
+Colour and type make a site look different. **Composition makes it feel
+different.** This section specifies the layout archetype for each of the seven
+sections, and it is the primary axis on which this build is meant to diverge
+from `master`.
+
+### The rule of alternating axis
+
+No two consecutive sections may share a compositional axis. The page reads as a
+sequence of different spatial ideas, not as one grid repeated seven times.
+
+The three axes:
+
+- **Centred** — content resolves around the vertical midline
+- **Split** — content divides into asymmetric left/right columns
+- **Banded** — content runs edge to edge in full-width horizontal strata
+
+### Archetype per section
+
+| # | Section | `master` (v1) does | **This build does** | Axis |
+| --- | --- | --- | --- | --- |
+| 1 | Hero | split 7/5, copy left, object right | **Centred monolith** | Centred |
+| 2 | About | narrow centred column | **Sticky rail + scrolling body** | Split |
+| 3 | Categories | 4 equal cards in a row | **Expanding full-width bands** | Banded |
+| 4 | Showcase | dense 3-column bento grid | **Counter-scrolling shelves** | Banded to Centred |
+| 5 | How it works | horizontal timeline | **Zig-zag cascade with bleeding numerals** | Split (alternating) |
+| 6 | Contact | split 5/7, heading left, cards right | **Single dominant panel** | Centred |
+| 7 | Footer | standard multi-column | **Baseline strip under an oversized wordmark** | Banded |
+
+Every one differs from v1. No archetype is used twice.
+
+---
+
+### 1. Hero — Centred monolith
+
+The headline is the entire composition. It is set as large as the viewport
+allows, centred, breaking across three lines, with the brand mark behind it as
+an oversized low-contrast watermark. CTAs sit centred beneath. The stats become
+a thin ticker strip pinned to the section's bottom edge rather than a row of
+columns.
+
+```
+        +--------------------------------------+
+        |        [mark watermark, 7% ink]      |
+        |                                      |
+        |          COLLEZIONABILI              |   <- clamp(2.75rem, 9vw, 5rem)
+        |          STAMPATI  IN  3D            |      centred, 800, layered shadow
+        |                                      |
+        |        lead copy, max 46ch, centred  |
+        |                                      |
+        |      [ Instagram ]  [ Come funziona ]|
+        +--------------------------------------+
+        |  120 PEZZI . 48H RESA . 4.9 STELLE   |   <- ticker strip
+        +--------------------------------------+
+```
+
+- Watermark: `BrandMark` at ~72% of the shell width, `opacity: 0.07`, `--text`, `aria-hidden`.
+- The watermark takes the parallax offset (max 40px); the headline does not — the depth cue reads without the type ever moving.
+- Ticker strip is a marquee on mobile and a static justified row from `md:` up.
+- **No hero illustration.** v1's `HeroPrintScene` is not reused; the type *is* the hero.
+
+### 2. About — Sticky rail + scrolling body
+
+Heading and eyebrow occupy a left rail that becomes `position: sticky` from
+`lg:` up, while the right column scrolls past it through three short blocks.
+The rail also carries a progress hairline that fills as the body scrolls.
+
+```
+   +----------------+-----------------------------+
+   | CHI SIAMO      |  +-----------------------+  |
+   |                |  | block 1               |  |
+   | Stampiamo      |  +-----------------------+  |
+   | quello che     |  +-----------------------+  |
+   | ami.           |  | block 2               |  |   <- scrolls
+   |                |  +-----------------------+  |
+   | | progress     |  +-----------------------+  |
+   | (sticky)       |  | block 3               |  |
+   +----------------+-----------------------------+
+        5 cols                7 cols
+```
+
+- `position: sticky; top: calc(var(--header-h) + var(--sp-6))`, `lg:` and up only.
+- Below `lg:` the rail unsticks and stacks above the blocks — no sticky on mobile.
+- The progress hairline is driven by the shared IntersectionObserver, not a scroll listener.
+
+### 3. Categories — Expanding full-width bands
+
+The four categories are not cards. Each is a **full-bleed horizontal band**
+stacked vertically. At rest a band shows its number, name and colour edge. On
+hover or focus it expands vertically to reveal the description and the item
+count, and its tier colour floods the left edge.
+
+```
+   +----------------------------------------------+
+   | 01   ANIME                                -> |   <- 96px tall at rest
+   +----------------------------------------------+
+   | 02   COSPLAY                              -> |
+   |      Elmi, armi e accessori su misura.       |   <- expanded: 200px
+   |      14 pezzi a catalogo                     |
+   +----------------------------------------------+
+   | 03   GAMING                               -> |
+   +----------------------------------------------+
+   | 04   ALTRO                                -> |
+   +----------------------------------------------+
+```
+
+- Bands are `<a>` elements, keyboard reachable; `:focus-within` expands identically to `:hover`.
+- The colour edge is a 6px left border in the tier colour, growing to 12px when expanded.
+- **On touch and below `md:`, all four bands render permanently expanded.** Hover-to-reveal is not reachable without a pointer, and hiding content behind hover on mobile is a defect, not a design.
+- Height transitions use `grid-template-rows: 0fr -> 1fr`, not `max-height`, so there is no magic number to guess.
+
+### 4. Showcase — Counter-scrolling shelves
+
+Two full-bleed horizontal shelves. The top shelf drifts left, the bottom shelf
+drifts right. The opposing motion reads as a display case rotating, and it
+removes the grid-hole problem entirely because there is no grid.
+
+```
+   <----------------------------------------------
+   [ img ][ img ][ img ][ img ][ img ][ img ][ img ]   shelf A, 34s
+   ---------------------------------------------->
+   [ img ][ img ][ img ][ img ][ img ][ img ][ img ]   shelf B, 42s, reverse
+```
+
+- Pure CSS `translateX` keyframes on a duplicated track. No JS driving position.
+- **Pauses on `:hover` and on `:focus-within`** so a keyboard user can reach a tile.
+- Each tile is a link with a visible focus ring; tiles are `aspect-ratio: 4 / 5`.
+- Under `prefers-reduced-motion` both shelves stop and become `overflow-x: auto` — the content stays reachable by swipe and by keyboard.
+- Different durations (34s / 42s) so the two rows never sync into a visual beat.
+- Below the shelves, one centred CTA to the Instagram grid — this is where the axis flips back to centred.
+
+### 5. How it works — Zig-zag cascade
+
+Four steps alternating left and right down the page, each with an oversized
+numeral that bleeds off the edge of its block. No connecting line: the
+alternation itself carries the sequence.
+
+```
+   +---------------------+
+  0|1  Scrivici su IG    |
+   +---------------------+
+                   +---------------------+
+                   |  Raccontaci l idea 0|2
+                   +---------------------+
+   +---------------------+
+  0|3  Approvi il render |
+   +---------------------+
+                   +---------------------+
+                   |  Stampiamo e spediamo
+                   +---------------------+
+```
+
+- Numerals: Sora 800, `clamp(4rem, 10vw, 7rem)`, `--border` colour, `overflow: visible`, `aria-hidden` — the step order is conveyed by an ordered list in the markup, not by the decorative numeral.
+- Markup is a real `<ol>`; the zig-zag is `align-self` alternation on the list items.
+- **Below `md:` the cascade collapses to a single left-aligned column.** Alternating blocks on a narrow viewport just look broken.
+
+### 6. Contact — Single dominant panel
+
+One panel, centred, occupying most of the viewport: the Instagram call to
+action treated as the loot box itself. Location and handle collapse into a
+compact strip beneath it rather than a second card.
+
+```
+        +--------------------------------------+
+        |                                      |
+        |             [ IG glyph ]             |
+        |                                      |
+        |            @loot.box.3d              |   <- H2 scale
+        |      Rispondiamo entro 24 ore        |
+        |                                      |
+        |          [  Scrivici ora  ]          |
+        |                                      |
+        +--------------------------------------+
+             SEDE . Palermo   |   IG . @loot.box.3d
+```
+
+- The panel carries `--shadow-glow`; it is the only element on the page permitted to use it.
+- The email row stays commented out, exactly as on `master` — the mailbox does not exist yet, and the `contact.emailLabel` / `contact.emailValue` keys remain in the locale file so re-enabling is a one-line change.
+
+### 7. Footer — Baseline strip
+
+An oversized outlined wordmark spans the full width as a baseline, with a single
+thin row of links beneath it. No multi-column link farm — there are not enough
+destinations to justify one.
+
+```
+   +----------------------------------------------+
+   |  L O O T   B O X   3 D                       |   <- outlined, full-bleed
+   +----------------------------------------------+
+   | (c) 2026  .  Instagram  .  [caveat sign-off] |
+   +----------------------------------------------+
+```
+
+- Wordmark uses `-webkit-text-stroke` in `--border`, `aria-hidden`; the accessible brand name is on the real lockup above.
+- The second and final Caveat placement lives here.
+
+---
+
+### Composition guardrails
+
+- ❌ Never reuse an archetype for two sections. If a new section is added later, it needs a new archetype or an explicit reason.
+- ❌ Never place two sections with the same axis back to back.
+- ❌ Never hide content behind hover on a touch viewport — bands expand, shelves scroll, cascades collapse.
+- ✅ Every archetype must have a stated mobile collapse, and that collapse must keep all content reachable.
+- ✅ Decorative structure (numerals, watermarks, outlined wordmarks) is always `aria-hidden`; the semantic order lives in the markup.
