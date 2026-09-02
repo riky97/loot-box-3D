@@ -9,92 +9,111 @@
 //
 // Colors are stored as bare HSL triplets ("H S% L%") so they can be consumed as
 // hsl(var(--token)) and, in Tailwind, as hsl(var(--token) / <alpha-value>).
-// This is also the format shadcn/ui expects for its semantic tokens.
+// This is also the format shadcn/ui expects for its semantic tokens, and it
+// removes the need for the separate --*-rgb variants DESIGN.md sketches: an
+// alpha blend is hsl(var(--token) / 0.16), not rgba(var(--token-rgb), 0.16).
+//
+// Implements DESIGN.md — "Playful Creative". Where a value differs from the
+// style seed the reason is recorded in DESIGN.md section 10.
 // =============================================================================
 
 // -----------------------------------------------------------------------------
 // 1. Palette (edit these to re-skin the brand)
 // -----------------------------------------------------------------------------
-// The cream ground and the ink are sampled from the brand logo artwork
-// (docs/brand/logo-original.jpeg): #FEF5E6 and #190502.
+// Contrast against $color-background is stated for every value that carries
+// text. Verified, not estimated — see the table in DESIGN.md section 2.
 
-// shadcn/ui semantic set
-$color-background: 38 92% 95%;
-$color-foreground: 10 65% 9%;
-$color-card: 40 100% 98%;
-$color-card-foreground: 10 65% 9%;
-$color-popover: 40 100% 98%;
-$color-popover-foreground: 10 65% 9%;
-$color-primary: 20 94% 37%;
-$color-primary-foreground: 38 92% 97%;
-$color-secondary: 40 45% 90%;
-$color-secondary-foreground: 10 65% 9%;
-$color-muted: 40 40% 88%;
-$color-muted-foreground: 18 14% 40%;
-$color-accent: 186 82% 26%;
-$color-accent-foreground: 38 92% 97%;
-$color-destructive: 0 68% 42%;
-$color-destructive-foreground: 38 92% 97%;
-$color-border: 36 26% 82%;
-$color-input: 36 26% 82%;
-$color-ring: 186 82% 32%;
+// -- Grounds ------------------------------------------------------------------
+$color-background: 32 100% 97%; // #FFF8F0 warm cream
+$color-surface: 0 0% 100%; // #FFFFFF cards
+$color-surface-alt: 27 100% 94%; // #FFEEE0 alternating sections
+$color-surface-hover: 30 100% 96%; // #FFF3E8
 
-// Brand-specific extras
-$color-brand-hot: 20 94% 37%;
-$color-brand-hot-deep: 12 88% 32%;
-$color-brand-cyan: 186 82% 26%;
-$color-brand-cyan-deep: 192 80% 20%;
-$color-brand-violet: 280 45% 42%;
-$color-surface-2: 40 45% 90%;
-$color-plate: 40 38% 87%;
-$color-plate-deep: 38 32% 80%;
-$color-layer-line: 36 24% 74%;
-$color-grid-line: 24 30% 45%;
-$color-foreground-dim: 16 22% 26%;
-$color-shadow-base: 20 40% 20%;
+// -- Ink ----------------------------------------------------------------------
+$color-foreground: 15 17% 14%; // #2A211E  14.94 AAA
+$color-foreground-dim: 18 10% 34%; // #5E524D   7.15 AAA
+$color-muted-foreground: 18 9% 44%; // #7A6C66   4.79 AA
 
-// Rarity tiers (decorative labels on showcase tiles)
-$color-rarity-common: 20 10% 45%;
-$color-rarity-rare: 205 74% 34%;
-$color-rarity-epic: 280 45% 42%;
-$color-rarity-legendary: 32 88% 33%;
+// -- Primary ------------------------------------------------------------------
+$color-primary: 344 100% 42%; // #D60039   5.09 AA / white on it 5.36 AA
+$color-primary-hover: 344 100% 36%; // #B80031   white on it 6.81 AA
+$color-primary-deep: 344 100% 28%; // #8F0026   pressed-state offset shadow
+
+// -- Decorative accents — NEVER carry text (DESIGN.md color rule 2) -----------
+$color-accent-vivid: 345 100% 60%; // #FF3366   3.37 — fills, glows, gradients
+$color-gold: 51 100% 50%; // #FFD700   1.33 — fills and rules only
+$color-green-vivid: 160 100% 40%; // #00CC88   2.00 — fills and rules only
+
+// -- Text-safe counterparts of the decorative accents -------------------------
+$color-gold-ink: 47 100% 27%; // #8A6D00   4.67 AA
+$color-green: 160 100% 24%; // #007A52   5.10 AA
+
+// -- Lines --------------------------------------------------------------------
+$color-border: 27 63% 86%; // #F2DAC6
+
+// -- shadcn/ui semantic set ---------------------------------------------------
+// Mapped onto the palette above so the primitives inherit the brand.
+$color-card: $color-surface;
+$color-card-foreground: $color-foreground;
+$color-popover: $color-surface;
+$color-popover-foreground: $color-foreground;
+$color-primary-foreground: $color-surface;
+$color-secondary: $color-surface-alt;
+$color-secondary-foreground: $color-foreground;
+$color-muted: $color-surface-alt;
+$color-accent: $color-primary;
+$color-accent-foreground: $color-surface;
+$color-destructive: 350 100% 38%; // #C2001F
+$color-destructive-foreground: $color-surface;
+$color-input: $color-border;
+$color-ring: $color-primary;
+
+// -- Category tiers (DESIGN.md color rule 5) ----------------------------------
+// Decorative only: they tint borders, chips and spotlights. Chip and band text
+// always stays $color-foreground, which is what keeps 11px labels legible.
+$color-tier-anime: $color-accent-vivid;
+$color-tier-cosplay: $color-gold;
+$color-tier-gaming: $color-green-vivid;
+$color-tier-other: $color-muted-foreground;
 
 // -----------------------------------------------------------------------------
 // 2. Typography
 // -----------------------------------------------------------------------------
 // Families are loaded from Google Fonts in index.html. Changing a family here
 // means updating that <link> as well.
-$font-display: "Outfit", "Trebuchet MS", system-ui, sans-serif;
-$font-body: "Chivo", system-ui, -apple-system, "Segoe UI", sans-serif;
-$font-mono: "Martian Mono", ui-monospace, "SFMono-Regular", "Consolas", monospace;
+$font-display: "Sora", "Trebuchet MS", system-ui, sans-serif;
+$font-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+// Rationed to exactly two placements site-wide — see DESIGN.md section 3.
+$font-accent: "Caveat", "Segoe Script", cursive;
 
 // Fluid type scale
-$fs-display: clamp(2.5rem, 9vw, 4.5rem);
-$fs-h1: clamp(2rem, 5.5vw, 3rem);
-$fs-h2: clamp(1.625rem, 3.4vw, 2rem);
+$fs-display: clamp(2.75rem, 9vw, 5rem);
+$fs-h1: clamp(2.25rem, 6vw, 3.25rem);
+$fs-h2: clamp(1.75rem, 4vw, 2.5rem);
 $fs-h3: 1.375rem;
-$fs-lead: 1.25rem;
+$fs-lead: 1.1875rem;
 $fs-body: 1rem;
 $fs-sm: 0.875rem;
 $fs-eyebrow: 0.75rem;
 $fs-chip: 0.6875rem;
-$fs-meta: 0.75rem;
+$fs-meta: 0.8125rem;
+$fs-numeral: clamp(4rem, 10vw, 7rem); // the bleeding step numerals
 
-$leading-display: 0.94;
+$leading-display: 0.95;
 $leading-h1: 1;
-$leading-h2: 1.08;
+$leading-h2: 1.05;
 $leading-h3: 1.2;
-$leading-lead: 1.55;
-$leading-body: 1.65;
+$leading-lead: 1.6;
+$leading-body: 1.7; // minimum for this direction — see DESIGN.md section 3
 $leading-tight: 1.2;
 
-$tracking-display: -0.03em;
-$tracking-h1: -0.025em;
-$tracking-h2: -0.02em;
+$tracking-display: -0.035em;
+$tracking-h1: -0.03em;
+$tracking-h2: -0.025em;
 $tracking-h3: -0.01em;
-$tracking-eyebrow: 0.18em;
-$tracking-chip: 0.14em;
-$tracking-meta: 0.04em;
+$tracking-eyebrow: 0.16em;
+$tracking-chip: 0.1em;
+$tracking-meta: 0.02em;
 
 // Reading measures
 $measure-body: 62ch;
@@ -123,84 +142,78 @@ $gutter-desktop: 2.5rem;
 $header-h-mobile: 4rem;
 $header-h-desktop: 4.5rem;
 
-$radius: 0.375rem;
-$radius-sm: 0.25rem;
-$radius-lg: 0.75rem;
-$chamfer: 18px;
+// Generous radii are load-bearing in this direction: nothing is a sharp
+// rectangle except the hairline rules.
+$radius-sm: 8px;
+$radius: 14px;
+$radius-lg: 20px;
+$radius-pill: 999px;
+
+// Category band heights (DESIGN.md section 11.3)
+$band-rest: 96px;
 
 // -----------------------------------------------------------------------------
 // 4. Motion
 // -----------------------------------------------------------------------------
 $ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-$ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-$dur-fast: 140ms;
-$dur-base: 240ms;
-$dur-slow: 420ms;
+$ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); // the overshoot
+$dur-fast: 150ms;
+$dur-base: 260ms;
+$dur-slow: 520ms;
 $dur-hero: 900ms;
+$dur-shelf-a: 34s;
+$dur-shelf-b: 42s; // deliberately not a multiple of A, so the rows never sync
 
 // =============================================================================
 // 5. Emit as CSS custom properties
 // =============================================================================
 :root {
-  // -- Colors: shadcn/ui semantic set -----------------------------------------
+  // -- Colors: grounds and ink ------------------------------------------------
   --background: #{$color-background};
+  --surface: #{$color-surface};
+  --surface-alt: #{$color-surface-alt};
+  --surface-hover: #{$color-surface-hover};
   --foreground: #{$color-foreground};
+  --foreground-dim: #{$color-foreground-dim};
+  --muted-foreground: #{$color-muted-foreground};
+  --border: #{$color-border};
+
+  // -- Colors: accents --------------------------------------------------------
+  --primary: #{$color-primary};
+  --primary-hover: #{$color-primary-hover};
+  --primary-deep: #{$color-primary-deep};
+  --accent-vivid: #{$color-accent-vivid};
+  --gold: #{$color-gold};
+  --gold-ink: #{$color-gold-ink};
+  --green: #{$color-green};
+  --green-vivid: #{$color-green-vivid};
+
+  // -- Colors: shadcn/ui semantic set -----------------------------------------
   --card: #{$color-card};
   --card-foreground: #{$color-card-foreground};
   --popover: #{$color-popover};
   --popover-foreground: #{$color-popover-foreground};
-  --primary: #{$color-primary};
   --primary-foreground: #{$color-primary-foreground};
   --secondary: #{$color-secondary};
   --secondary-foreground: #{$color-secondary-foreground};
   --muted: #{$color-muted};
-  --muted-foreground: #{$color-muted-foreground};
   --accent: #{$color-accent};
   --accent-foreground: #{$color-accent-foreground};
   --destructive: #{$color-destructive};
   --destructive-foreground: #{$color-destructive-foreground};
-  --border: #{$color-border};
   --input: #{$color-input};
   --ring: #{$color-ring};
 
-  // -- Colors: brand extras ---------------------------------------------------
-  --brand-hot: #{$color-brand-hot};
-  --brand-hot-deep: #{$color-brand-hot-deep};
-  --brand-cyan: #{$color-brand-cyan};
-  --brand-cyan-deep: #{$color-brand-cyan-deep};
-  --brand-violet: #{$color-brand-violet};
-  --surface-2: #{$color-surface-2};
-  --plate: #{$color-plate};
-  --plate-deep: #{$color-plate-deep};
-  --layer-line: #{$color-layer-line};
-  --grid-line: #{$color-grid-line};
-  --foreground-dim: #{$color-foreground-dim};
-  --shadow-base: #{$color-shadow-base};
-  --rarity-common: #{$color-rarity-common};
-  --rarity-rare: #{$color-rarity-rare};
-  --rarity-epic: #{$color-rarity-epic};
-  --rarity-legendary: #{$color-rarity-legendary};
-
-  // -- Gradients --------------------------------------------------------------
-  --grad-extrude: linear-gradient(
-    90deg,
-    hsl(var(--brand-hot-deep)) 0%,
-    hsl(var(--brand-hot)) 55%,
-    hsl(var(--rarity-legendary)) 100%
-  );
-  --grad-travel: linear-gradient(90deg, hsl(var(--brand-cyan-deep)) 0%, hsl(var(--brand-cyan)) 100%);
-  --grad-plate: radial-gradient(120% 80% at 50% 0%, hsl(var(--surface-2)) 0%, hsl(var(--background)) 65%);
-  --grad-border: linear-gradient(
-    135deg,
-    hsl(var(--border)) 0%,
-    hsl(var(--accent) / 0.45) 50%,
-    hsl(var(--border)) 100%
-  );
+  // -- Colors: category tiers -------------------------------------------------
+  --tier-anime: #{$color-tier-anime};
+  --tier-cosplay: #{$color-tier-cosplay};
+  --tier-gaming: #{$color-tier-gaming};
+  --tier-other: #{$color-tier-other};
 
   // -- Typography -------------------------------------------------------------
   --font-display: #{$font-display};
   --font-body: #{$font-body};
-  --font-mono: #{$font-mono};
+  --font-accent: #{$font-accent};
 
   --fs-display: #{$fs-display};
   --fs-h1: #{$fs-h1};
@@ -212,6 +225,7 @@ $dur-hero: 900ms;
   --fs-eyebrow: #{$fs-eyebrow};
   --fs-chip: #{$fs-chip};
   --fs-meta: #{$fs-meta};
+  --fs-numeral: #{$fs-numeral};
 
   --leading-display: #{$leading-display};
   --leading-h1: #{$leading-h1};
@@ -249,34 +263,41 @@ $dur-hero: 900ms;
   --container-narrow: #{$container-narrow};
   --gutter: #{$gutter-mobile};
   --header-h: #{$header-h-mobile};
+  --band-rest: #{$band-rest};
 
   // -- Radius -----------------------------------------------------------------
-  --radius: #{$radius};
   --radius-sm: #{$radius-sm};
+  --radius: #{$radius};
   --radius-lg: #{$radius-lg};
-  --chamfer: #{$chamfer};
+  --radius-pill: #{$radius-pill};
 
-  // -- Shadow & glow ----------------------------------------------------------
-  // On a light ground the raised edge is a highlight, not a rim light, and the
-  // drop shadow is a warm brown at low alpha rather than a near-black.
-  --shadow-card: 0 1px 0 0 hsl(var(--card)) inset,
-    0 10px 24px -14px hsl(var(--shadow-base) / 0.28);
-  --shadow-card-hover: 0 1px 0 0 hsl(var(--card)) inset,
-    0 18px 36px -18px hsl(var(--shadow-base) / 0.34);
-  --shadow-header: 0 1px 0 0 hsl(var(--border)), 0 10px 30px -22px hsl(var(--shadow-base) / 0.35);
-  --glow-hot: 0 0 0 1px hsl(var(--primary) / 0.4), 0 8px 20px -8px hsl(var(--primary) / 0.45);
-  --glow-hot-soft: 0 8px 40px -16px hsl(var(--primary) / 0.3);
-  --glow-cyan: 0 0 0 1px hsl(var(--accent) / 0.45), 0 8px 18px -8px hsl(var(--accent) / 0.4);
-  --glow-cyan-soft: 0 8px 40px -16px hsl(var(--accent) / 0.25);
-  --ring-focus: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+  // -- Depth ------------------------------------------------------------------
+  // Hard offset, not soft blur — blur appears only at the elevated level.
+  --shadow-rule: 0 2px 0 0 hsl(var(--border));
+  --shadow-pop: 0 4px 0 0 hsl(var(--border));
+  --shadow-raised: 0 4px 0 0 hsl(var(--border)),
+    0 8px 20px -10px hsl(var(--foreground) / 0.18);
+  --shadow-elevated: 0 6px 0 0 hsl(var(--border)),
+    0 18px 34px -14px hsl(var(--foreground) / 0.22);
+  --shadow-glow: 0 0 0 2px hsl(var(--primary) / 0.35),
+    0 10px 30px -10px hsl(var(--accent-vivid) / 0.45);
+
+  --btn-pop: 0 4px 0 0 hsl(var(--primary-hover));
+  --btn-pop-hover: 0 6px 0 0 hsl(var(--primary-deep)),
+    0 10px 24px -8px hsl(var(--primary) / 0.45);
+  --btn-pop-active: 0 2px 0 0 hsl(var(--primary-deep));
+
+  --ring-focus: 0 0 0 3px hsl(var(--background)), 0 0 0 6px hsl(var(--primary));
 
   // -- Motion -----------------------------------------------------------------
   --ease-out: #{$ease-out};
-  --ease-in-out: #{$ease-in-out};
+  --ease-bounce: #{$ease-bounce};
   --dur-fast: #{$dur-fast};
   --dur-base: #{$dur-base};
   --dur-slow: #{$dur-slow};
   --dur-hero: #{$dur-hero};
+  --dur-shelf-a: #{$dur-shelf-a};
+  --dur-shelf-b: #{$dur-shelf-b};
 }
 
 // Responsive overrides for layout tokens.

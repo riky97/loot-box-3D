@@ -29,19 +29,22 @@ export function SiteHeader() {
       className={cn(
         "sticky top-0 z-50 h-header transition-[background-color,box-shadow] duration-base ease-out",
         isScrolled
-          ? "bg-background/72 shadow-header backdrop-blur-[14px] backdrop-saturate-150"
-          : "bg-transparent shadow-none",
+          ? "border-b-2 border-border bg-background/88 backdrop-blur-[12px]"
+          : "border-b-2 border-transparent bg-transparent",
       )}
     >
       <div className="shell grid h-full grid-cols-[1fr_auto] items-center lg:grid-cols-[1fr_auto_1fr]">
-        <a href={ROUTES.home} className="justify-self-start">
+        <a
+          href={ROUTES.home}
+          className="flex min-h-[44px] items-center justify-self-start"
+        >
           <Wordmark label={t("common.brandName")} />
         </a>
 
         <MainNav activeId={activeId} className="hidden justify-self-center lg:flex" />
 
         <div className="hidden justify-self-end lg:block">
-          <Button asChild size="sm" className="cut-shape [--chamfer:6px]">
+          <Button asChild size="sm" className="btn-pop">
             <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
               <InstagramGlyph className="size-4" />
               {t("hero.ctaSecondary")}
@@ -56,7 +59,7 @@ export function SiteHeader() {
 
       <span
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-[2px] origin-left bg-grad-extrude"
+        className="absolute inset-x-0 bottom-0 h-[3px] origin-left bg-primary"
         style={{ transform: `scaleX(${progress})` }}
       />
     </header>

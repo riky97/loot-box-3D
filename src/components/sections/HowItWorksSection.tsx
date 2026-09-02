@@ -2,12 +2,25 @@ import { useTranslation } from "react-i18next"
 
 import { Reveal } from "@/components/common/Reveal"
 import { SectionHeading } from "@/components/common/SectionHeading"
+import { cn } from "@/lib/utils"
 import { useContentList } from "@/i18n/useContentList"
 import { SECTION_IDS } from "@/routes/paths"
 import type { HowItWorksStep } from "@/types/content"
 
 const HOW_IT_WORKS_HEADING_ID = "how-it-works-heading"
 
+/**
+ * Archetype: zig-zag cascade (DESIGN.md 11.5).
+ *
+ * Steps alternate left and right down the page with an oversized numeral
+ * bleeding off each block. There is no connecting line — the alternation itself
+ * carries the sequence.
+ *
+ * The order is conveyed semantically by the `<ol>`, not by the numeral, which
+ * is decorative and hidden from assistive tech. Below `md:` the cascade
+ * collapses to one left-aligned column; alternating blocks on a narrow viewport
+ * just look broken.
+ */
 export function HowItWorksSection() {
   const { t } = useTranslation()
   const steps = useContentList<HowItWorksStep>("howItWorks.steps")
@@ -16,60 +29,64 @@ export function HowItWorksSection() {
     <section
       id={SECTION_IDS.howItWorks}
       aria-labelledby={HOW_IT_WORKS_HEADING_ID}
-      className="section-pad border-y border-border bg-surface-2"
+      className="section-pad bg-background"
     >
       <div className="shell flex flex-col gap-sp-10">
         <SectionHeading
           id={HOW_IT_WORKS_HEADING_ID}
           eyebrow={t("howItWorks.eyebrow")}
-          title={t("howItWorks.title")}
+          titleText={t("howItWorks.title")}
           subtitle={t("howItWorks.subtitle")}
         />
 
-        <div className="relative flex flex-col gap-sp-8 lg:flex-row lg:items-start lg:gap-sp-6">
-          {/* Spine: horizontal on desktop, vertical on mobile/tablet. */}
-          <div
-            aria-hidden="true"
-            className="absolute left-[20px] top-0 hidden h-full w-[2px] bg-grad-travel lg:top-[22px] lg:block lg:h-[2px] lg:w-full"
-            style={{
-              maskImage:
-                "linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent)",
-              WebkitMaskImage:
-                "linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent)",
-            }}
-          />
-          <div
-            aria-hidden="true"
-            className="absolute left-[20px] top-0 h-full w-[2px] bg-grad-travel lg:hidden"
-            style={{
-              maskImage: "linear-gradient(180deg, transparent, #000 15%, #000 85%, transparent)",
-              WebkitMaskImage:
-                "linear-gradient(180deg, transparent, #000 15%, #000 85%, transparent)",
-            }}
-          />
-
+        <ol className="flex list-none flex-col gap-sp-6">
           {steps.map((step, index) => (
-            <Reveal
+            <li
               key={step.number}
-              delayIndex={index}
-              className="relative flex gap-sp-4 pl-sp-8 lg:flex-1 lg:flex-col lg:gap-sp-4 lg:pl-0"
+              className={cn(
+                "w-full md:w-[62%]",
+                index % 2 === 1 && "md:self-end",
+              )}
             >
-              <span
-                aria-hidden="true"
-                className="cut-shape absolute left-0 top-0 flex h-[44px] w-[44px] items-center justify-center bg-background shadow-[inset_0_0_0_1px_hsl(var(--border))] lg:static [--chamfer:10px]"
-              >
-                <span className="font-mono text-body font-bold text-primary">{step.number}</span>
-              </span>
+              <Reveal delayIndex={index}>
+                <article
+                  className={cn(
+                    "relative rounded-lg border-2 border-border bg-surface p-sp-6 shadow-raised transition-[transform,border-color] duration-base ease-bounce hover:-translate-y-1 hover:border-primary",
+                    // The numeral bleeds outward, away from the page centre.
+                    index % 2 === 1 ? "md:pr-sp-12" : "md:pl-sp-12",
+                  )}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "type-display pointer-events-none absolute top-1/2 hidden -translate-y-1/2 text-numeral tabular-nums text-border md:block",
+                      index % 2 === 1 ? "right-sp-2" : "left-sp-2",
+                    )}
+                  >
+                    {step.number}
+                  </span>
 
-              <div className="flex flex-col gap-sp-1">
-                <h3 className="type-h3 text-foreground">{step.title}</h3>
-                <p className="text-sm text-muted-foreground">{step.description}</p>
-              </div>
-            </Reveal>
+                  <div className="relative">
+                    <p
+                      aria-hidden="true"
+                      className="type-display text-h3 tabular-nums text-primary md:hidden"
+                    >
+                      {step.number}
+                    </p>
+                    <h3 className="type-h3 mt-sp-1 text-foreground md:mt-0">{step.title}</h3>
+                    <p className="mt-sp-2 max-w-measure-body text-foreground-dim">
+                      {step.description}
+                    </p>
+                  </div>
+                </article>
+              </Reveal>
+            </li>
           ))}
-        </div>
+        </ol>
 
-        <p className="type-meta text-center text-muted-foreground">{t("howItWorks.disclaimer")}</p>
+        <p className="type-meta max-w-measure-lead text-muted-foreground">
+          {t("howItWorks.disclaimer")}
+        </p>
       </div>
     </section>
   )
