@@ -215,7 +215,7 @@ design-generating skill.
 
 | | `master` | `exercise/rebuild-v2` |
 | --- | --- | --- |
-| Design generator | `frontend-design` | `web-design` + `brand-guidelines` |
+| Design generator | `frontend-design` | `web-design` |
 | Method | taste-first, guidance only | spec-first, `DESIGN.md` before code |
 | QA layer | `web-design-guidelines`, `vercel-react-best-practices` | identical |
 | Plan | this file | this file |
@@ -231,3 +231,10 @@ Everything in sections 1–9 is held constant. Both runs are then compared on:
 
 The `exercise/rebuild-v2` run rebuilds `src/` from empty. It does not read the
 existing implementation — that would contaminate the comparison.
+
+> **Rejected: `brand-guidelines` (anthropics/skills).** Its name is misleading —
+> it does not help author a brand identity, it applies *Anthropic's own* identity
+> (`#d97757` orange, Poppins/Lora). Using it would have imported a third party's
+> palette into a client's brand and, worse, made the two runs incomparable: the
+> `master` palette is already cream-and-burnt-orange, so any convergence would
+> have been impossible to attribute. `web-design` is the sole generator.
