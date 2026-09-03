@@ -19,7 +19,10 @@ const SheetOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
-      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      // Stock shadcn uses `bg-black/80`: a literal colour outside the token file,
+      // and far too heavy a scrim for a light palette. The warm foreground at 60%
+      // dims the page without turning it to slate.
+      "fixed inset-0 z-50 bg-foreground/60 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -65,8 +68,16 @@ const SheetContent = React.forwardRef<
       className={cn(sheetVariants({ side }), className)}
       {...props}
     >
-      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <X className="h-4 w-4" />
+      {/* `z-20` is load-bearing: panel content is stacked at `z-10`, and without
+          a higher index this button sits underneath it. It still receives
+          programmatic clicks, so it looks fine in tests while being impossible
+          to actually tap — the pointer hits the nav instead.
+
+          The 44px box is the touch minimum; the icon inside stays 20px. Stock
+          shadcn ships this at 16px with no padding, and with `opacity-70`,
+          which also costs contrast for no reason. */}
+      <SheetPrimitive.Close className="absolute right-2 top-2 z-20 flex size-11 items-center justify-center rounded-pill text-foreground transition-colors duration-fast ease-out hover:bg-surface-alt disabled:pointer-events-none">
+        <X className="size-5" aria-hidden="true" />
         <span className="sr-only">{closeLabel}</span>
       </SheetPrimitive.Close>
       {children}
