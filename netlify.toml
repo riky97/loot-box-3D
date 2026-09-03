@@ -1,0 +1,44 @@
+# Netlify deployment configuration.
+#
+# The site is a static Vite build with no server side, so there is nothing to
+# configure beyond the build, the SPA fallback and caching.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Pinned so a Netlify image upgrade cannot change the Node version mid-project
+  # and produce a build that differs from the local one.
+  NODE_VERSION = "22"
+
+# React Router owns the routes. Without this every path except "/" would 404 on
+# a hard refresh or a shared deep link, because no file exists at that path.
+# Status 200 (a rewrite, not a redirect) keeps the URL intact for the router.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Vite fingerprints everything under /assets, so those files can be cached
+# permanently: a change produces a new filename rather than a new version of the
+# same one.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# index.html must never be cached, or visitors keep loading an old build that
+# points at asset filenames which no longer exist.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # The site embeds no third-party frames and should not be framed itself.
+    X-Frame-Options = "DENY"

@@ -33,7 +33,13 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label={t("nav.openMenu")}>
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label={t("nav.openMenu")}
+          // shadcn's icon size is 36px; the touch minimum is 44.
+          className="size-11"
+        >
           <HamburgerIcon />
         </Button>
       </SheetTrigger>
@@ -43,10 +49,9 @@ export function MobileNav() {
         className={cn(
           // No position utility here: the Sheet primitive is already `fixed`, and
           // overriding it would drop the panel into the document flow.
-          "flex w-[min(88vw,360px)] flex-col overflow-hidden border-l border-border bg-popover p-0 shadow-header",
+          "flex w-[min(88vw,360px)] flex-col overflow-hidden border-l-2 border-border bg-popover p-0 shadow-elevated",
         )}
       >
-        <span aria-hidden="true" className="plate-grid pointer-events-none absolute inset-0 opacity-[0.04]" />
         <SheetTitle className="sr-only">{t("nav.menuLabel")}</SheetTitle>
 
         <nav
@@ -72,7 +77,7 @@ export function MobileNav() {
         </nav>
 
         <SheetFooter className="relative z-10 px-gutter pb-sp-6 pt-sp-3 sm:flex-col sm:space-x-0">
-          <Button asChild size="sm" className="cut-shape w-full [--chamfer:6px]">
+          <Button asChild size="sm" className="btn-pop w-full">
             <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
               <InstagramGlyph className="size-4" />
               {t("hero.ctaSecondary")}

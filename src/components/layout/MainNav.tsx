@@ -42,7 +42,7 @@ export function MainNav({ activeId, className }: MainNavProps) {
             href={`#${item.id}`}
             aria-current={isActive ? "true" : undefined}
             className={cn(
-              "group relative type-eyebrow py-sp-1 text-muted-foreground transition-colors duration-fast ease-out hover:text-foreground",
+              "group relative type-eyebrow flex min-h-[24px] items-center py-sp-2 text-muted-foreground transition-colors duration-fast ease-out hover:text-foreground",
               isActive && "text-foreground",
             )}
           >
@@ -50,7 +50,7 @@ export function MainNav({ activeId, className }: MainNavProps) {
             <span
               aria-hidden="true"
               className={cn(
-                "absolute -bottom-1 left-0 h-[2px] w-full origin-left scale-x-0 bg-grad-extrude transition-transform duration-base ease-out group-hover:scale-x-100",
+                "absolute -bottom-1 left-0 h-[3px] w-full origin-left scale-x-0 rounded-pill bg-primary transition-transform duration-base ease-bounce group-hover:scale-x-100",
                 isActive && "scale-x-100",
               )}
             />

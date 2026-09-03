@@ -1,93 +1,127 @@
-import { ArrowUpRight } from "lucide-react"
+import type { CSSProperties } from "react"
 import { useTranslation } from "react-i18next"
 
+import { Chip } from "@/components/common/Chip"
+import { InstagramGlyph } from "@/components/common/InstagramGlyph"
+import { PlaceholderTile } from "@/components/common/PlaceholderTile"
 import { SectionHeading } from "@/components/common/SectionHeading"
-import { ProductTile } from "@/components/showcase/ProductTile"
-import { BRAND_LINKS } from "@/data/brand"
+import { Button } from "@/components/ui/button"
+import { BRAND_LINKS, categoryTierVars } from "@/data/brand"
 import { useContentList } from "@/i18n/useContentList"
 import { SECTION_IDS } from "@/routes/paths"
 import type { ShowcaseItem } from "@/types/content"
 
 const SHOWCASE_HEADING_ID = "showcase-heading"
 
-// Tile indices that span two rows on the desktop dense grid. With eight items
-// a single tall tile fills exactly three rows of three, leaving no gaps.
-const TALL_INDICES = new Set([0])
-
+/**
+ * Archetype: counter-scrolling shelves (DESIGN.md 11.4).
+ *
+ * Two full-bleed rows drifting in opposite directions at deliberately unequal
+ * speeds, so they never sync into a visual beat. There is no grid here, which
+ * is the point: the v1 bento grid left holes whenever the item count did not
+ * divide by the column count.
+ *
+ * Both shelves pause on hover and on focus-within, and stop entirely under
+ * `prefers-reduced-motion`, where they become swipeable instead.
+ */
 export function ShowcaseSection() {
   const { t } = useTranslation()
   const items = useContentList<ShowcaseItem>("showcase.items")
 
-  // Marquee content: item names plus category names, doubled for a seamless loop.
-  const categoryNames = Array.from(new Set(items.map((item) => item.category)))
-  const marqueeWords = [...items.map((item) => item.name), ...categoryNames.map((c) => c.toUpperCase())]
+  const half = Math.ceil(items.length / 2)
+  const shelfA = items.slice(0, half)
+  const shelfB = items.slice(half)
 
   return (
     <section
       id={SECTION_IDS.showcase}
       aria-labelledby={SHOWCASE_HEADING_ID}
-      className="section-pad relative overflow-hidden bg-plate"
+      className="section-pad overflow-hidden bg-background"
     >
-      <div aria-hidden="true" className="layer-strip absolute inset-x-0 top-0 h-[10px]" />
-      <div aria-hidden="true" className="layer-strip absolute inset-x-0 bottom-0 h-[10px]" />
+      <div className="shell">
+        <SectionHeading
+          id={SHOWCASE_HEADING_ID}
+          eyebrow={t("showcase.eyebrow")}
+          titleText={t("showcase.title")}
+          subtitle={t("showcase.subtitle")}
+        />
+      </div>
 
+      <div className="mt-sp-8 flex flex-col gap-sp-5">
+        <Shelf items={shelfA} variant="a" />
+        <Shelf items={shelfB} variant="b" />
+      </div>
 
-      <div className="shell relative flex flex-col gap-sp-8">
-        <div className="flex flex-col gap-sp-6 md:flex-row md:items-end md:justify-between">
-          <SectionHeading
-            id={SHOWCASE_HEADING_ID}
-            eyebrow={t("showcase.eyebrow")}
-            title={t("showcase.title")}
-            subtitle={t("showcase.subtitle")}
-          />
+      {/* The axis flips back to centred here. */}
+      <div className="shell mt-sp-8 flex flex-col items-center gap-sp-4 text-center">
+        <Button asChild size="lg" className="btn-pop">
+          <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
+            <InstagramGlyph className="size-4" />
+            {t("showcase.ctaLabel")}
+          </a>
+        </Button>
+        <p className="type-meta max-w-measure-lead text-muted-foreground">
+          {t("showcase.note")}
+        </p>
+      </div>
+    </section>
+  )
+}
 
+function Shelf({ items, variant }: { items: ShowcaseItem[]; variant: "a" | "b" }) {
+  return (
+    <div className="shelf">
+      <ShelfTrack items={items} variant={variant} />
+      <ShelfTrack items={items} variant={variant} ariaHidden />
+    </div>
+  )
+}
+
+/**
+ * One pass of a shelf. Two identical passes are rendered because the keyframes
+ * translate by exactly -50%: the strip lands on a matching frame and the loop
+ * has no visible seam. The duplicate is hidden from assistive tech and removed
+ * from the tab order so each tile is announced and focused once.
+ */
+function ShelfTrack({
+  items,
+  variant,
+  ariaHidden,
+}: {
+  items: ShowcaseItem[]
+  variant: "a" | "b"
+  ariaHidden?: boolean
+}) {
+  const { t } = useTranslation()
+
+  return (
+    <ul
+      className={`shelf__track shelf__track--${variant} list-none`}
+      aria-hidden={ariaHidden ? "true" : undefined}
+    >
+      {items.map((item) => (
+        <li key={item.id} className="w-[240px] shrink-0 sm:w-[280px]">
           <a
             href={BRAND_LINKS.instagram}
             target="_blank"
             rel="noreferrer noopener"
-            className="type-meta hidden shrink-0 items-center gap-sp-1 text-foreground transition-colors duration-fast ease-out hover:text-accent md:inline-flex"
+            tabIndex={ariaHidden ? -1 : undefined}
+            className="spotlight group block overflow-hidden rounded-lg border-2 border-border bg-surface shadow-raised transition-[transform,border-color,box-shadow] duration-base ease-bounce hover:-translate-y-1 hover:border-primary hover:shadow-elevated"
+            data-spotlight=""
+            style={{ "--tier": `var(${categoryTierVars[item.category]})` } as CSSProperties}
           >
-            {t("contact.instagramCta")}
-            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          </a>
-        </div>
-
-        {/* Desktop / tablet dense grid. */}
-        <div className="hidden gap-sp-5 md:grid md:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[12rem] lg:grid-flow-row-dense">
-          {items.map((item, index) => (
-            <ProductTile key={item.id} item={item} tall={TALL_INDICES.has(index)} />
-          ))}
-        </div>
-
-        {/* Mobile horizontal scroll-snap row. */}
-        <div className="-mx-gutter flex snap-x snap-mandatory gap-sp-4 overflow-x-auto px-gutter pb-sp-2 md:hidden">
-          {items.map((item) => (
-            <div key={item.id} className="w-[72vw] shrink-0 snap-start">
-              <ProductTile item={item} />
+            <PlaceholderTile
+              tierVar={categoryTierVars[item.category]}
+              label={t("showcase.placeholderBadge")}
+            />
+            <div className="flex items-center justify-between gap-sp-2 p-sp-4">
+              <span className="type-h3 truncate text-body text-foreground">{item.name}</span>
+              <Chip tierVar={categoryTierVars[item.category]}>{item.tag}</Chip>
             </div>
-          ))}
-        </div>
-
-        <p className="type-meta text-muted-foreground/70">{t("showcase.note")}</p>
-      </div>
-
-      <div aria-hidden="true" className="marquee mt-sp-8">
-        <div className="marquee__track animate-marquee">
-          {[...marqueeWords, ...marqueeWords].map((word, index) => (
-            <span
-              key={`${word}-${index}`}
-              className={
-                (index + 1) % 3 === 0
-                  ? "type-display shrink-0 text-[40px] leading-none text-primary"
-                  : "type-display type-outline shrink-0 text-[40px] leading-none"
-              }
-            >
-              {word}
-            </span>
-          ))}
-        </div>
-      </div>
-    </section>
+          </a>
+        </li>
+      ))}
+    </ul>
   )
 }
 

@@ -1,6 +1,7 @@
 // Global stylesheet.
 // Design values live exclusively in `_tokens.scss`; nothing below hardcodes a
 // color, font or size — everything references a custom property from there.
+// Implements DESIGN.md.
 @use "./tokens";
 
 @tailwind base;
@@ -15,6 +16,12 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    // No overflow guard here, deliberately. `overflow-x: hidden` on `body`
+    // turns body into its own scroll container (computed `overflow: hidden
+    // auto`), and `overflow-x: clip` on the root detaches the sticky header
+    // from the viewport — it renders halfway down the page after a scroll.
+    // Each full-bleed element contains itself instead: `.shelf` clips its own
+    // track, and the footer clips the outlined wordmark.
   }
 
   body {
@@ -31,6 +38,7 @@
     scroll-margin-top: calc(var(--header-h) + var(--sp-4));
   }
 
+  // One uniform focus ring across the page. Never removed.
   :focus-visible {
     outline: none;
     box-shadow: var(--ring-focus);
@@ -38,8 +46,8 @@
   }
 
   ::selection {
-    background: hsl(var(--primary) / 0.85);
-    color: hsl(var(--primary-foreground));
+    background: hsl(var(--gold));
+    color: hsl(var(--foreground));
   }
 }
 
@@ -47,15 +55,24 @@
   // ---------------------------------------------------------------------------
   // Typographic roles
   // ---------------------------------------------------------------------------
-
-  // Display face. Outfit is the geometric sans that matches the brand wordmark:
-  // circular bowls, low contrast, set in lowercase/sentence case like the logo.
-  // It is a weight-only variable font, so there is no width axis to set.
+  // Sora is a weight-only variable font: heavy geometric headings are what carry
+  // this direction. Display weight is 800 and never lighter.
   .type-display {
     font-family: var(--font-display);
-    font-variation-settings: "wght" 800;
     font-weight: 800;
     text-transform: none;
+  }
+
+  .type-hero {
+    @apply type-display;
+    font-size: var(--fs-display);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    // Layered drop shadow, no gradient — stacking the two is forbidden, and a
+    // gradient would make contrast vary across the glyph. See DESIGN.md 3.
+    text-shadow:
+      3px 3px 0 hsl(var(--gold)),
+      6px 6px 0 hsl(var(--foreground) / 0.12);
   }
 
   .type-h1 {
@@ -66,9 +83,7 @@
   }
 
   .type-h2 {
-    font-family: var(--font-display);
-    font-variation-settings: "wght" 700;
-    font-weight: 700;
+    @apply type-display;
     font-size: var(--fs-h2);
     line-height: var(--leading-h2);
     letter-spacing: var(--tracking-h2);
@@ -76,18 +91,10 @@
 
   .type-h3 {
     font-family: var(--font-display);
-    font-variation-settings: "wght" 700;
     font-weight: 700;
     font-size: var(--fs-h3);
     line-height: var(--leading-h3);
     letter-spacing: var(--tracking-h3);
-  }
-
-  .type-hero {
-    @apply type-display;
-    font-size: var(--fs-display);
-    line-height: var(--leading-display);
-    letter-spacing: var(--tracking-display);
   }
 
   .type-lead {
@@ -96,31 +103,39 @@
     max-width: var(--measure-lead);
   }
 
-  // Uppercase belongs exclusively to the mono face: it separates the brand
-  // "voice" (display) from the "machine" labels (mono).
+  // Uppercase belongs to Sora labels only — never to a Nunito paragraph.
   .type-eyebrow {
-    font-family: var(--font-mono);
-    font-variation-settings: "wdth" 112.5, "wght" 600;
+    font-family: var(--font-display);
+    font-weight: 700;
     font-size: var(--fs-eyebrow);
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-eyebrow);
     text-transform: uppercase;
   }
 
-  .type-meta {
-    font-family: var(--font-mono);
-    font-variation-settings: "wdth" 100, "wght" 400;
-    font-size: var(--fs-meta);
-    letter-spacing: var(--tracking-meta);
-  }
-
   .type-chip {
-    font-family: var(--font-mono);
-    font-variation-settings: "wdth" 112.5, "wght" 600;
+    font-family: var(--font-display);
+    font-weight: 700;
     font-size: var(--fs-chip);
     line-height: 1.1;
     letter-spacing: var(--tracking-chip);
     text-transform: uppercase;
+  }
+
+  .type-meta {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: var(--fs-meta);
+    letter-spacing: var(--tracking-meta);
+  }
+
+  // Rationed to exactly two placements site-wide: the hero annotation and the
+  // footer sign-off. A third makes the page read as a scrapbook.
+  .type-accent {
+    font-family: var(--font-accent);
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.3;
   }
 
   .measure-body {
@@ -161,150 +176,220 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Signature device 1 — layer-line strip (FDM striations)
+  // Buttons — solid offset shadow, the toy/sticker vocabulary
   // ---------------------------------------------------------------------------
-  .layer-strip {
-    background-image: repeating-linear-gradient(
-      to bottom,
-      hsl(var(--layer-line)) 0px,
-      hsl(var(--layer-line)) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  // 48px clears the 44px touch minimum with margin. shadcn's own size classes
+  // top out at 40px, which does not.
+  .btn-pop,
+  .btn-pop-outline {
+    min-height: 48px;
+  }
+
+  .btn-pop {
+    box-shadow: var(--btn-pop);
+    transition:
+      transform var(--dur-fast) var(--ease-bounce),
+      box-shadow var(--dur-fast) var(--ease-out),
+      background-color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .btn-pop:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--btn-pop-hover);
+  }
+
+  .btn-pop:active {
+    transform: translateY(2px);
+    box-shadow: var(--btn-pop-active);
+  }
+
+  .btn-pop-outline {
+    box-shadow: var(--shadow-pop);
+    transition:
+      transform var(--dur-fast) var(--ease-bounce),
+      box-shadow var(--dur-fast) var(--ease-out),
+      background-color var(--dur-fast) var(--ease-out);
+  }
+
+  .btn-pop-outline:hover {
+    transform: translateY(-2px);
+    background-color: hsl(var(--gold));
+    box-shadow: 0 6px 0 0 hsl(var(--border));
+  }
+
+  .btn-pop-outline:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 0 hsl(var(--border));
   }
 
   // ---------------------------------------------------------------------------
-  // Signature device 2 — build-plate grid
+  // Spotlight card — `--mx`/`--my` are written by a single rAF-throttled loop
   // ---------------------------------------------------------------------------
-  .plate-grid {
-    background-image:
-      linear-gradient(hsl(var(--grid-line) / 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--grid-line) / 0.1) 1px, transparent 1px),
-      linear-gradient(hsl(var(--grid-line) / 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--grid-line) / 0.05) 1px, transparent 1px);
-    background-size: 192px 192px, 192px 192px, 48px 48px, 48px 48px;
-  }
-
-  // ---------------------------------------------------------------------------
-  // Signature device 3 — chamfered "sprue-cut" card
-  // ---------------------------------------------------------------------------
-  // clip-path removes borders, so the 1px edge is drawn by a wrapper filled
-  // with the gradient border and padded by 1px; both share the same clip.
-  .cut-shape {
-    clip-path: polygon(
-      0 0,
-      calc(100% - var(--chamfer)) 0,
-      100% var(--chamfer),
-      100% 100%,
-      0 100%
-    );
-  }
-
-  .cut-frame {
-    @apply cut-shape;
+  .spotlight {
     position: relative;
-    padding: 1px;
-    background: hsl(var(--border));
-    transition: background var(--dur-base) var(--ease-out),
-      transform var(--dur-base) var(--ease-out),
-      box-shadow var(--dur-base) var(--ease-out);
+    isolation: isolate;
   }
 
-  .cut-frame > * {
-    @apply cut-shape;
-  }
-
-  .cut-frame:hover,
-  .cut-frame:focus-within {
-    background: var(--grad-border);
-  }
-
-  // The diagonal tick that makes the cut read as intentional, not as a
-  // rendering artifact.
-  .cut-tick {
+  .spotlight::before {
+    content: "";
     position: absolute;
-    top: 0;
-    right: 0;
-    width: calc(var(--chamfer) * 1.414);
-    height: 1px;
-    background: hsl(var(--accent) / 0.5);
-    transform-origin: top right;
-    transform: rotate(-45deg) translateX(0);
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
     pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-out);
+    background: radial-gradient(
+      260px circle at var(--mx, 50%) var(--my, 50%),
+      hsl(var(--tier, var(--accent-vivid)) / 0.16),
+      transparent 65%
+    );
+  }
+
+  .spotlight:hover::before,
+  .spotlight:focus-within::before {
+    opacity: 1;
   }
 
   // ---------------------------------------------------------------------------
-  // Signature device 4 — extrusion underline
+  // Section heading — gold bar scales in behind the marked word
   // ---------------------------------------------------------------------------
-  .extrude-rule {
-    display: block;
-    height: 3px;
-    background: var(--grad-extrude);
-    box-shadow: 0 0 12px -2px hsl(var(--primary) / 0.7);
+  .heading-mark {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+  }
+
+  .heading-mark::before {
+    content: "";
+    position: absolute;
+    inset-inline: -0.15em;
+    inset-block-end: 0.06em;
+    block-size: 0.42em;
+    z-index: -1;
+    border-radius: 3px;
+    background: hsl(var(--gold));
     transform: scaleX(0);
     transform-origin: left center;
-    transition: transform var(--dur-slow) var(--ease-out);
+    transition: transform var(--dur-slow) var(--ease-bounce);
   }
 
-  .is-inview .extrude-rule,
-  .extrude-rule.is-inview {
+  .is-inview .heading-mark::before {
     transform: scaleX(1);
   }
 
   // ---------------------------------------------------------------------------
-  // Signature device 5 — rarity chip
+  // Category bands (DESIGN.md 11.3)
   // ---------------------------------------------------------------------------
-  // `--tier` is set per instance to one of the four rarity tokens.
-  .chip {
-    @apply type-chip;
-    display: inline-flex;
-    align-items: center;
-    padding: 2px 8px;
-    --chamfer: 6px;
-    @apply cut-shape;
-    background: hsl(var(--tier, var(--muted-foreground)) / 0.14);
-    color: hsl(var(--tier, var(--muted-foreground)));
-    box-shadow: inset 0 0 0 1px hsl(var(--tier, var(--muted-foreground)) / 0.35);
+  // Height animates via grid-template-rows 0fr -> 1fr so there is no magic
+  // max-height to guess.
+  // The collapse depends on BOTH halves below.
+  //
+  // `0fr` alone is `minmax(auto, 0fr)`: the automatic minimum keeps the row at
+  // the child's min-content and the band sits permanently open. `min-height: 0`
+  // on the child is what removes that minimum and lets `0fr` reach zero.
+  //
+  // Do NOT "fix" this by writing `minmax(0, 1fr)` for the open state: in an
+  // auto-height grid `1fr` distributes free space, which is zero, so the band
+  // would never open. A bare `1fr` resolves against the content instead.
+  .band-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--dur-base) var(--ease-out);
+  }
+
+  .band-body > * {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  // Expanded on hover/focus for pointer users...
+  @media (hover: hover) and (min-width: 768px) {
+    .band:hover .band-body,
+    .band:focus-within .band-body {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  // ...and permanently expanded wherever hover is not reachable. Hiding content
+  // behind hover on touch is a defect, not a design.
+  @media not all and (hover: hover), (max-width: 767px) {
+    .band-body {
+      grid-template-rows: 1fr;
+    }
   }
 
   // ---------------------------------------------------------------------------
-  // Marquee
+  // Counter-scrolling shelves (DESIGN.md 11.4)
   // ---------------------------------------------------------------------------
-  .marquee {
+  .shelf {
+    display: flex;
+    // The `#000` below is a mask alpha value, not a design colour: in a
+    // mask-image gradient it means "fully opaque". It is the one literal the
+    // token discipline in plan.md section 4 does not cover, because there is no
+    // colour here to tokenise.
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .shelf__track {
+    display: flex;
+    flex: none;
+    gap: var(--sp-5);
+    padding-right: var(--sp-5);
+    will-change: transform;
+  }
+
+  .shelf__track--a {
+    animation: shelf-left var(--dur-shelf-a) linear infinite;
+  }
+
+  .shelf__track--b {
+    animation: shelf-right var(--dur-shelf-b) linear infinite;
+  }
+
+  // Pausing on focus-within is what makes the shelves keyboard-reachable.
+  .shelf:hover .shelf__track,
+  .shelf:focus-within .shelf__track {
+    animation-play-state: paused;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Ticker (hero stats strip)
+  // ---------------------------------------------------------------------------
+  .ticker {
     display: flex;
     overflow: hidden;
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
 
-  .marquee__track {
+  .ticker__track {
     display: flex;
     flex: none;
     gap: var(--sp-6);
     padding-right: var(--sp-6);
-    animation: marquee 40s linear infinite;
+    animation: shelf-left 28s linear infinite;
   }
 
-  .marquee:hover .marquee__track,
-  .marquee:focus-within .marquee__track {
-    animation-play-state: paused;
-  }
-
-  // Outline type used by the marquee and the footer closing wordmark.
+  // ---------------------------------------------------------------------------
+  // Outlined wordmark (footer baseline)
+  // ---------------------------------------------------------------------------
   .type-outline {
     color: transparent;
-    -webkit-text-stroke: 1px hsl(var(--layer-line));
+    -webkit-text-stroke: 2px hsl(var(--border));
   }
 }
 
 @layer utilities {
-  // Scroll-entrance primitive, toggled by the useInView hook.
+  // Scroll-entrance primitive, toggled by the shared IntersectionObserver.
   [data-reveal] {
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+    transition:
+      opacity var(--dur-slow) var(--ease-out),
+      transform var(--dur-slow) var(--ease-bounce);
     transition-delay: var(--reveal-delay, 0ms);
   }
 
@@ -314,6 +399,78 @@
   }
 }
 
+// =============================================================================
+// Keyframes
+// =============================================================================
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes word-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.5em);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 -10% 0);
+  }
+}
+
+// The tracks are duplicated in the markup, so translating by exactly -50%
+// returns the strip to an identical frame and the loop is seamless.
+@keyframes shelf-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shelf-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes confetti-fall {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(var(--dx, 0), var(--dy, 60vh)) rotate(var(--dr, 360deg));
+  }
+}
+
+.animate-drop-in {
+  animation: drop-in var(--dur-hero) var(--ease-bounce) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+.animate-word-reveal {
+  animation: word-reveal var(--dur-hero) var(--ease-bounce) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+// =============================================================================
+// Reduced motion — every reveal renders in its final state. Nothing stays
+// hidden behind an animation that will not run.
+// =============================================================================
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -324,21 +481,24 @@
     scroll-behavior: auto !important;
   }
 
-  .marquee__track {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .heading-mark::before {
+    transform: scaleX(1);
+  }
+
+  // Shelves stop and become swipeable, so the tiles stay reachable.
+  .shelf__track,
+  .ticker__track {
     animation: none;
     transform: none;
   }
 
-  .marquee {
+  .shelf,
+  .ticker {
     overflow-x: auto;
-  }
-
-  .extrude-rule {
-    transform: scaleX(1);
-  }
-
-  [data-reveal] {
-    opacity: 1;
-    transform: none;
   }
 }

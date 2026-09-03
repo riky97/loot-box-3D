@@ -8,7 +8,8 @@
     "brandName": "Loot Box 3D",
     "skipToContent": "Vai al contenuto principale",
     "ctaPrimary": "Scopri la collezione",
-    "ctaSecondary": "Scrivici su Instagram"
+    "ctaSecondary": "Scrivici su Instagram",
+    "legendaryLabel": "Leggendario"
   },
   "nav": {
     "hero": "Home",
@@ -29,10 +30,23 @@
     "ctaPrimary": "Scopri la collezione",
     "ctaSecondary": "Scrivici su Instagram",
     "stats": [
-      { "value": "500+", "label": "pezzi consegnati" },
-      { "value": "1200+", "label": "ore di stampa" },
-      { "value": "30+", "label": "fandom coperti" }
-    ]
+      {
+        "value": "500+",
+        "label": "pezzi consegnati"
+      },
+      {
+        "value": "1200+",
+        "label": "ore di stampa"
+      },
+      {
+        "value": "30+",
+        "label": "fandom coperti"
+      }
+    ],
+    "annotation": "fatti a mano, uno alla volta",
+    "titleLine1": "Collezionabili",
+    "titleLine2": "stampati",
+    "titleLine3": "in 3D"
   },
   "about": {
     "eyebrow": "Chi siamo",
@@ -63,27 +77,32 @@
         "id": "anime",
         "name": "Anime & Manga",
         "description": "Statuette, portachiavi e diorami ispirati ai tuoi personaggi e alle tue serie preferite.",
-        "tagline": "Per chi ha il poster in camera"
+        "tagline": "Per chi ha il poster in camera",
+        "count": "32 pezzi a catalogo"
       },
       {
         "id": "cosplay",
         "name": "Cosplay & Props",
         "description": "Armi, accessori e dettagli su misura per completare il tuo prossimo costume.",
-        "tagline": "Pronto per la convention"
+        "tagline": "Pronto per la convention",
+        "count": "14 pezzi a catalogo"
       },
       {
         "id": "gaming",
         "name": "Gaming",
         "description": "Miniature, gadget da scrivania e collezionabili dedicati ai tuoi videogiochi preferiti.",
-        "tagline": "Level up per la tua postazione"
+        "tagline": "Level up per la tua postazione",
+        "count": "21 pezzi a catalogo"
       },
       {
         "id": "other",
         "name": "Altro / Su richiesta",
         "description": "Hai in mente qualcosa che non rientra nelle altre categorie? Raccontacelo e lo valutiamo insieme.",
-        "tagline": "Se puoi immaginarlo, ne parliamo"
+        "tagline": "Se puoi immaginarlo, ne parliamo",
+        "count": "su richiesta"
       }
-    ]
+    ],
+    "openLabel": "Scopri la categoria"
   },
   "showcase": {
     "eyebrow": "Galleria",
@@ -92,15 +111,58 @@
     "filterAll": "Tutti",
     "note": "Prodotti e immagini segnaposto: da sostituire con il catalogo reale e le foto definitive da concordare con il cliente.",
     "items": [
-      { "id": "kitsune-mask", "name": "Kitsune Mask", "category": "cosplay", "tag": "Prop" },
-      { "id": "chibi-ronin", "name": "Chibi Ronin", "category": "anime", "tag": "Statuetta" },
-      { "id": "ranger-helm", "name": "Elmo da Ranger", "category": "cosplay", "tag": "Prop" },
-      { "id": "obsidian-die", "name": "Dado d'Ossidiana", "category": "gaming", "tag": "Collezionabile" },
-      { "id": "cyber-katana", "name": "Cyber Katana", "category": "gaming", "tag": "Replica" },
-      { "id": "moon-guardian", "name": "Moon Guardian", "category": "anime", "tag": "Diorama" },
-      { "id": "spirit-fox-keychain", "name": "Spirit Fox", "category": "anime", "tag": "Portachiavi" },
-      { "id": "custom-badge", "name": "Distintivo Personalizzato", "category": "other", "tag": "Su richiesta" }
-    ]
+      {
+        "id": "kitsune-mask",
+        "name": "Kitsune Mask",
+        "category": "cosplay",
+        "tag": "Prop"
+      },
+      {
+        "id": "chibi-ronin",
+        "name": "Chibi Ronin",
+        "category": "anime",
+        "tag": "Statuetta"
+      },
+      {
+        "id": "ranger-helm",
+        "name": "Elmo da Ranger",
+        "category": "cosplay",
+        "tag": "Prop"
+      },
+      {
+        "id": "obsidian-die",
+        "name": "Dado d'Ossidiana",
+        "category": "gaming",
+        "tag": "Collezionabile"
+      },
+      {
+        "id": "cyber-katana",
+        "name": "Cyber Katana",
+        "category": "gaming",
+        "tag": "Replica"
+      },
+      {
+        "id": "moon-guardian",
+        "name": "Moon Guardian",
+        "category": "anime",
+        "tag": "Diorama"
+      },
+      {
+        "id": "spirit-fox-keychain",
+        "name": "Spirit Fox",
+        "category": "anime",
+        "tag": "Portachiavi"
+      },
+      {
+        "id": "custom-badge",
+        "name": "Distintivo Personalizzato",
+        "category": "other",
+        "tag": "Su richiesta"
+      }
+    ],
+    "shelfHint": "Passa il mouse per fermare lo scorrimento",
+    "ctaLabel": "Guarda tutta la galleria su Instagram",
+    "placeholderBadge": "Segnaposto"
   },
   "howItWorks": {
     "eyebrow": "Come funziona",
@@ -149,7 +211,8 @@
     "followLabel": "Seguici",
     "copyright": "© {{year}} Loot Box 3D. Tutti i diritti riservati.",
     "disclaimer": "Loot Box 3D è un progetto indipendente non affiliato ai brand, agli studi o alle serie da cui i prodotti traggono ispirazione.",
-    "credits": "Sito realizzato con cura, un pixel alla volta."
+    "credits": "Sito realizzato con cura, un pixel alla volta.",
+    "signoff": "grazie per essere arrivato fin qui"
   },
   "notFound": {
     "title": "404 — Pagina non trovata",

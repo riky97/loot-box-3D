@@ -1,78 +1,60 @@
 import { useTranslation } from "react-i18next"
 
-import { Wordmark } from "@/components/common/Wordmark"
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
-import { NAV_ITEMS } from "@/components/layout/MainNav"
+import { Wordmark } from "@/components/common/Wordmark"
 import { BRAND_LINKS } from "@/data/brand"
-import { cn } from "@/lib/utils"
 
 /**
- * Site footer: three-column nav + follow block over a layer-line top edge,
- * a baseline copyright/credits row, and an oversized outline wordmark bleeding
- * off the bottom as the page's closing visual device.
+ * Archetype: baseline strip (DESIGN.md 11.7).
+ *
+ * An oversized outlined wordmark spans the full width as a baseline, with a
+ * single thin row beneath it. No multi-column link farm — there are not enough
+ * destinations to justify one, and the in-page nav already lives in the header.
  */
 export function SiteFooter() {
   const { t } = useTranslation()
 
   return (
-    <footer className="relative overflow-hidden border-t border-border bg-surface-2">
-      <span aria-hidden="true" className="layer-strip absolute inset-x-0 top-0 z-10 h-1" />
-
-      <div className="shell relative z-10 pb-sp-6 pt-sp-10">
-        <div className="grid gap-sp-8 md:grid-cols-[2fr_1fr_1fr]">
-          <div className="flex flex-col gap-sp-3">
-            <Wordmark variant="stacked" size="lg" label={t("common.brandName")} className="items-start self-start" />
-            <p className="text-sm text-muted-foreground">{t("footer.tagline")}</p>
-          </div>
-
-          <div className="flex flex-col gap-sp-3">
-            <p className="type-eyebrow text-muted-foreground">{t("footer.sectionsLabel")}</p>
-            <nav aria-label={t("footer.sectionsLabel")} className="flex flex-col gap-sp-2">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  className="text-sm text-muted-foreground transition-colors duration-fast ease-out hover:text-foreground"
-                >
-                  {t(item.labelKey)}
-                </a>
-              ))}
-            </nav>
-          </div>
-
-          <div className="flex flex-col gap-sp-3">
-            <p className="type-eyebrow text-muted-foreground">{t("footer.followLabel")}</p>
-            <a
-              href={BRAND_LINKS.instagram}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-sp-2 text-sm text-muted-foreground transition-colors duration-fast ease-out hover:text-foreground"
-            >
-              <InstagramGlyph className="size-4" />
-              {t("contact.instagramHandle")}
-            </a>
-          </div>
+    <footer className="overflow-hidden border-t-2 border-border bg-background">
+      <div className="shell pt-sp-10">
+        <div className="flex flex-col items-start gap-sp-3">
+          <Wordmark variant="stacked" size="lg" label={t("common.brandName")} />
+          <p className="text-foreground-dim">{t("footer.tagline")}</p>
         </div>
-
-        <div className="mt-sp-6 flex flex-col gap-sp-1 border-t border-border pt-sp-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="type-meta text-muted-foreground">
-            {t("footer.copyright", { year: new Date().getFullYear() })}
-          </p>
-          <p className="type-meta text-muted-foreground">{t("footer.credits")}</p>
-        </div>
-        <p className="type-meta mt-sp-3 text-muted-foreground/70">{t("footer.disclaimer")}</p>
       </div>
 
+      {/* The baseline: outlined, full-bleed, clipped by the footer's overflow so
+          it reads as type sitting on the bottom edge of the page. */}
       <p
         aria-hidden="true"
-        className={cn(
-          "type-display type-outline pointer-events-none absolute inset-x-0 bottom-0 z-0 opacity-60",
-          "translate-y-[45%] select-none whitespace-nowrap text-center leading-none",
-        )}
-        style={{ fontSize: "clamp(4rem, 16vw, 12rem)" }}
+        className="type-display type-outline pointer-events-none mt-sp-8 select-none whitespace-nowrap text-center leading-[0.8]"
+        style={{ fontSize: "clamp(3.5rem, 15vw, 11rem)" }}
       >
         {t("common.brandName")}
       </p>
+
+      <div className="shell flex flex-col gap-sp-3 border-t-2 border-border py-sp-5 sm:flex-row sm:items-center sm:justify-between">
+        <p className="type-meta text-muted-foreground">
+          {t("footer.copyright", { year: new Date().getFullYear() })}
+        </p>
+
+        <a
+          href={BRAND_LINKS.instagram}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="type-meta inline-flex min-h-[44px] items-center gap-sp-2 text-foreground-dim transition-colors duration-fast ease-out hover:text-primary"
+        >
+          <InstagramGlyph className="size-4" />
+          {t("contact.instagramHandle")}
+        </a>
+
+        {/* Caveat placement 2 of 2, and the last one on the page. */}
+        <p className="type-accent text-primary">{t("footer.signoff")}</p>
+      </div>
+
+      <div className="shell pb-sp-6">
+        <p className="type-meta text-muted-foreground">{t("footer.disclaimer")}</p>
+      </div>
     </footer>
   )
 }

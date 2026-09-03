@@ -1,16 +1,25 @@
+import { ArrowRight } from "lucide-react"
+import type { CSSProperties } from "react"
 import { useTranslation } from "react-i18next"
 
-import { CutCard } from "@/components/common/CutCard"
-import { Reveal } from "@/components/common/Reveal"
 import { SectionHeading } from "@/components/common/SectionHeading"
-import { CategoryGlyph } from "@/components/graphics/CategoryGlyph"
-import { categoryHueVars } from "@/data/brand"
+import { BRAND_LINKS, categoryTierVars } from "@/data/brand"
 import { useContentList } from "@/i18n/useContentList"
 import { SECTION_IDS } from "@/routes/paths"
 import type { CategoryItem } from "@/types/content"
 
 const CATEGORIES_HEADING_ID = "categories-heading"
 
+/**
+ * Archetype: expanding full-width bands (DESIGN.md 11.3).
+ *
+ * Not a card grid. Each category is an edge-to-edge horizontal band that
+ * expands on hover or focus to reveal its description and catalogue size.
+ *
+ * On touch and below `md:` every band renders permanently expanded — see the
+ * `.band-body` rules in `main.scss`. Hover is not reachable without a pointer,
+ * and content hidden behind it on mobile is a defect, not a design.
+ */
 export function CategoriesSection() {
   const { t } = useTranslation()
   const items = useContentList<CategoryItem>("categories.items")
@@ -19,70 +28,70 @@ export function CategoriesSection() {
     <section
       id={SECTION_IDS.categories}
       aria-labelledby={CATEGORIES_HEADING_ID}
-      className="section-pad bg-background"
+      className="section-pad bg-surface-alt"
     >
-      <div className="shell flex flex-col gap-sp-8">
+      <div className="shell">
         <SectionHeading
           id={CATEGORIES_HEADING_ID}
           eyebrow={t("categories.eyebrow")}
-          title={t("categories.title")}
+          titleText={t("categories.title")}
           subtitle={t("categories.subtitle")}
         />
+      </div>
 
-        <div className="-mx-gutter flex snap-x snap-mandatory gap-sp-5 overflow-x-auto px-gutter pb-sp-2 md:mx-0 md:grid md:grid-cols-2 md:snap-none md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4">
-          {items.map((item, index) => {
-            const hueVar = categoryHueVars[item.id]
-            return (
-              <Reveal
-                key={item.id}
-                delayIndex={index}
-                className="w-[78vw] shrink-0 snap-start md:w-auto md:shrink"
-              >
-                <CutCard
-                  className="relative flex h-full min-h-[320px] flex-col justify-between p-sp-5 transition-shadow duration-base ease-out"
-                  frameClassName="group/card h-full transition-transform duration-base ease-out hover:-translate-y-1 focus-within:-translate-y-1 hover:shadow-card-hover focus-within:shadow-card-hover"
-                >
+      <ul className="mt-sp-8 list-none border-y-2 border-border">
+        {items.map((item, index) => (
+          <li key={item.id} className="border-b-2 border-border last:border-b-0">
+            <a
+              href={BRAND_LINKS.instagram}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="band group relative block bg-background transition-colors duration-base ease-out hover:bg-surface focus-visible:bg-surface"
+              style={{ "--tier": `var(${categoryTierVars[item.id]})` } as CSSProperties}
+            >
+              {/* Tier edge: 6px at rest, 12px once the band is open. */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-y-0 left-0 w-[6px] transition-[width] duration-base ease-out group-hover:w-[12px] group-focus-within:w-[12px]"
+                style={{ backgroundColor: "hsl(var(--tier))" }}
+              />
+
+              {/* A BLOCK wrapper, deliberately. As a flex item the `.band-body`
+                  grid gets no space to distribute and its `1fr` track resolves
+                  to zero, so the band never opens. The row below carries the
+                  resting height and centres itself; the body is a plain sibling. */}
+              <div className="shell pl-sp-4">
+                <div className="flex min-h-band-rest items-center gap-sp-4">
                   <span
                     aria-hidden="true"
-                    className="absolute inset-x-0 top-0 h-[2px]"
-                    style={{ backgroundColor: `hsl(var(${hueVar}))` }}
+                    className="type-display text-h3 tabular-nums text-border"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="type-h3 flex-1 text-foreground">{item.name}</h3>
+                  <ArrowRight
+                    aria-hidden="true"
+                    className="size-5 shrink-0 text-primary transition-transform duration-base ease-bounce group-hover:translate-x-1 group-focus-within:translate-x-1"
                   />
+                </div>
 
-                  {/* The tagline runs to a full phrase, so it is set as a mono
-                      meta line rather than a chip — chips are reserved for the
-                      short tags on the gallery tiles, where they stay on one line. */}
-                  <p
-                    className="type-meta flex items-start gap-sp-2"
-                    style={{ color: `hsl(var(${hueVar}))` }}
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="mt-[0.6em] h-px w-4 shrink-0"
-                      style={{ backgroundColor: `hsl(var(${hueVar}))` }}
-                    />
-                    {item.tagline}
-                  </p>
-
-                  <div
-                    className="flex flex-1 items-center justify-center py-sp-6 opacity-80 transition-[filter,opacity] duration-base ease-out group-hover/card:opacity-100 group-focus-within/card:opacity-100"
-                    style={{ color: `hsl(var(${hueVar}))` }}
-                  >
-                    <CategoryGlyph
-                      category={item.id}
-                      className="h-16 w-16 group-hover/card:drop-shadow-[0_0_10px_currentColor] group-focus-within/card:drop-shadow-[0_0_10px_currentColor]"
-                    />
+                <div className="band-body">
+                  <div>
+                    <p className="max-w-measure-body text-foreground-dim">
+                      {item.description}
+                    </p>
+                    <p className="type-meta pb-sp-5 pt-sp-2 text-muted-foreground">
+                      {item.count}
+                    </p>
                   </div>
+                </div>
+              </div>
 
-                  <div className="flex flex-col gap-sp-1">
-                    <h3 className="type-h3 text-foreground">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground">{item.description}</p>
-                  </div>
-                </CutCard>
-              </Reveal>
-            )
-          })}
-        </div>
-      </div>
+              <span className="sr-only">{t("categories.openLabel")}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }
