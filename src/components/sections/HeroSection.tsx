@@ -101,7 +101,12 @@ export function HeroSection() {
             size="lg"
             className="btn-pop-outline w-full border-2 border-foreground sm:w-auto"
           >
-            <a href={`#${SECTION_IDS.howItWorks}`}>{t("hero.ctaPrimary")}</a>
+            {/* Targets the gallery, not the process section: the label reads
+                "Scopri la collezione", and a link has to land where its own
+                text says it does. "Come funziona" stays reachable from the
+                nav, and the gallery sits directly above it in the scroll
+                order anyway. */}
+            <a href={`#${SECTION_IDS.showcase}`}>{t("hero.ctaPrimary")}</a>
           </Button>
         </div>
       </div>

@@ -123,7 +123,9 @@ Tailwind reflects the tokens. It never duplicates them.
 
 In order, all on `/`:
 
-1. **Hero** — brand promise, primary CTA to Instagram, secondary CTA to "how it works"
+1. **Hero** — brand promise, primary CTA to Instagram, secondary CTA to the
+   showcase. The secondary label is "Scopri la collezione", so it must land on
+   the gallery; "how it works" is reached from the nav.
 2. **About** — who we are / what we do
 3. **Categories** — anime, cosplay, gaming, other
 4. **Showcase** — gallery of work
