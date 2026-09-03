@@ -18,6 +18,8 @@ export interface CategoryItem {
   name: string
   description: string
   tagline: string
+  /** Catalogue size, revealed when the band expands. PLACEHOLDER figure. */
+  count: string
 }
 
 export interface ShowcaseItem {

@@ -7,19 +7,25 @@ interface SectionHeadingProps {
   /** Id of the heading element, referenced by the section's `aria-labelledby`. */
   id: string
   eyebrow: string
-  title: ReactNode
+  /** Plain text; the last word is marked automatically. Use `title` for nodes. */
+  titleText?: string
+  /** Full control over the heading content, when `titleText` is not enough. */
+  title?: ReactNode
   subtitle?: string
   className?: string
   align?: "start" | "center"
 }
 
 /**
- * Eyebrow + H2 + the extrusion rule that underlines every section title.
- * The rule draws itself once the heading scrolls into view.
+ * Eyebrow + H2. The H2 carries no gradient and no shadow; instead a gold bar
+ * scales in behind its last word once the heading scrolls into view, which
+ * keeps the heading at full contrast while still giving the reveal something
+ * to do (DESIGN.md section 3).
  */
 export function SectionHeading({
   id,
   eyebrow,
+  titleText,
   title,
   subtitle,
   className,
@@ -32,23 +38,44 @@ export function SectionHeading({
       ref={ref}
       className={cn(
         "flex flex-col gap-sp-3",
+        isInView && "is-inview",
         align === "center" && "items-center text-center",
         className,
       )}
     >
-      <p className="type-eyebrow text-accent">{eyebrow}</p>
+      <p className="type-eyebrow inline-block self-start border-b-2 border-primary pb-sp-1 text-primary">
+        {eyebrow}
+      </p>
       <h2 id={id} className="type-h2 text-foreground">
-        {title}
+        {titleText ? <MarkedTitle text={titleText} /> : title}
       </h2>
-      <span
-        aria-hidden="true"
-        className={cn("extrude-rule w-[72px]", isInView && "is-inview")}
-      />
       {subtitle ? (
-        <p className={cn("text-muted-foreground max-w-measure-lead", align === "center" && "mx-auto")}>
+        <p
+          className={cn(
+            "text-foreground-dim max-w-measure-lead",
+            align === "center" && "mx-auto",
+          )}
+        >
           {subtitle}
         </p>
       ) : null}
     </div>
+  )
+}
+
+/**
+ * Splits the heading so only the final word carries the gold bar. Highlighting
+ * the whole line would read as a marker pen; highlighting one word reads as
+ * emphasis.
+ */
+function MarkedTitle({ text }: { text: string }) {
+  const words = text.trim().split(/\s+/)
+  const last = words.pop()
+
+  return (
+    <>
+      {words.length > 0 ? `${words.join(" ")} ` : null}
+      <span className="heading-mark">{last}</span>
+    </>
   )
 }

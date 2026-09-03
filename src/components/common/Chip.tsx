@@ -5,19 +5,34 @@ import { cn } from "@/lib/utils"
 interface ChipProps {
   children: ReactNode
   /**
-   * Name of the CSS custom property holding the chip's hue, e.g. `--accent`.
-   * Defaults to the muted foreground so a chip is never colourless.
+   * Custom property name from `_tokens.scss` (e.g. `--tier-anime`) used to tint
+   * the fill and border. The label itself always stays `--foreground`.
    */
-  hueVar?: string
+  tierVar?: string
   className?: string
 }
 
-/** Small mono label in a category or accent hue — the page's "machine voice" tag. */
-export function Chip({ children, hueVar = "--muted-foreground", className }: ChipProps) {
+/**
+ * A small uppercase label on a tinted, pill-shaped fill.
+ *
+ * The text colour is deliberately NOT the tier colour: at 11px the decorative
+ * hues fall below AA on cream (see DESIGN.md colour rule 2). The tier tints the
+ * background and border; `--foreground` carries the words.
+ */
+export function Chip({ children, tierVar = "--gold", className }: ChipProps) {
   return (
     <span
-      className={cn("chip", className)}
-      style={{ "--tier": `var(${hueVar})` } as CSSProperties}
+      className={cn(
+        "type-chip inline-flex items-center gap-sp-1 rounded-pill border-[1.5px] px-sp-2 py-[4px] text-foreground",
+        className,
+      )}
+      style={
+        {
+          "--tier": `var(${tierVar})`,
+          backgroundColor: "hsl(var(--tier) / 0.22)",
+          borderColor: "hsl(var(--tier) / 0.55)",
+        } as CSSProperties
+      }
     >
       {children}
     </span>
