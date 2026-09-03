@@ -23,6 +23,7 @@ location value is invented and must be reviewed with the client before launch.
 | Themes | anime, cosplay, gaming |
 | Primary channel | Instagram [@loot.box.3d](https://instagram.com/loot.box.3d) |
 | Deliverable | one-page landing site |
+| Domain | lootbox3d.it |
 | Ordering | via Instagram DM — there is no storefront |
 
 **Out of scope.** Do not build: analytics, e-commerce or cart, CMS, contact form
@@ -196,7 +197,17 @@ the palette instead of carrying a baked-in background.
 Static build, output `dist/`, build command `npm run build`. Configuration lives
 in `netlify.toml`.
 
-**Target: Netlify.** An SPA rewrite is mandatory — React Router owns the routes,
+**Live at https://lootbox3d.it** (Netlify, custom domain registered at
+Register.it). `www` 301-redirects to the apex, which is the primary domain, and
+Let's Encrypt issues the certificate automatically.
+
+DNS stays on Register's nameservers (`ns1/ns2.register.it`) and only the apex A
+record points at Netlify (`75.2.60.5`); `www` is a CNAME to the apex and follows
+it. This is deliberate: Register deletes mailboxes and their contents if the MX
+record points away from their servers for seven days, so moving the zone to
+Netlify DNS would put the project's future email at risk for no gain.
+
+**Host: Netlify.** An SPA rewrite is mandatory — React Router owns the routes,
 so every path must serve `index.html` or a hard refresh on `/qualcosa` returns a
 404 from the CDN rather than reaching the router.
 

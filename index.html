@@ -13,9 +13,69 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&family=Caveat:wght@600&display=swap"
     />
-    <!-- Title and description are overwritten at runtime from the active locale. -->
-    <title>Loot Box 3D</title>
-    <meta name="description" content="" />
+
+    <!--
+      Everything below is STATIC on purpose.
+
+      `useDocumentMeta` rewrites the title and description at runtime from the
+      active locale, which serves browsers. It does nothing for the crawlers
+      that build link previews — WhatsApp, Instagram, Telegram, Facebook and
+      LinkedIn fetch the HTML and never execute JavaScript, so they only ever
+      see what is written here. When these tags were empty the preview rendered
+      as a bare grey rectangle.
+
+      Keep the values in step with `meta.pageTitle` and `meta.description` in
+      src/i18n/locales/it.json. They are duplicated, not shared: the build has
+      no template step that could inject them, and a wrong preview is worse
+      than a duplicated string.
+
+      A second locale would need per-language tags emitted at build time; today
+      there is one locale, so hardcoding Italian here is correct.
+    -->
+    <title>Loot Box 3D — Collezionabili stampati in 3D per anime, cosplay e gaming</title>
+    <meta
+      name="description"
+      content="Loot Box 3D crea pezzi da collezione stampati in 3D dedicati ad anime, cosplay e gaming: props, statuette e accessori su misura, rifiniti a mano da veri nerd per altri nerd."
+    />
+
+    <!-- The canonical address. www 301-redirects here at the host, and this
+         removes any remaining ambiguity for search engines. -->
+    <link rel="canonical" href="https://lootbox3d.it/" />
+
+    <!-- Open Graph: WhatsApp, Instagram, Facebook, Telegram, LinkedIn. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Loot Box 3D" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:url" content="https://lootbox3d.it/" />
+    <meta
+      property="og:title"
+      content="Loot Box 3D — Collezionabili stampati in 3D"
+    />
+    <meta
+      property="og:description"
+      content="Statuette, props e accessori stampati in 3D e rifiniti a mano, dedicati ad anime, cosplay e gaming. Scrivici su Instagram."
+    />
+    <!-- Absolute URL, 1200x630: relative paths are not resolved by every
+         scraper, and the dimensions are what the platforms crop to. -->
+    <meta property="og:image" content="https://lootbox3d.it/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Il logo Loot Box 3D: un drago e un dado a venti facce che escono da uno scrigno aperto."
+    />
+
+    <!-- X/Twitter reads its own namespace rather than Open Graph. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Loot Box 3D — Collezionabili stampati in 3D"
+    />
+    <meta
+      name="twitter:description"
+      content="Statuette, props e accessori stampati in 3D e rifiniti a mano, dedicati ad anime, cosplay e gaming."
+    />
+    <meta name="twitter:image" content="https://lootbox3d.it/og-image.png" />
   </head>
   <body>
     <div id="root"></div>
