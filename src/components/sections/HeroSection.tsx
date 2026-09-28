@@ -132,8 +132,9 @@ export function HeroSection() {
 }
 
 /**
- * One pass of the ticker. Two identical passes are rendered so the -50%
- * translation lands on a matching frame and the loop is seamless; the duplicate
+ * One pass of the ticker. Two identical passes are rendered and each translates
+ * by -100% of its own width, so the second lands exactly where the first began
+ * and the loop is seamless; the duplicate
  * is hidden from assistive tech so the stats are not announced twice.
  */
 function TickerTrack({ stats, ariaHidden }: { stats: HeroStat[]; ariaHidden?: boolean }) {

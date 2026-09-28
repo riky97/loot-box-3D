@@ -426,20 +426,23 @@
   }
 }
 
-// The tracks are duplicated in the markup, so translating by exactly -50%
-// returns the strip to an identical frame and the loop is seamless.
+// Each copy of a track animates on its own, so the percentage is relative to
+// ONE copy: -100% moves it by exactly one period (the trailing padding equals
+// the gap, so the period is the full width) and the next copy lands where the
+// first began. -50% would be right only for a single wrapper holding both
+// copies; applied per copy, it snapped the strip back half a period every loop.
 @keyframes shelf-left {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
 
 @keyframes shelf-right {
   from {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
   to {
     transform: translateX(0);

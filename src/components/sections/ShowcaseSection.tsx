@@ -17,6 +17,15 @@ import type { ShowcaseItem } from "@/types/content"
 
 const SHOWCASE_HEADING_ID = "showcase-heading"
 
+// Written out in full on purpose. Tailwind keeps a `@layer components` class
+// only if it finds the whole name in the source; building it as
+// `shelf__track--${variant}` hid both names, the rules were dropped from the
+// CSS, and the shelves shipped standing still.
+const TRACK_CLASS = {
+  a: "shelf__track--a",
+  b: "shelf__track--b",
+} as const
+
 /**
  * Archetype: counter-scrolling shelves (DESIGN.md 11.4).
  *
@@ -79,9 +88,9 @@ function Shelf({ items, variant }: { items: ShowcaseItem[]; variant: "a" | "b" }
 }
 
 /**
- * One pass of a shelf. Two identical passes are rendered because the keyframes
- * translate by exactly -50%: the strip lands on a matching frame and the loop
- * has no visible seam. The duplicate is hidden from assistive tech and removed
+ * One pass of a shelf. Two identical passes are rendered and each translates by
+ * -100% of its own width, so the second lands exactly where the first began
+ * and the loop has no visible seam. The duplicate is hidden from assistive tech and removed
  * from the tab order so each tile is announced and focused once.
  */
 function ShelfTrack({
@@ -95,7 +104,7 @@ function ShelfTrack({
 }) {
   return (
     <ul
-      className={`shelf__track shelf__track--${variant} list-none`}
+      className={`shelf__track ${TRACK_CLASS[variant]} list-none`}
       aria-hidden={ariaHidden ? "true" : undefined}
     >
       {items.map((item) => (
