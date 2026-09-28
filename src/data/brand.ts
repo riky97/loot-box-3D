@@ -22,14 +22,29 @@ export const categoryTierVars: Record<CategoryId, string> = {
 }
 
 /**
- * PLACEHOLDER imagery.
+ * Gallery photography, keyed by `ShowcaseItem.id`.
  *
- * There is no `SHOWCASE_IMAGES` map: the client has supplied no photography,
- * and pointing the catalogue at a third-party photo host meant broken tiles, a
- * licensing question on a client deliverable, and a runtime dependency on
- * someone else's CDN. Each tile draws its own stand-in instead — see
- * `PlaceholderTile`.
+ * Paths, not copy, so they live here rather than in the locale files: a second
+ * language translates the names and alt text but shows the same photos.
  *
- * TODO: when the real photography arrives, add the files under `public/` and
- * swap `PlaceholderTile` for an `<img>` in `ShowcaseSection`.
+ * Every file is 560x700 WebP (4:5, 2x the widest 280px tile) with all metadata
+ * stripped — the originals are phone photos and several carry GPS coordinates.
+ * Keep both properties when adding a photo.
  */
+export const SHOWCASE_IMAGES: Record<string, string> = {
+  samehada: "/showcase/samehada.webp",
+  "cape-buttons": "/showcase/cape-buttons.webp",
+  "vegeta-chibi": "/showcase/vegeta-chibi.webp",
+  charizard: "/showcase/charizard.webp",
+  "pokeball-card-box": "/showcase/pokeball-card-box.webp",
+  "graded-card-case": "/showcase/graded-card-case.webp",
+  "boromir-pen-holder": "/showcase/boromir-pen-holder.webp",
+  bender: "/showcase/bender.webp",
+  "resin-dragon": "/showcase/resin-dragon.webp",
+  "cat-glasses-stand": "/showcase/cat-glasses-stand.webp",
+  "fellowship-sword": "/showcase/fellowship-sword.webp",
+  "trex-totoro": "/showcase/trex-totoro.webp",
+}
+
+/** Intrinsic size of every file in `SHOWCASE_IMAGES`, used to reserve space. */
+export const SHOWCASE_IMAGE_SIZE = { width: 560, height: 700 } as const

@@ -109,60 +109,94 @@
     "title": "Alcuni pezzi usciti dal laboratorio",
     "subtitle": "Una selezione dei nostri lavori più recenti, tra statuette, props e accessori.",
     "filterAll": "Tutti",
-    "note": "Prodotti e immagini segnaposto: da sostituire con il catalogo reale e le foto definitive da concordare con il cliente.",
     "items": [
       {
-        "id": "kitsune-mask",
-        "name": "Kitsune Mask",
+        "id": "samehada",
+        "name": "Samehada di Kisame",
         "category": "cosplay",
-        "tag": "Prop"
+        "tag": "Prop",
+        "alt": "La spada Samehada tenuta in mano in giardino: impugnatura dorata intrecciata e un teschio avorio all'estremità."
       },
       {
-        "id": "chibi-ronin",
-        "name": "Chibi Ronin",
+        "id": "vegeta-chibi",
+        "name": "Vegeta chibi",
         "category": "anime",
-        "tag": "Statuetta"
+        "tag": "Statuetta",
+        "alt": "Statuetta chibi di Vegeta a braccia conserte su una base tonda, stampata in grigio e non ancora dipinta."
       },
       {
-        "id": "ranger-helm",
-        "name": "Elmo da Ranger",
-        "category": "cosplay",
-        "tag": "Prop"
-      },
-      {
-        "id": "obsidian-die",
-        "name": "Dado d'Ossidiana",
-        "category": "gaming",
-        "tag": "Collezionabile"
-      },
-      {
-        "id": "cyber-katana",
-        "name": "Cyber Katana",
-        "category": "gaming",
-        "tag": "Replica"
-      },
-      {
-        "id": "moon-guardian",
-        "name": "Moon Guardian",
-        "category": "anime",
-        "tag": "Diorama"
-      },
-      {
-        "id": "spirit-fox-keychain",
-        "name": "Spirit Fox",
-        "category": "anime",
-        "tag": "Portachiavi"
-      },
-      {
-        "id": "custom-badge",
-        "name": "Distintivo Personalizzato",
+        "id": "boromir-pen-holder",
+        "name": "Boromir portapenne",
         "category": "other",
-        "tag": "Su richiesta"
+        "tag": "Da scrivania",
+        "alt": "Portapenne a forma di Boromir inginocchiato, con le penne infilate come le frecce del film."
+      },
+      {
+        "id": "pokeball-card-box",
+        "name": "Pokéball portacarte",
+        "category": "gaming",
+        "tag": "Collezionabile",
+        "alt": "Una Pokéball rossa e bianca su un piedistallo nero, illuminata da una luce rosa."
+      },
+      {
+        "id": "trex-totoro",
+        "name": "T-rex e Totoro",
+        "category": "anime",
+        "tag": "Statuette",
+        "alt": "Due piccoli T-rex, uno grigio scuro e uno azzurro, accanto a un Totoro grigio su un piano scuro."
+      },
+      {
+        "id": "fellowship-sword",
+        "name": "Spada della Compagnia",
+        "category": "other",
+        "tag": "Decorazione",
+        "alt": "Spada nera stampata a sagoma, con le figure della Compagnia dell'Anello in cammino tra le montagne lungo la lama."
+      },
+      {
+        "id": "resin-dragon",
+        "name": "Drago in resina",
+        "category": "other",
+        "tag": "Statuetta",
+        "alt": "Statuetta di drago in resina azzurra con le ali aperte, appollaiato su un cumulo di teschi."
+      },
+      {
+        "id": "cape-buttons",
+        "name": "Bottoni per mantello",
+        "category": "cosplay",
+        "tag": "Accessorio",
+        "alt": "Mantello nero con colletto di pelliccia, chiuso da quattro bottoni dorati stampati in 3D, con una croce dorata sul dorso."
+      },
+      {
+        "id": "cat-glasses-stand",
+        "name": "Gatto porta-occhiali",
+        "category": "other",
+        "tag": "Da scrivania",
+        "alt": "Porta-occhiali nero lucido a forma di testa di gatto, con un paio di occhiali appoggiato sopra."
+      },
+      {
+        "id": "charizard",
+        "name": "Charizard",
+        "category": "anime",
+        "tag": "Statuetta",
+        "alt": "Statuetta di Charizard con le ali spiegate, stampata in grigio e non ancora dipinta."
+      },
+      {
+        "id": "bender",
+        "name": "Bender",
+        "category": "other",
+        "tag": "Statuetta",
+        "alt": "Sagoma di Bender di Futurama in grigio e nero, in piedi su una base nera."
+      },
+      {
+        "id": "graded-card-case",
+        "name": "Teca per carta gradata",
+        "category": "gaming",
+        "tag": "Accessorio",
+        "alt": "Teca con cornice dorata che espone una carta Pokémon Lugia gradata 9.5."
       }
     ],
     "shelfHint": "Passa il mouse per fermare lo scorrimento",
-    "ctaLabel": "Guarda tutta la galleria su Instagram",
-    "placeholderBadge": "Segnaposto"
+    "ctaLabel": "Guarda tutta la galleria su Instagram"
   },
   "howItWorks": {
     "eyebrow": "Come funziona",

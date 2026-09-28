@@ -3,10 +3,14 @@ import { useTranslation } from "react-i18next"
 
 import { Chip } from "@/components/common/Chip"
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
-import { PlaceholderTile } from "@/components/common/PlaceholderTile"
 import { SectionHeading } from "@/components/common/SectionHeading"
 import { Button } from "@/components/ui/button"
-import { BRAND_LINKS, categoryTierVars } from "@/data/brand"
+import {
+  BRAND_LINKS,
+  SHOWCASE_IMAGE_SIZE,
+  SHOWCASE_IMAGES,
+  categoryTierVars,
+} from "@/data/brand"
 import { useContentList } from "@/i18n/useContentList"
 import { SECTION_IDS } from "@/routes/paths"
 import type { ShowcaseItem } from "@/types/content"
@@ -53,16 +57,13 @@ export function ShowcaseSection() {
       </div>
 
       {/* The axis flips back to centred here. */}
-      <div className="shell mt-sp-8 flex flex-col items-center gap-sp-4 text-center">
+      <div className="shell mt-sp-8 flex justify-center">
         <Button asChild size="lg" className="btn-pop">
           <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
             <InstagramGlyph className="size-4" />
             {t("showcase.ctaLabel")}
           </a>
         </Button>
-        <p className="type-meta max-w-measure-lead text-muted-foreground">
-          {t("showcase.note")}
-        </p>
       </div>
     </section>
   )
@@ -92,8 +93,6 @@ function ShelfTrack({
   variant: "a" | "b"
   ariaHidden?: boolean
 }) {
-  const { t } = useTranslation()
-
   return (
     <ul
       className={`shelf__track shelf__track--${variant} list-none`}
@@ -110,9 +109,17 @@ function ShelfTrack({
             data-spotlight=""
             style={{ "--tier": `var(${categoryTierVars[item.category]})` } as CSSProperties}
           >
-            <PlaceholderTile
-              tierVar={categoryTierVars[item.category]}
-              label={t("showcase.placeholderBadge")}
+            {/* Width and height reserve the 4:5 box before the file arrives, so
+                the shelf never reflows mid-scroll. `bg-surface-alt` is what
+                shows during that gap. */}
+            <img
+              src={SHOWCASE_IMAGES[item.id]}
+              alt={item.alt}
+              width={SHOWCASE_IMAGE_SIZE.width}
+              height={SHOWCASE_IMAGE_SIZE.height}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/5] w-full bg-surface-alt object-cover"
             />
             <div className="flex items-center justify-between gap-sp-2 p-sp-4">
               <span className="type-h3 truncate text-body text-foreground">{item.name}</span>

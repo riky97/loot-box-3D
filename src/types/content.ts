@@ -23,10 +23,13 @@ export interface CategoryItem {
 }
 
 export interface ShowcaseItem {
+  /** Also the key into `SHOWCASE_IMAGES` in `src/data/brand.ts`. */
   id: string
   name: string
   category: CategoryId
   tag: string
+  /** Describes the photo for screen readers; lives here because it is copy. */
+  alt: string
 }
 
 export interface HowItWorksStep {

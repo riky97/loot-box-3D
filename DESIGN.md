@@ -686,11 +686,23 @@ Recorded so the comparison against `master` stays honest.
 | Tier L2–L3 suggested | L2 | L3 requires GSAP/Three.js, which `plan.md` §2 gates behind explicit approval — approval was declined in favour of a zero-dependency build |
 | Emoji permitted in Playful tone | not used | the brand mark is line art; emoji would compete with it |
 
-**Image strategy.** The client has supplied no product photography. Showcase and
-category tiles use Unsplash placeholders, declared in a single `const IMG` map at
-the top of the data module and flagged in the UI copy as placeholder. Solid
-colour blocks are not acceptable. Swapping to real photography must be a
-one-file change.
+**Image strategy.** The showcase uses the client's own photography: twelve
+pieces, six per shelf, chosen from their shared album. Six is a floor, not a
+taste: a shelf repeats a photo on screen whenever one pass (6 x 304px = 1824px)
+is narrower than the viewport, and four per shelf made that visible from about
+1216px up. Order the list so no two neighbours in a shelf share a category,
+wrap-around included. Each file is a 4:5
+centre crop at 560x700 (2x the widest tile) in WebP, stored in
+`public/showcase/`, with all metadata stripped because the phone originals
+carry GPS coordinates. Paths live in `SHOWCASE_IMAGES` in `src/data/brand.ts`;
+names, tags and alt text live in the locale file, since they are copy.
+
+History, so it is not repeated: the first draft specified Unsplash
+placeholders, but the photo IDs written here did not resolve and every tile
+404'd. They were replaced by a self-drawn `PlaceholderTile`, which in turn was
+removed when the real photography arrived. Swapping photos touches three
+places, not one: the file in `public/showcase/`, its entry in
+`SHOWCASE_IMAGES`, and the item in `it.json`.
 
 ---
 
