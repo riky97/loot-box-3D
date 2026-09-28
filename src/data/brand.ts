@@ -46,5 +46,24 @@ export const SHOWCASE_IMAGES: Record<string, string> = {
   "trex-totoro": "/showcase/trex-totoro.webp",
 }
 
+/**
+ * Showcase items the studio designed itself, keyed by `ShowcaseItem.id`. Only
+ * these carry the "Design originale" badge; everything else is a third-party
+ * model printed without a commercial licence (see `showcase.licenseNote`).
+ *
+ * A fact about the piece, not copy, so it lives here and not in each locale,
+ * where two languages could disagree about who designed something.
+ *
+ * TEST DATA — four ids drawn at random to exercise the badge. The client has
+ * not said which pieces are theirs yet, and a badge on the wrong piece is a
+ * false attribution on a public page. Replace before this reaches master.
+ */
+export const ORIGINAL_DESIGNS: ReadonlySet<string> = new Set([
+  "vegeta-chibi",
+  "trex-totoro",
+  "cape-buttons",
+  "bender",
+])
+
 /** Intrinsic size of every file in `SHOWCASE_IMAGES`, used to reserve space. */
 export const SHOWCASE_IMAGE_SIZE = { width: 560, height: 700 } as const

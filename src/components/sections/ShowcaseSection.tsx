@@ -1,3 +1,4 @@
+import { PenTool } from "lucide-react"
 import type { CSSProperties } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -7,6 +8,7 @@ import { SectionHeading } from "@/components/common/SectionHeading"
 import { Button } from "@/components/ui/button"
 import {
   BRAND_LINKS,
+  ORIGINAL_DESIGNS,
   SHOWCASE_IMAGE_SIZE,
   SHOWCASE_IMAGES,
   categoryTierVars,
@@ -66,13 +68,17 @@ export function ShowcaseSection() {
       </div>
 
       {/* The axis flips back to centred here. */}
-      <div className="shell mt-sp-8 flex justify-center">
+      <div className="shell mt-sp-8 flex flex-col items-center gap-sp-4 text-center">
         <Button asChild size="lg" className="btn-pop">
           <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
             <InstagramGlyph className="size-4" />
             {t("showcase.ctaLabel")}
           </a>
         </Button>
+        {/* Explains the badge, and why the unbadged pieces are not for sale. */}
+        <p className="type-meta max-w-measure-lead text-foreground-dim">
+          {t("showcase.licenseNote")}
+        </p>
       </div>
     </section>
   )
@@ -102,6 +108,8 @@ function ShelfTrack({
   variant: "a" | "b"
   ariaHidden?: boolean
 }) {
+  const { t } = useTranslation()
+
   return (
     <ul
       className={`shelf__track ${TRACK_CLASS[variant]} list-none`}
@@ -121,15 +129,27 @@ function ShelfTrack({
             {/* Width and height reserve the 4:5 box before the file arrives, so
                 the shelf never reflows mid-scroll. `bg-surface-alt` is what
                 shows during that gap. */}
-            <img
-              src={SHOWCASE_IMAGES[item.id]}
-              alt={item.alt}
-              width={SHOWCASE_IMAGE_SIZE.width}
-              height={SHOWCASE_IMAGE_SIZE.height}
-              loading="lazy"
-              decoding="async"
-              className="aspect-[4/5] w-full bg-surface-alt object-cover"
-            />
+            <div className="relative">
+              <img
+                src={SHOWCASE_IMAGES[item.id]}
+                alt={item.alt}
+                width={SHOWCASE_IMAGE_SIZE.width}
+                height={SHOWCASE_IMAGE_SIZE.height}
+                loading="lazy"
+                decoding="async"
+                className="aspect-[4/5] w-full bg-surface-alt object-cover"
+              />
+              {/* Solid cream, not the translucent Chip tint: it sits on a
+                  photo, where a tint would take its contrast from whatever is
+                  underneath. The text is real, so it joins the link's
+                  accessible name rather than hiding behind the icon. */}
+              {ORIGINAL_DESIGNS.has(item.id) && (
+                <span className="type-chip absolute left-sp-3 top-sp-3 inline-flex items-center gap-sp-1 rounded-pill border-[1.5px] border-foreground bg-background px-sp-2 py-[4px] text-foreground shadow-pop">
+                  <PenTool className="size-3" aria-hidden="true" />
+                  {t("showcase.originalBadge")}
+                </span>
+              )}
+            </div>
             <div className="flex items-center justify-between gap-sp-2 p-sp-4">
               <span className="type-h3 truncate text-body text-foreground">{item.name}</span>
               <Chip tierVar={categoryTierVars[item.category]}>{item.tag}</Chip>

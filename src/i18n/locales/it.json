@@ -196,7 +196,9 @@
       }
     ],
     "shelfHint": "Passa il mouse per fermare lo scorrimento",
-    "ctaLabel": "Guarda tutta la galleria su Instagram"
+    "ctaLabel": "Guarda tutta la galleria su Instagram",
+    "originalBadge": "Design originale",
+    "licenseNote": "I pezzi con il badge «Design originale» sono progettati da noi. Gli altri sono modelli di altri autori che abbiamo solo stampato, senza licenza commerciale: li mostriamo come esempio del nostro lavoro e non sono in vendita."
   },
   "howItWorks": {
     "eyebrow": "Come funziona",
@@ -205,8 +207,8 @@
     "steps": [
       {
         "number": "01",
-        "title": "Scegli o scrivici",
-        "description": "Sfoglia la galleria o mandaci un messaggio con l'idea, il personaggio o il prop che hai in mente."
+        "title": "Scrivici",
+        "description": "Mandaci un messaggio con l'idea, il personaggio o il prop che hai in mente."
       },
       {
         "number": "02",
@@ -216,7 +218,7 @@
       {
         "number": "03",
         "title": "Stampiamo e rifiniamo",
-        "description": "Il pezzo prende forma stampa dopo stampa, poi viene carteggiato, pulito ed eventualmente verniciato a mano."
+        "description": "Il pezzo prende forma e, dopo una fase di post-produzione, possiamo anche dipingerlo."
       },
       {
         "number": "04",
