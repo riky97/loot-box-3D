@@ -78,5 +78,23 @@ export const ORIGINAL_DESIGNS: ReadonlySet<string> = new Set([
  */
 export const SHOWCASE_EXTRA_IMAGES: Record<string, readonly string[]> = {}
 
+/**
+ * Timelapses and photos for the lab page, keyed by `LabStep.id` in it.json.
+ * A step with no entry shows no media. Files live in `public/laboratorio/`.
+ *
+ * Videos: 10-20 s, no audio track, MP4 (H.264) at about 720p, a few MB each.
+ * They play muted and looped only while on screen. `poster` is the frame shown
+ * before the video loads and, under reduced motion, instead of autoplay.
+ *
+ * Example:
+ *   sanding: { type: "video", src: "/laboratorio/carteggiatura.mp4", poster: "/laboratorio/carteggiatura.webp" },
+ *   cleaning: { type: "image", src: "/laboratorio/pulizia.webp" },
+ */
+export type LabMedia =
+  | { type: "video"; src: string; poster?: string }
+  | { type: "image"; src: string }
+
+export const LAB_MEDIA: Record<string, LabMedia> = {}
+
 /** Intrinsic size of every file in `SHOWCASE_IMAGES`, used to reserve space. */
 export const SHOWCASE_IMAGE_SIZE = { width: 560, height: 700 } as const

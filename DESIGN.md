@@ -908,6 +908,24 @@ destinations to justify one.
 - Wordmark uses `-webkit-text-stroke` in `--border`, `aria-hidden`; the accessible brand name is on the real lockup above.
 - The second and final Caveat placement lives here.
 
+### Lab page — `/laboratorio` ("Come lavoriamo")
+
+A page of its own, not a home section: the home stays a quick read, and the
+detail lives one click away for the visitor who wants it. Reached from the
+"Laboratorio" nav entry and from the three About pillars, which open
+`/laboratorio#materiali`, `#rifinitura` and `#su-misura`.
+
+- Header (eyebrow, H1, intro) with jump links to the sections, then Materials
+  (a card per material), Hand finishing and Made to measure (numbered steps,
+  since they are real sequences), Printers, and a closing Instagram/email panel.
+- All copy comes from `lab` in it.json. Blank fields are not shown, entries with
+  a blank name or title are skipped, and Printers appears only once a printer
+  is named, so the page can be filled in gradually.
+- A step can carry a timelapse or photo through `LAB_MEDIA` in brand.ts;
+  `LabMediaFrame` loads a video only near the screen, plays it muted and looped
+  while visible, pauses it off screen, and under reduced motion shows the
+  poster with controls instead of autoplaying.
+
 ---
 
 ### Composition guardrails

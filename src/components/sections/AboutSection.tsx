@@ -1,9 +1,11 @@
+import { ArrowRight } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
 
 import { Reveal } from "@/components/common/Reveal"
 import { SectionHeading } from "@/components/common/SectionHeading"
 import { useContentList } from "@/i18n/useContentList"
-import { SECTION_IDS } from "@/routes/paths"
+import { ROUTES, SECTION_IDS } from "@/routes/paths"
 import type { AboutPillar } from "@/types/content"
 
 const ABOUT_HEADING_ID = "about-heading"
@@ -50,10 +52,22 @@ export function AboutSection() {
             {pillars.map((pillar, index) => (
               <li key={pillar.title}>
                 <Reveal delayIndex={index}>
-                  <article className="rounded-lg border-2 border-border bg-surface p-sp-6 shadow-raised transition-[transform,border-color] duration-base ease-bounce hover:-translate-y-1 hover:border-primary">
+                  {/* Each pillar opens its own section of the lab page, where
+                      the claim is backed by the details. */}
+                  <Link
+                    to={{ pathname: ROUTES.lab, hash: `#${pillar.labSection}` }}
+                    className="group block rounded-lg border-2 border-border bg-surface p-sp-6 shadow-raised transition-[transform,border-color] duration-base ease-bounce hover:-translate-y-1 hover:border-primary"
+                  >
                     <h3 className="type-h3 text-foreground">{pillar.title}</h3>
                     <p className="mt-sp-2 text-foreground-dim">{pillar.description}</p>
-                  </article>
+                    <span className="type-meta mt-sp-3 inline-flex items-center gap-sp-2 text-primary">
+                      {t("about.pillarCta")}
+                      <ArrowRight
+                        aria-hidden="true"
+                        className="size-4 transition-transform duration-base ease-bounce group-hover:translate-x-1"
+                      />
+                    </span>
+                  </Link>
                 </Reveal>
               </li>
             ))}

@@ -17,6 +17,7 @@
     "categories": "Categorie",
     "showcase": "Galleria",
     "howItWorks": "Come funziona",
+    "lab": "Laboratorio",
     "contact": "Contatti",
     "menuLabel": "Menu",
     "openMenu": "Apri il menu",
@@ -60,17 +61,21 @@
     "pillars": [
       {
         "title": "Materiali selezionati",
-        "description": "Stampiamo in PLA (Basic, Matte, Wood, Glow, Metal, Silk+, Pure, Marble), PETG Basic, ASA, ABS, PC, TPU e resina, scegliendo il materiale in base al pezzo per resistenza, dettaglio e finitura."
+        "description": "Stampiamo in PLA (Basic, Matte, Wood, Glow, Metal, Silk+, Pure, Marble), PETG Basic, ASA, ABS, PC, TPU e resina, scegliendo il materiale in base al pezzo per resistenza, dettaglio e finitura.",
+        "labSection": "materiali"
       },
       {
         "title": "Rifinitura a mano",
-        "description": "Ogni stampa viene carteggiata, pulita e dipinta a mano da noi, un pezzo alla volta."
+        "description": "Ogni stampa viene carteggiata, pulita e dipinta a mano da noi, un pezzo alla volta.",
+        "labSection": "rifinitura"
       },
       {
         "title": "Pezzi su misura",
-        "description": "Hai un'idea, un personaggio o un prop specifico? Lo progettiamo e stampiamo su richiesta."
+        "description": "Hai un'idea, un personaggio o un prop specifico? Lo progettiamo e stampiamo su richiesta.",
+        "labSection": "su-misura"
       }
-    ]
+    ],
+    "pillarCta": "Scopri come lavoriamo"
   },
   "categories": {
     "eyebrow": "Cosa stampiamo",
@@ -134,6 +139,117 @@
     "ctaLabel": "Chiedi un pezzo simile",
     "photoCount": "Foto {{index}} di {{total}}",
     "relatedTitle": "Altri pezzi della stessa categoria"
+  },
+  "lab": {
+    "_guida": "Pagina Laboratorio (/laboratorio). Ogni testo si può lasciare vuoto (\"\"): un campo vuoto non compare, e una voce con \"name\" o \"title\" vuoto viene saltata del tutto. Per aggiungere un materiale, un passaggio o una stampante copia una voce vuota e compilala. Materiali: \"bestFor\" = per cosa lo scegliete, \"finish\" = che superficie lascia, \"notes\" = altro. Passaggi: \"products\" = prodotti usati (marche di primer, colori, vernici), \"mediaAlt\" = descrizione del video o della foto. I video e le foto si collegano ai passaggi in src/data/brand.ts, in LAB_MEDIA, usando l'\"id\" del passaggio. La sezione Stampanti compare solo quando c'è almeno una stampante con il nome.",
+    "metaTitle": "Come lavoriamo — Loot Box 3D",
+    "metaDescription": "Materiali, rifinitura a mano e pezzi su misura: come nasce un pezzo nel laboratorio di Loot Box 3D.",
+    "eyebrow": "Laboratorio",
+    "title": "Come lavoriamo",
+    "intro": "Ogni pezzo passa da tre fasi: la scelta del materiale, la stampa e la rifinitura a mano. Qui ti raccontiamo come le affrontiamo, un passaggio alla volta.",
+    "materials": {
+      "title": "Materiali",
+      "intro": "Scegliamo il materiale in base al pezzo: resistenza, livello di dettaglio e finitura che vuoi ottenere.",
+      "bestForLabel": "Ideale per",
+      "finishLabel": "Finitura",
+      "items": [
+        {
+          "name": "PLA",
+          "bestFor": "",
+          "finish": "",
+          "notes": ""
+        },
+        {
+          "name": "Resina",
+          "bestFor": "",
+          "finish": "",
+          "notes": ""
+        },
+        {
+          "name": "",
+          "bestFor": "",
+          "finish": "",
+          "notes": ""
+        }
+      ]
+    },
+    "finishing": {
+      "title": "Rifinitura a mano",
+      "intro": "Dopo la stampa ogni pezzo viene pulito, carteggiato e, se richiesto, dipinto a mano da noi, un pezzo alla volta.",
+      "productsLabel": "Cosa usiamo",
+      "steps": [
+        {
+          "id": "cleaning",
+          "title": "Pulizia",
+          "description": "Togliamo i supporti di stampa e puliamo il pezzo.",
+          "products": "",
+          "mediaAlt": ""
+        },
+        {
+          "id": "sanding",
+          "title": "Carteggiatura",
+          "description": "Leviamo i segni degli strati per una superficie uniforme.",
+          "products": "",
+          "mediaAlt": ""
+        },
+        {
+          "id": "painting",
+          "title": "Verniciatura a mano",
+          "description": "Dipingiamo il pezzo a mano, curando i dettagli.",
+          "products": "",
+          "mediaAlt": ""
+        },
+        {
+          "id": "finishing-extra",
+          "title": "",
+          "description": "",
+          "products": "",
+          "mediaAlt": ""
+        }
+      ]
+    },
+    "custom": {
+      "title": "Pezzi su misura",
+      "intro": "Hai un'idea, un personaggio o un prop specifico? Lo progettiamo e lo stampiamo su richiesta.",
+      "steps": [
+        {
+          "id": "idea",
+          "title": "Ci racconti l'idea",
+          "description": "Mandaci foto, riferimenti e, se le hai, le misure che ti servono.",
+          "products": "",
+          "mediaAlt": ""
+        },
+        {
+          "id": "modelling",
+          "title": "Progettiamo il modello 3D",
+          "description": "Disegniamo il modello e lo adattiamo alla stampa.",
+          "products": "",
+          "mediaAlt": ""
+        },
+        {
+          "id": "printing",
+          "title": "Stampiamo e rifiniamo",
+          "description": "Il pezzo prende forma e passa dalla rifinitura a mano.",
+          "products": "",
+          "mediaAlt": ""
+        }
+      ]
+    },
+    "printers": {
+      "title": "Le nostre stampanti",
+      "intro": "",
+      "items": [
+        {
+          "name": "",
+          "technology": "",
+          "notes": ""
+        }
+      ]
+    },
+    "cta": {
+      "title": "Hai un'idea? Scrivici",
+      "text": "Raccontaci cosa hai in mente: valutiamo insieme materiale, finitura, tempi e costo."
+    }
   },
   "showcase": {
     "eyebrow": "Galleria",
