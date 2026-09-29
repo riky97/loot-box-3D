@@ -35,9 +35,13 @@ $color-foreground-dim: 18 10% 34%; // #5E524D   7.15 AAA
 $color-muted-foreground: 18 9% 44%; // #7A6C66   4.79 AA
 
 // -- Primary ------------------------------------------------------------------
-$color-primary: 344 100% 42%; // #D60039   5.09 AA / white on it 5.36 AA
-$color-primary-hover: 344 100% 36%; // #B80031   white on it 6.81 AA
-$color-primary-deep: 344 100% 28%; // #8F0026   pressed-state offset shadow
+// Forest green, chosen by the client over the original crimson: a muted,
+// deep green that sits calmly beside the cream ground and the gold accent.
+// Hover and deep are the same hue and saturation, darker, so the buttons keep
+// their pressed-block look.
+$color-primary: 152 45% 28%; // #27684A   6.34 AA / white on it 6.67 AA
+$color-primary-hover: 152 45% 22%; // #1F513A   white on it 9.11 AAA
+$color-primary-deep: 152 45% 15%; // #153727   pressed-state offset shadow
 
 // -- Decorative accents — NEVER carry text (DESIGN.md color rule 2) -----------
 $color-accent-vivid: 345 100% 60%; // #FF3366   3.37 — fills, glows, gradients
@@ -280,7 +284,7 @@ $dur-shelf-b: 42s; // deliberately not a multiple of A, so the rows never sync
   --shadow-elevated: 0 6px 0 0 hsl(var(--border)),
     0 18px 34px -14px hsl(var(--foreground) / 0.22);
   --shadow-glow: 0 0 0 2px hsl(var(--primary) / 0.35),
-    0 10px 30px -10px hsl(var(--accent-vivid) / 0.45);
+    0 10px 30px -10px hsl(var(--primary) / 0.45);
 
   --btn-pop: 0 4px 0 0 hsl(var(--primary-hover));
   --btn-pop-hover: 0 6px 0 0 hsl(var(--primary-deep)),

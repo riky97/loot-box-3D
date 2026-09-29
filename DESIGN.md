@@ -51,7 +51,7 @@ assumed.
 
   /* Borders */
   --border:         #F2DAC6;   /* default hairline, warm */
-  --border-hover:   #D60039;   /* border adopts primary on hover */
+  --border-hover:   #27684A;   /* border adopts primary on hover */
 
   /* Text */
   --text:           #2A211E;   /* warm near-black — headings, key copy */
@@ -59,8 +59,8 @@ assumed.
   --text-tertiary:  #7A6C66;   /* labels, meta, captions */
 
   /* Accent — primary */
-  --primary:        #D60039;   /* CTAs, links, active state */
-  --primary-hover:  #B80031;
+  --primary:        #27684A;   /* forest green: CTAs, links, active state */
+  --primary-hover:  #1F513A;
 
   /* Accent — decorative only, NEVER text (see Color Rules) */
   --accent-vivid:   #FF3366;   /* the seed magenta: gradients, glows, shadow tints */
@@ -94,10 +94,10 @@ assumed.
 | `--text` on `--bg` | 14.94 | AAA |
 | `--text-secondary` on `--bg` | 7.15 | AAA |
 | `--text-tertiary` on `--bg` | 4.79 | AA |
-| `--primary` on `--bg` | 5.09 | AA |
-| `--primary` on `--surface` | 5.36 | AA |
-| white on `--primary` (CTA) | 5.36 | AA |
-| white on `--primary-hover` | 6.81 | AA |
+| `--primary` on `--bg` | 6.34 | AA |
+| `--primary` on `--surface` | 6.67 | AA |
+| white on `--primary` (CTA) | 6.67 | AA |
+| white on `--primary-hover` | 9.11 | AAA |
 | `--green` on `--bg` | 5.10 | AA |
 | `--gold-ink` on `--bg` | 4.67 | AA |
 | `--text` on `--gold` fill | 11.22 | AAA |
@@ -109,7 +109,7 @@ assumed.
 1. **Zero hardcoded hex outside `_tokens.scss`.** Every colour is referenced through a custom property. A `grep` for `#[0-9a-fA-F]{6}` outside the token file must return nothing.
 2. **`--accent-vivid`, `--gold` and `--green-vivid` are decoration, never text.** They fail AA on cream at body size. Use them as fills, rules, gradient stops, glow tints and shadow colours. When their hue must carry words, use `--primary`, `--gold-ink` and `--green` instead.
 3. **Gold is a background, not a foreground.** `--text` on a `--gold` fill is 11.22 and excellent. `--gold` on cream is 1.33 and invisible.
-4. **One accent per section.** Magenta leads; gold and green appear as the category coding and as small punctuation. Never all three competing in one viewport.
+4. **One accent per section.** Forest green leads; gold and green appear as the category coding and as small punctuation. Never all three competing in one viewport.
 5. **The category colour coding is fixed**: anime → `--accent-vivid`, gadget → `--gold`, gaming → `--green-vivid`, other → `--text-tertiary`. These tint borders, chips and card glows only; the card's own text stays `--text` / `--text-secondary`.
 
 ---
@@ -192,9 +192,9 @@ Decisions run against the skill's decision table for Playful Creative:
 .btn--primary            { background: var(--primary); color: var(--surface);
                            box-shadow: 0 4px 0 0 var(--primary-hover); }
 .btn--primary:hover      { background: var(--primary-hover); transform: translateY(-2px);
-                           box-shadow: 0 6px 0 0 #8F0026,
+                           box-shadow: 0 6px 0 0 #153727,
                                        0 10px 24px -8px rgba(var(--primary-rgb), 0.45); }
-.btn--primary:active     { transform: translateY(2px); box-shadow: 0 2px 0 0 #8F0026; }
+.btn--primary:active     { transform: translateY(2px); box-shadow: 0 2px 0 0 #153727; }
 .btn--primary:focus-visible { outline: none;
                            box-shadow: 0 0 0 3px var(--bg), 0 0 0 6px var(--primary); }
 .btn--primary:disabled   { background: var(--border); color: var(--text-tertiary);
@@ -678,6 +678,7 @@ Recorded so the comparison against `master` stays honest.
 | Seed value | Shipped value | Reason |
 | --- | --- | --- |
 | `--accent #FF3366` used freely | `#D60039` for text and fills; `#FF3366` demoted to decoration | white on `#FF3366` is 3.55 — the primary CTA would have failed AA |
+| Primary `#D60039` (crimson) | `#27684A` forest green, hover `#1F513A`, pressed shadow `#153727` | client feedback: the red buttons were not liked; a muted, not-too-bright green was asked for. Every red accent moved with it (labels, icons, progress bar, focus ring, contact panel glow) so the site keeps one leading colour. `#FF3366` stays as the anime category tint only |
 | `--accent-2 #FFD700` as an accent | background-only, plus `#8A6D00` for text | 1.33 on cream |
 | `--accent-3 #00CC88` as an accent | background-only, plus `#007A52` for text | 2.00 on cream |
 | Border `#FFE0CC` | `#F2DAC6` | slightly deeper so the 2px card border is actually visible |
