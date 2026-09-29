@@ -31,6 +31,13 @@ const router = createBrowserRouter([
           return { Component: PiecePage }
         },
       },
+      {
+        path: ROUTES.lab,
+        lazy: async () => {
+          const { LabPage } = await import("@/pages/LabPage")
+          return { Component: LabPage }
+        },
+      },
       // New pages go here: add a sibling object with its own `path`
       // (and a `lazy` loader, following the pattern above).
       {

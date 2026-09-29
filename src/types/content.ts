@@ -1,6 +1,8 @@
 // Shapes for the structured (array/object) i18n content consumed via
 // `useContentList` — these mirror the JSON structures in `src/i18n/locales/it.json`.
 
+import type { LabSectionId } from "@/routes/paths"
+
 /**
  * One entry of the hero strip: a short claim and what it means. Every entry
  * must be true of the studio today; the strip once carried made-up delivery
@@ -14,6 +16,8 @@ export interface HeroHighlight {
 export interface AboutPillar {
   title: string
   description: string
+  /** Section of the lab page the pillar opens, from `LAB_SECTION_IDS`. */
+  labSection: LabSectionId
 }
 
 export type CategoryId = "anime" | "gadget" | "gaming" | "other"
@@ -50,6 +54,39 @@ export interface ShowcaseItem {
   /** A few lines about the piece, for its own page. */
   description?: string
   specs?: ShowcaseSpecs
+}
+
+/*
+ * Lab page (`/laboratorio`). Every text field may be left as "" in it.json:
+ * an empty field is not shown, and an entry with an empty name or title is
+ * skipped entirely, so the locale can carry blank templates to fill in.
+ * See `lab._guida` in it.json.
+ */
+
+export interface LabMaterial {
+  name: string
+  /** What the material is chosen for, e.g. "dettagli fini, statuette". */
+  bestFor: string
+  /** The surface it leaves, e.g. "liscia, pronta da dipingere". */
+  finish: string
+  notes: string
+}
+
+export interface LabStep {
+  /** Key into `LAB_MEDIA` in brand.ts; also keeps React keys stable. */
+  id: string
+  title: string
+  description: string
+  /** Products used in this step (brands, primers, paints, varnishes). */
+  products: string
+  /** Describes the step's video or photo, once one exists in `LAB_MEDIA`. */
+  mediaAlt: string
+}
+
+export interface LabPrinter {
+  name: string
+  technology: string
+  notes: string
 }
 
 export interface HowItWorksStep {

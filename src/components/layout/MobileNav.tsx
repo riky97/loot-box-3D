@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useLocation } from "react-router-dom"
 
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
-import { NAV_ITEMS } from "@/components/layout/MainNav"
-import { SectionLink } from "@/components/layout/SectionLink"
+import { NAV_ITEMS, NavItemLink, isNavItemCurrent } from "@/components/layout/MainNav"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -30,6 +30,7 @@ function HamburgerIcon() {
 export function MobileNav() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -60,20 +61,23 @@ export function MobileNav() {
           className="relative z-10 flex flex-1 flex-col justify-center px-gutter"
         >
           {NAV_ITEMS.map((item, index) => (
-            <SectionLink
-              key={item.id}
-              sectionId={item.id}
+            <NavItemLink
+              key={item.key}
+              item={item}
+              // No section highlighting in the sheet: it covers the page, so
+              // only a page entry can be current here.
+              isCurrent={isNavItemCurrent(item, pathname, null)}
               onClick={() => setOpen(false)}
               className={cn(
                 "flex items-baseline gap-sp-3 border-b border-border py-sp-4 first:border-t",
-                "type-h3 text-foreground transition-colors duration-fast ease-out hover:text-primary",
+                "type-h3 text-foreground transition-colors duration-fast ease-out hover:text-primary aria-[current=page]:text-primary",
               )}
             >
               <span className="type-meta text-muted-foreground">
                 {String(index + 1).padStart(2, "0")}
               </span>
               {t(item.labelKey)}
-            </SectionLink>
+            </NavItemLink>
           ))}
         </nav>
 

@@ -4,6 +4,7 @@ export const ROUTES = {
   home: "/",
   category: "/categorie/:categoryId",
   piece: "/galleria/:pieceId",
+  lab: "/laboratorio",
 } as const
 
 export type RouteKey = keyof typeof ROUTES
@@ -32,3 +33,15 @@ export const SECTION_IDS = {
 
 export type SectionKey = keyof typeof SECTION_IDS
 export type SectionId = (typeof SECTION_IDS)[SectionKey]
+
+// Anchor ids of the sections on the lab page (`/laboratorio`), addressed by the
+// About pillars on the home page as `/laboratorio#<id>`. Italian, because they
+// show in the address bar of a page people share.
+export const LAB_SECTION_IDS = {
+  materials: "materiali",
+  finishing: "rifinitura",
+  custom: "su-misura",
+  printers: "stampanti",
+} as const
+
+export type LabSectionId = (typeof LAB_SECTION_IDS)[keyof typeof LAB_SECTION_IDS]
