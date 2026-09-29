@@ -30,7 +30,8 @@ interface ShelfScrollerOptions {
  * loop endless in both directions without a visible seam.
  *
  * - Drift: a rAF loop advances `scrollLeft` at one track width per
- *   `durationVar`. Off under `prefers-reduced-motion`.
+ *   `durationVar`, running only while the shelf is on screen. Off under
+ *   `prefers-reduced-motion`.
  * - Pauses while hovered, while a tile has keyboard focus, during a drag, and
  *   for `RESUME_AFTER_MS` after any wheel, touch, drag or arrow press.
  * - Mouse drag with a grab cursor; a drag never fires the tile's link.
@@ -96,8 +97,24 @@ export function useShelfScroller(
     }
 
     // -- Drift ----------------------------------------------------------------
+    // The loop runs only while the shelf is on screen (see the
+    // IntersectionObserver below), and never under reduced motion: a
+    // per-frame `scrollLeft` write is main-thread work, unlike the CSS
+    // animation it replaced, and nobody should pay for it off screen.
     let rafId = 0
+    let running = false
     let lastFrame = performance.now()
+    const startDrift = () => {
+      if (running || reduceMotion) return
+      running = true
+      wasPaused = true
+      lastFrame = performance.now()
+      rafId = requestAnimationFrame(tick)
+    }
+    const stopDrift = () => {
+      running = false
+      cancelAnimationFrame(rafId)
+    }
     const tick = (now: number) => {
       // Clamped so a backgrounded tab does not lurch forward on return.
       const dt = Math.min(now - lastFrame, 100) / 1000
@@ -115,9 +132,13 @@ export function useShelfScroller(
         else if (position > period * 1.5) position -= period
         scroller.scrollLeft = position
       }
-      rafId = requestAnimationFrame(tick)
+      if (running) rafId = requestAnimationFrame(tick)
     }
-    rafId = requestAnimationFrame(tick)
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) startDrift()
+      else stopDrift()
+    })
+    visibilityObserver.observe(scroller)
 
     // -- Hover and keyboard focus --------------------------------------------
     const onPointerEnter = (event: PointerEvent) => {
@@ -218,10 +239,15 @@ export function useShelfScroller(
     // -- Touch, wheel and settling -------------------------------------------
     let idleTimer = 0
     const onScroll = () => {
+      // While drifting, the scroll events are the loop's own writes: the loop
+      // wraps itself, so there is nothing to settle and no timer to re-arm on
+      // every frame. Any visitor input pauses first (it marks an interaction),
+      // so its scroll events still get here.
+      if (!isPaused(performance.now())) return
       window.clearTimeout(idleTimer)
       idleTimer = window.setTimeout(() => {
         pendingTarget = null
-        if (isPaused(performance.now())) recentre()
+        recentre()
       }, SCROLL_IDLE_MS)
     }
 
@@ -250,7 +276,8 @@ export function useShelfScroller(
 
     return () => {
       stepRef.current = null
-      cancelAnimationFrame(rafId)
+      stopDrift()
+      visibilityObserver.disconnect()
       window.clearTimeout(idleTimer)
       resizeObserver.disconnect()
       window.removeEventListener("pointermove", onPointerMove)

@@ -14,8 +14,8 @@ interface SectionLinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>,
  * On the home page it is a plain `#id` anchor, so the browser's own smooth
  * scroll and `scroll-margin-top` apply exactly as before. Anywhere else a bare
  * `#id` would point at nothing, so it becomes a router link to `/#id`, and
- * `ScrollManager` in `RootLayout` scrolls to the section once the home page
- * has rendered.
+ * `ScrollRestoration` in `RootLayout` scrolls to the section once the home
+ * page has rendered.
  */
 export function SectionLink({ sectionId, ...props }: SectionLinkProps) {
   const { pathname } = useLocation()
