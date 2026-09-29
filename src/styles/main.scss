@@ -328,31 +328,61 @@
     // mask-image gradient it means "fully opaque". It is the one literal the
     // token discipline in plan.md section 4 does not cover, because there is no
     // colour here to tokenise.
-    overflow: hidden;
+    //
+    // A real scroller, driven by `useShelfScroller`: the drift moves
+    // `scrollLeft`, so touch, trackpad, drag and arrows all act on the same
+    // position. The scrollbar is hidden because the arrows replace it.
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    cursor: grab;
     mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .shelf__track {
     display: flex;
     flex: none;
     gap: var(--sp-5);
+    // Trailing padding equal to the gap makes one track exactly one loop
+    // period wide, which is what the scroller measures to wrap seamlessly.
     padding-right: var(--sp-5);
-    will-change: transform;
+    // Room for the tiles' hover lift and shadow, which the scroller would
+    // otherwise clip.
+    padding-block: var(--sp-2) var(--sp-4);
   }
 
-  .shelf__track--a {
-    animation: shelf-left var(--dur-shelf-a) linear infinite;
-  }
+  // Sits outside `.shelf`, so the edge fade mask does not dim it.
+  .shelf__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 2px solid hsl(var(--foreground));
+    border-radius: var(--radius-pill);
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    box-shadow: var(--shadow-pop);
+    transform: translateY(-50%);
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-bounce);
 
-  .shelf__track--b {
-    animation: shelf-right var(--dur-shelf-b) linear infinite;
-  }
+    &:hover {
+      background: hsl(var(--surface));
+      transform: translateY(-50%) scale(1.06);
+    }
 
-  // Pausing on focus-within is what makes the shelves keyboard-reachable.
-  .shelf:hover .shelf__track,
-  .shelf:focus-within .shelf__track {
-    animation-play-state: paused;
+    &:active {
+      transform: translateY(-50%) scale(0.96);
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -440,15 +470,6 @@
   }
 }
 
-@keyframes shelf-right {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
 @keyframes confetti-fall {
   from {
     opacity: 1;
@@ -493,14 +514,14 @@
     transform: scaleX(1);
   }
 
-  // Shelves stop and become swipeable, so the tiles stay reachable.
-  .shelf__track,
+  // The ticker stops and becomes swipeable. The shelves need nothing here:
+  // `useShelfScroller` skips the drift under reduced motion, and they are
+  // scrollable by hand either way.
   .ticker__track {
     animation: none;
     transform: none;
   }
 
-  .shelf,
   .ticker {
     overflow-x: auto;
   }

@@ -1,3 +1,5 @@
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useRef } from "react"
 import { useTranslation } from "react-i18next"
 
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
@@ -5,19 +7,16 @@ import { SectionHeading } from "@/components/common/SectionHeading"
 import { ShowcaseCard } from "@/components/common/ShowcaseCard"
 import { Button } from "@/components/ui/button"
 import { BRAND_LINKS } from "@/data/brand"
+import { useShelfScroller } from "@/hooks/useShelfScroller"
 import { useContentList } from "@/i18n/useContentList"
 import { SECTION_IDS } from "@/routes/paths"
 import type { ShowcaseItem } from "@/types/content"
 
 const SHOWCASE_HEADING_ID = "showcase-heading"
 
-// Written out in full on purpose. Tailwind keeps a `@layer components` class
-// only if it finds the whole name in the source; building it as
-// `shelf__track--${variant}` hid both names, the rules were dropped from the
-// CSS, and the shelves shipped standing still.
-const TRACK_CLASS = {
-  a: "shelf__track--a",
-  b: "shelf__track--b",
+const SHELVES = {
+  a: { direction: 1, durationVar: "--dur-shelf-a" },
+  b: { direction: -1, durationVar: "--dur-shelf-b" },
 } as const
 
 /**
@@ -28,8 +27,9 @@ const TRACK_CLASS = {
  * is the point: the v1 bento grid left holes whenever the item count did not
  * divide by the column count.
  *
- * Both shelves pause on hover and on focus-within, and stop entirely under
- * `prefers-reduced-motion`, where they become swipeable instead.
+ * The rows are real scrollers the visitor can take over: arrows, mouse drag,
+ * swipe and trackpad all work, and the drift waits a few seconds after the
+ * last touch before resuming. See `useShelfScroller`.
  */
 export function ShowcaseSection() {
   const { t } = useTranslation()
@@ -77,34 +77,51 @@ export function ShowcaseSection() {
 }
 
 function Shelf({ items, variant }: { items: ShowcaseItem[]; variant: "a" | "b" }) {
+  const { t } = useTranslation()
+  const scrollerRef = useRef<HTMLDivElement>(null)
+  const { step } = useShelfScroller(scrollerRef, SHELVES[variant])
+  const scrollerId = `showcase-shelf-${variant}`
+
   return (
-    <div className="shelf">
-      <ShelfTrack items={items} variant={variant} />
-      <ShelfTrack items={items} variant={variant} ariaHidden />
+    <div className="relative">
+      {/* Three identical tracks; the middle one is the real content and the
+          outer two exist so the loop never runs out in either direction. */}
+      <div ref={scrollerRef} id={scrollerId} className="shelf">
+        <ShelfTrack items={items} ariaHidden />
+        <ShelfTrack items={items} />
+        <ShelfTrack items={items} ariaHidden />
+      </div>
+
+      <button
+        type="button"
+        onClick={() => step(-1)}
+        aria-controls={scrollerId}
+        aria-label={t("showcase.prevLabel")}
+        className="shelf__arrow left-sp-2 sm:left-gutter"
+      >
+        <ChevronLeft className="size-5" aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        onClick={() => step(1)}
+        aria-controls={scrollerId}
+        aria-label={t("showcase.nextLabel")}
+        className="shelf__arrow right-sp-2 sm:right-gutter"
+      >
+        <ChevronRight className="size-5" aria-hidden="true" />
+      </button>
     </div>
   )
 }
 
 /**
- * One pass of a shelf. Two identical passes are rendered and each translates by
- * -100% of its own width, so the second lands exactly where the first began
- * and the loop has no visible seam. The duplicate is hidden from assistive tech and removed
- * from the tab order so each tile is announced and focused once.
+ * One pass of a shelf. The copies either side of the real one are hidden from
+ * assistive tech and removed from the tab order, so each tile is announced and
+ * focused once.
  */
-function ShelfTrack({
-  items,
-  variant,
-  ariaHidden,
-}: {
-  items: ShowcaseItem[]
-  variant: "a" | "b"
-  ariaHidden?: boolean
-}) {
+function ShelfTrack({ items, ariaHidden }: { items: ShowcaseItem[]; ariaHidden?: boolean }) {
   return (
-    <ul
-      className={`shelf__track ${TRACK_CLASS[variant]} list-none`}
-      aria-hidden={ariaHidden ? "true" : undefined}
-    >
+    <ul className="shelf__track list-none" aria-hidden={ariaHidden ? "true" : undefined}>
       {items.map((item) => (
         <li key={item.id} className="w-[240px] shrink-0 sm:w-[280px]">
           <ShowcaseCard item={item} tabIndex={ariaHidden ? -1 : undefined} />

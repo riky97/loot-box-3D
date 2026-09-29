@@ -832,10 +832,11 @@ removes the grid-hole problem entirely because there is no grid.
    [ img ][ img ][ img ][ img ][ img ][ img ][ img ]   shelf B, 42s, reverse
 ```
 
-- Pure CSS `translateX` keyframes on a duplicated track. No JS driving position.
-- **Pauses on `:hover` and on `:focus-within`** so a keyboard user can reach a tile.
+- Each shelf is a real horizontal scroller holding three copies of its track (the middle one is the real content). `useShelfScroller` drifts it by moving `scrollLeft`, and shifts it by one track width whenever it strays half a track from the middle, so the loop is endless both ways with no seam.
+- **The visitor can take over**: ‹ › arrows at the edges (two tiles per press), mouse drag with a grab cursor (a drag never opens the tile it ends on), and native swipe and trackpad scrolling.
+- **Pauses on hover, on keyboard focus and during a drag**, and for 3 seconds after any arrow, drag, wheel or touch, then resumes on its own.
 - Each tile is a link with a visible focus ring; tiles are `aspect-ratio: 4 / 5`. It opens the piece's own page, `/galleria/:id` (`PiecePage`): photos, a technical sheet whose optional rows appear only once filled in, the original-design or third-party note, an Instagram call to action and other pieces from the same category.
-- Under `prefers-reduced-motion` both shelves stop and become `overflow-x: auto` — the content stays reachable by swipe and by keyboard.
+- Under `prefers-reduced-motion` the drift is off and arrows move instantly; arrows, drag and swipe still work.
 - Different durations (34s / 42s) so the two rows never sync into a visual beat.
 - Below the shelves, one centred CTA to the Instagram grid — this is where the axis flips back to centred.
 
