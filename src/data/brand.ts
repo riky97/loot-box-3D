@@ -72,6 +72,9 @@ export const ORIGINAL_DESIGNS: ReadonlySet<string> = new Set([
  * Extra photos for a piece's own page, after the main one in `SHOWCASE_IMAGES`:
  * details, other angles, the piece in use. Same format rules as the main photo
  * (560x700 WebP, metadata stripped). A piece with no entry shows one photo.
+ *
+ * Example, with the files placed in `public/showcase/`:
+ *   "cat-glasses-stand": ["/showcase/cat-glasses-stand-2.webp", "/showcase/cat-glasses-stand-3.webp"],
  */
 export const SHOWCASE_EXTRA_IMAGES: Record<string, readonly string[]> = {}
 

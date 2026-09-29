@@ -27,8 +27,10 @@ export interface CategoryItem {
 
 /**
  * Technical details shown on a piece's own page. Every field is optional and
- * an absent one is simply not shown: these are facts about a real object, so
- * a field stays empty until the studio supplies the real value.
+ * an absent or empty one is simply not shown: these are facts about a real
+ * object, so a field stays empty until the studio supplies the real value.
+ * `it.json` lists all of them as "" for every piece, as a form to fill in
+ * (see `showcase._schedaTecnicaGuida` there).
  */
 export interface ShowcaseSpecs {
   material?: string

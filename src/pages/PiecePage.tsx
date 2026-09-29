@@ -59,7 +59,8 @@ function PieceDetail({ piece, pieces }: { piece: ShowcaseItem; pieces: ShowcaseI
 
   useDocumentMeta({
     title: t("piecePage.metaTitle", { name: piece.name }),
-    description: piece.description ?? piece.alt,
+    // `||`, not `??`: the locale ships every description as "" until filled.
+    description: piece.description || piece.alt,
   })
   usePointerSpotlight()
 

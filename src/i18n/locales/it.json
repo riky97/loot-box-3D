@@ -140,90 +140,175 @@
     "title": "Alcuni pezzi usciti dal laboratorio",
     "subtitle": "Una selezione dei nostri lavori più recenti, tra statuette, props e accessori.",
     "filterAll": "Tutti",
+    "_schedaTecnicaGuida": "Scheda tecnica dei pezzi. Per ogni pezzo in \"items\" compila \"description\" (due o tre frasi sul pezzo) e i campi di \"specs\": \"material\" (es. \"PLA opaco\", \"Resina\"), \"size\" (es. \"12 × 8 × 6 cm\"), \"printTime\" (es. \"circa 14 ore\"), \"finish\" (es. \"Dipinto a mano\", \"Grezzo, non dipinto\"). Un campo lasciato vuoto (\"\") non compare sul sito, quindi puoi riempirli un po' alla volta. Le foto extra di un pezzo si aggiungono in src/data/brand.ts, in SHOWCASE_EXTRA_IMAGES.",
     "items": [
       {
         "id": "samehada",
         "name": "Samehada di Kisame",
         "category": "anime",
         "tag": "Prop",
-        "alt": "La spada Samehada tenuta in mano in giardino: impugnatura dorata intrecciata e un teschio avorio all'estremità."
+        "alt": "La spada Samehada tenuta in mano in giardino: impugnatura dorata intrecciata e un teschio avorio all'estremità.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "vegeta-chibi",
         "name": "Vegeta chibi",
         "category": "anime",
         "tag": "Statuetta",
-        "alt": "Statuetta chibi di Vegeta a braccia conserte su una base tonda, stampata in grigio e non ancora dipinta."
+        "alt": "Statuetta chibi di Vegeta a braccia conserte su una base tonda, stampata in grigio e non ancora dipinta.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "boromir-pen-holder",
         "name": "Boromir portapenne",
         "category": "gadget",
         "tag": "Da scrivania",
-        "alt": "Portapenne a forma di Boromir inginocchiato, con le penne infilate come le frecce del film."
+        "alt": "Portapenne a forma di Boromir inginocchiato, con le penne infilate come le frecce del film.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "pokeball-card-box",
         "name": "Pokéball portacarte",
         "category": "gaming",
         "tag": "Collezionabile",
-        "alt": "Una Pokéball rossa e bianca su un piedistallo nero, illuminata da una luce rosa."
+        "alt": "Una Pokéball rossa e bianca su un piedistallo nero, illuminata da una luce rosa.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "trex-totoro",
         "name": "T-rex e Totoro",
         "category": "anime",
         "tag": "Statuette",
-        "alt": "Due piccoli T-rex, uno grigio scuro e uno azzurro, accanto a un Totoro grigio su un piano scuro."
+        "alt": "Due piccoli T-rex, uno grigio scuro e uno azzurro, accanto a un Totoro grigio su un piano scuro.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "fellowship-sword",
         "name": "Spada della Compagnia",
         "category": "other",
         "tag": "Decorazione",
-        "alt": "Spada nera stampata a sagoma, con le figure della Compagnia dell'Anello in cammino tra le montagne lungo la lama."
+        "alt": "Spada nera stampata a sagoma, con le figure della Compagnia dell'Anello in cammino tra le montagne lungo la lama.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "resin-dragon",
         "name": "Drago in resina",
         "category": "other",
         "tag": "Statuetta",
-        "alt": "Statuetta di drago in resina azzurra con le ali aperte, appollaiato su un cumulo di teschi."
+        "alt": "Statuetta di drago in resina azzurra con le ali aperte, appollaiato su un cumulo di teschi.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "cape-buttons",
         "name": "Bottoni per mantello",
         "category": "gadget",
         "tag": "Accessorio",
-        "alt": "Mantello nero con colletto di pelliccia, chiuso da quattro bottoni dorati stampati in 3D, con una croce dorata sul dorso."
+        "alt": "Mantello nero con colletto di pelliccia, chiuso da quattro bottoni dorati stampati in 3D, con una croce dorata sul dorso.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "cat-glasses-stand",
         "name": "Gatto porta-occhiali",
         "category": "gadget",
         "tag": "Da scrivania",
-        "alt": "Porta-occhiali nero lucido a forma di testa di gatto, con un paio di occhiali appoggiato sopra."
+        "alt": "Porta-occhiali nero lucido a forma di testa di gatto, con un paio di occhiali appoggiato sopra.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "charizard",
         "name": "Charizard",
         "category": "anime",
         "tag": "Statuetta",
-        "alt": "Statuetta di Charizard con le ali spiegate, stampata in grigio e non ancora dipinta."
+        "alt": "Statuetta di Charizard con le ali spiegate, stampata in grigio e non ancora dipinta.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "bender",
         "name": "Bender",
         "category": "other",
         "tag": "Statuetta",
-        "alt": "Sagoma di Bender di Futurama in grigio e nero, in piedi su una base nera."
+        "alt": "Sagoma di Bender di Futurama in grigio e nero, in piedi su una base nera.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       },
       {
         "id": "graded-card-case",
         "name": "Teca per carta gradata",
         "category": "gaming",
         "tag": "Accessorio",
-        "alt": "Teca con cornice dorata che espone una carta Pokémon Lugia gradata 9.5."
+        "alt": "Teca con cornice dorata che espone una carta Pokémon Lugia gradata 9.5.",
+        "description": "",
+        "specs": {
+          "material": "",
+          "size": "",
+          "printTime": "",
+          "finish": ""
+        }
       }
     ],
     "shelfHint": "Passa il mouse per fermare lo scorrimento",
