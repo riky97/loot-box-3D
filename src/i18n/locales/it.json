@@ -2,7 +2,7 @@
   "_placeholderNotice": "Tutti i testi di questo file sono contenuti segnaposto (copy, numeri, prezzi, contatti e prodotti di esempio) e vanno rivisti e approvati con il cliente prima della pubblicazione.",
   "meta": {
     "pageTitle": "Loot Box 3D — Collezionabili e gadget stampati in 3D",
-    "description": "Loot Box 3D crea pezzi stampati in 3D ispirati ad anime, gaming, film e mondi fantasy: statuette, props, gadget e oggetti per la casa su misura, rifiniti a mano da veri nerd per altri nerd."
+    "description": "Loot Box 3D crea pezzi stampati in 3D ispirati ad anime, gaming, film e mondi fantasy: statuette, miniature, props, accessori TCG, gadget e oggetti per la casa su misura, rifiniti a mano da veri nerd per altri nerd."
   },
   "common": {
     "brandName": "Loot Box 3D",
@@ -26,7 +26,7 @@
     "eyebrow": "Stampa 3D da collezione",
     "titleLead": "Il tuo fandom preferito, ",
     "titleHighlight": "stampato in 3D",
-    "subtitle": "Loot Box 3D trasforma anime, videogiochi, film e mondi fantasy in pezzi fisici da tenere in mano: statuette, props, gadget e oggetti per la casa rifiniti a mano, pensati da appassionati per altri appassionati.",
+    "subtitle": "Loot Box 3D trasforma anime, videogiochi, film e mondi fantasy in pezzi fisici da tenere in mano: statuette, miniature, props, accessori per carte collezionabili, gadget e oggetti per la casa rifiniti a mano, pensati da appassionati per altri appassionati.",
     "ctaPrimary": "Scopri la collezione",
     "ctaSecondary": "Scrivici su Instagram",
     "highlights": [
@@ -91,8 +91,8 @@
       },
       {
         "id": "gaming",
-        "name": "Gaming",
-        "description": "Miniature, gadget da scrivania e collezionabili dedicati ai tuoi videogiochi preferiti.",
+        "name": "Gaming & TCG",
+        "description": "Miniature e gadget dedicati ai tuoi videogiochi preferiti, e accessori per carte collezionabili (TCG) come teche e portacarte.",
         "tagline": "Level up per la tua postazione"
       },
       {
@@ -273,7 +273,7 @@
     "stimaloLabel": "Stimalo",
     "stimaloValue": "Loot Box 3D",
     "locationLabel": "Sede",
-    "locationValue": "Italia",
+    "locationValue": "Abbiategrasso (MI)",
     "responseTime": "Rispondiamo di solito entro 24-48 ore."
   },
   "footer": {
