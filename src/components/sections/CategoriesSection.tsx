@@ -14,7 +14,7 @@ const CATEGORIES_HEADING_ID = "categories-heading"
  * Archetype: expanding full-width bands (DESIGN.md 11.3).
  *
  * Not a card grid. Each category is an edge-to-edge horizontal band that
- * expands on hover or focus to reveal its description and catalogue size.
+ * expands on hover or focus to reveal its description.
  *
  * On touch and below `md:` every band renders permanently expanded — see the
  * `.band-body` rules in `main.scss`. Hover is not reachable without a pointer,
@@ -77,11 +77,8 @@ export function CategoriesSection() {
 
                 <div className="band-body">
                   <div>
-                    <p className="max-w-measure-body text-foreground-dim">
+                    <p className="max-w-measure-body pb-sp-5 text-foreground-dim">
                       {item.description}
-                    </p>
-                    <p className="type-meta pb-sp-5 pt-sp-2 text-muted-foreground">
-                      {item.count}
                     </p>
                   </div>
                 </div>

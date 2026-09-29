@@ -110,7 +110,7 @@ assumed.
 2. **`--accent-vivid`, `--gold` and `--green-vivid` are decoration, never text.** They fail AA on cream at body size. Use them as fills, rules, gradient stops, glow tints and shadow colours. When their hue must carry words, use `--primary`, `--gold-ink` and `--green` instead.
 3. **Gold is a background, not a foreground.** `--text` on a `--gold` fill is 11.22 and excellent. `--gold` on cream is 1.33 and invisible.
 4. **One accent per section.** Magenta leads; gold and green appear as the category coding and as small punctuation. Never all three competing in one viewport.
-5. **The category colour coding is fixed**: anime → `--accent-vivid`, cosplay → `--gold`, gaming → `--green-vivid`, other → `--text-tertiary`. These tint borders, chips and card glows only; the card's own text stays `--text` / `--text-secondary`.
+5. **The category colour coding is fixed**: anime → `--accent-vivid`, gadget → `--gold`, gaming → `--green-vivid`, other → `--text-tertiary`. These tint borders, chips and card glows only; the card's own text stays `--text` / `--text-secondary`.
 
 ---
 
@@ -796,16 +796,16 @@ The rail also carries a progress hairline that fills as the body scrolls.
 
 The four categories are not cards. Each is a **full-bleed horizontal band**
 stacked vertically. At rest a band shows its number, name and colour edge. On
-hover or focus it expands vertically to reveal the description and the item
-count, and its tier colour floods the left edge.
+hover or focus it expands vertically to reveal the description, and its tier
+colour floods the left edge. There is no item count: the studio has no
+catalogue, so a number there would be a claim with nothing behind it.
 
 ```
    +----------------------------------------------+
    | 01   ANIME                                -> |   <- 96px tall at rest
    +----------------------------------------------+
-   | 02   COSPLAY                              -> |
-   |      Elmi, armi e accessori su misura.       |   <- expanded: 200px
-   |      14 pezzi a catalogo                     |
+   | 02   GADGET & COLLEZIONABILI              -> |
+   |      Gadget, mini collezioni e arredo.       |   <- expanded
    +----------------------------------------------+
    | 03   GAMING                               -> |
    +----------------------------------------------+

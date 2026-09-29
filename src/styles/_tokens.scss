@@ -72,7 +72,7 @@ $color-ring: $color-primary;
 // Decorative only: they tint borders, chips and spotlights. Chip and band text
 // always stays $color-foreground, which is what keeps 11px labels legible.
 $color-tier-anime: $color-accent-vivid;
-$color-tier-cosplay: $color-gold;
+$color-tier-gadget: $color-gold;
 $color-tier-gaming: $color-green-vivid;
 $color-tier-other: $color-muted-foreground;
 
@@ -206,7 +206,7 @@ $dur-shelf-b: 42s; // deliberately not a multiple of A, so the rows never sync
 
   // -- Colors: category tiers -------------------------------------------------
   --tier-anime: #{$color-tier-anime};
-  --tier-cosplay: #{$color-tier-cosplay};
+  --tier-gadget: #{$color-tier-gadget};
   --tier-gaming: #{$color-tier-gaming};
   --tier-other: #{$color-tier-other};
 

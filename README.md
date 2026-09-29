@@ -1,7 +1,7 @@
 # Loot Box 3D — landing page
 
 Single-page marketing site for **Loot Box 3D** ([@loot.box.3d](https://www.instagram.com/loot.box.3d/)),
-a 3D-printing studio making collectibles themed on anime, cosplay and gaming.
+a 3D-printing studio making collectibles and gadgets themed on anime, gaming, film and fantasy.
 
 Stack: Vite · React 19 · TypeScript · Tailwind CSS 3 · shadcn/ui · React Router 7 · i18next (SCSS for design tokens).
 

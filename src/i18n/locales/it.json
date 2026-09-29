@@ -1,8 +1,8 @@
 {
   "_placeholderNotice": "Tutti i testi di questo file sono contenuti segnaposto (copy, numeri, prezzi, contatti e prodotti di esempio) e vanno rivisti e approvati con il cliente prima della pubblicazione.",
   "meta": {
-    "pageTitle": "Loot Box 3D — Collezionabili stampati in 3D per anime, cosplay e gaming",
-    "description": "Loot Box 3D crea pezzi da collezione stampati in 3D dedicati ad anime, cosplay e gaming: props, statuette e accessori su misura, rifiniti a mano da veri nerd per altri nerd."
+    "pageTitle": "Loot Box 3D — Collezionabili e gadget stampati in 3D",
+    "description": "Loot Box 3D crea pezzi stampati in 3D ispirati ad anime, gaming, film e mondi fantasy: statuette, props, gadget e oggetti per la casa su misura, rifiniti a mano da veri nerd per altri nerd."
   },
   "common": {
     "brandName": "Loot Box 3D",
@@ -26,7 +26,7 @@
     "eyebrow": "Stampa 3D da collezione",
     "titleLead": "Il tuo fandom preferito, ",
     "titleHighlight": "stampato in 3D",
-    "subtitle": "Loot Box 3D trasforma anime, cosplay e videogiochi in pezzi fisici da tenere in mano: statuette, props e accessori rifiniti a mano, pensati da appassionati per altri appassionati.",
+    "subtitle": "Loot Box 3D trasforma anime, videogiochi, film e mondi fantasy in pezzi fisici da tenere in mano: statuette, props, gadget e oggetti per la casa rifiniti a mano, pensati da appassionati per altri appassionati.",
     "ctaPrimary": "Scopri la collezione",
     "ctaSecondary": "Scrivici su Instagram",
     "stats": [
@@ -51,7 +51,7 @@
   "about": {
     "eyebrow": "Chi siamo",
     "title": "Nerd veri, stampanti sempre accese",
-    "paragraphOne": "Siamo un piccolo laboratorio italiano nato dalla passione per anime, manga, cosplay e videogiochi. Ogni pezzo che esce dalle nostre stampanti è stato prima di tutto qualcosa che avremmo voluto noi sulla scrivania o nella vetrina.",
+    "paragraphOne": "Siamo un piccolo laboratorio italiano nato dalla passione per anime, manga, videogiochi, film e mondi fantasy. Ogni pezzo che esce dalle nostre stampanti è stato prima di tutto qualcosa che avremmo voluto noi sulla scrivania o nella vetrina.",
     "paragraphTwo": "Lavoriamo modello per modello, curando ogni dettaglio dalla scelta del materiale alla rifinitura finale, per consegnarti un oggetto che sembra uscito direttamente dallo schermo o dal fumetto.",
     "pillars": [
       {
@@ -71,35 +71,31 @@
   "categories": {
     "eyebrow": "Cosa stampiamo",
     "title": "Un universo di categorie",
-    "subtitle": "Dalla tua serie anime preferita al setup da gaming, fino ai props per il prossimo cosplay: trovi il tuo angolo di collezione.",
+    "subtitle": "Dalla tua serie anime preferita al setup da gaming, fino a gadget e oggetti per la casa: trovi il tuo angolo di collezione.",
     "items": [
       {
         "id": "anime",
         "name": "Anime & Manga",
         "description": "Statuette, portachiavi e diorami ispirati ai tuoi personaggi e alle tue serie preferite.",
-        "tagline": "Per chi ha il poster in camera",
-        "count": "32 pezzi a catalogo"
+        "tagline": "Per chi ha il poster in camera"
       },
       {
-        "id": "cosplay",
-        "name": "Cosplay & Props",
-        "description": "Armi, accessori e dettagli su misura per completare il tuo prossimo costume.",
-        "tagline": "Pronto per la convention",
-        "count": "14 pezzi a catalogo"
+        "id": "gadget",
+        "name": "Gadget & Collezionabili",
+        "description": "Gadget e mini collezioni progettati da noi, e oggetti d'arredo per la casa, come il gatto porta-occhiali.",
+        "tagline": "Da collezionare, da usare, da regalare"
       },
       {
         "id": "gaming",
         "name": "Gaming",
         "description": "Miniature, gadget da scrivania e collezionabili dedicati ai tuoi videogiochi preferiti.",
-        "tagline": "Level up per la tua postazione",
-        "count": "21 pezzi a catalogo"
+        "tagline": "Level up per la tua postazione"
       },
       {
         "id": "other",
         "name": "Altro / Su richiesta",
         "description": "Hai in mente qualcosa che non rientra nelle altre categorie? Raccontacelo e lo valutiamo insieme.",
-        "tagline": "Se puoi immaginarlo, ne parliamo",
-        "count": "su richiesta"
+        "tagline": "Se puoi immaginarlo, ne parliamo"
       }
     ],
     "openLabel": "Scopri la categoria"
@@ -113,7 +109,7 @@
       {
         "id": "samehada",
         "name": "Samehada di Kisame",
-        "category": "cosplay",
+        "category": "anime",
         "tag": "Prop",
         "alt": "La spada Samehada tenuta in mano in giardino: impugnatura dorata intrecciata e un teschio avorio all'estremità."
       },
@@ -127,7 +123,7 @@
       {
         "id": "boromir-pen-holder",
         "name": "Boromir portapenne",
-        "category": "other",
+        "category": "gadget",
         "tag": "Da scrivania",
         "alt": "Portapenne a forma di Boromir inginocchiato, con le penne infilate come le frecce del film."
       },
@@ -162,14 +158,14 @@
       {
         "id": "cape-buttons",
         "name": "Bottoni per mantello",
-        "category": "cosplay",
+        "category": "gadget",
         "tag": "Accessorio",
         "alt": "Mantello nero con colletto di pelliccia, chiuso da quattro bottoni dorati stampati in 3D, con una croce dorata sul dorso."
       },
       {
         "id": "cat-glasses-stand",
         "name": "Gatto porta-occhiali",
-        "category": "other",
+        "category": "gadget",
         "tag": "Da scrivania",
         "alt": "Porta-occhiali nero lucido a forma di testa di gatto, con un paio di occhiali appoggiato sopra."
       },
@@ -242,7 +238,7 @@
     "responseTime": "Rispondiamo di solito entro 24-48 ore."
   },
   "footer": {
-    "tagline": "Il tuo fandom, stampato in 3D.",
+    "tagline": "Se lo immagini, lo stampiamo.",
     "sectionsLabel": "Sezioni",
     "followLabel": "Seguici",
     "copyright": "© {{year}} Loot Box 3D. Tutti i diritti riservati.",

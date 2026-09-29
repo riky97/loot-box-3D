@@ -11,15 +11,13 @@ export interface AboutPillar {
   description: string
 }
 
-export type CategoryId = "anime" | "cosplay" | "gaming" | "other"
+export type CategoryId = "anime" | "gadget" | "gaming" | "other"
 
 export interface CategoryItem {
   id: CategoryId
   name: string
   description: string
   tagline: string
-  /** Catalogue size, revealed when the band expands. PLACEHOLDER figure. */
-  count: string
 }
 
 export interface ShowcaseItem {
