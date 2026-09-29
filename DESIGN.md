@@ -814,6 +814,7 @@ catalogue, so a number there would be a claim with nothing behind it.
 ```
 
 - Bands are `<a>` elements, keyboard reachable; `:focus-within` expands identically to `:hover`.
+- Each band opens that category's own page, `/categorie/:id` (`CategoryPage`): the description, the gallery pieces filed under it, an Instagram call to action and links to the other categories. Not Instagram directly: the profile mixes every kind of piece in one feed.
 - The colour edge is a 6px left border in the tier colour, growing to 12px when expanded.
 - **On touch and below `md:`, all four bands render permanently expanded.** Hover-to-reveal is not reachable without a pointer, and hiding content behind hover on mobile is a defect, not a design.
 - Height transitions use `grid-template-rows: 0fr -> 1fr`, not `max-height`, so there is no magic number to guess.

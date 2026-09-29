@@ -1,11 +1,12 @@
 import { ArrowRight } from "lucide-react"
 import type { CSSProperties } from "react"
 import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
 
 import { SectionHeading } from "@/components/common/SectionHeading"
-import { BRAND_LINKS, categoryTierVars } from "@/data/brand"
+import { categoryTierVars } from "@/data/brand"
 import { useContentList } from "@/i18n/useContentList"
-import { SECTION_IDS } from "@/routes/paths"
+import { SECTION_IDS, categoryPath } from "@/routes/paths"
 import type { CategoryItem } from "@/types/content"
 
 const CATEGORIES_HEADING_ID = "categories-heading"
@@ -14,7 +15,8 @@ const CATEGORIES_HEADING_ID = "categories-heading"
  * Archetype: expanding full-width bands (DESIGN.md 11.3).
  *
  * Not a card grid. Each category is an edge-to-edge horizontal band that
- * expands on hover or focus to reveal its description.
+ * expands on hover or focus to reveal its description, and leads to that
+ * category's own page (`CategoryPage`).
  *
  * On touch and below `md:` every band renders permanently expanded — see the
  * `.band-body` rules in `main.scss`. Hover is not reachable without a pointer,
@@ -42,10 +44,8 @@ export function CategoriesSection() {
       <ul className="mt-sp-8 list-none border-y-2 border-border">
         {items.map((item, index) => (
           <li key={item.id} className="border-b-2 border-border last:border-b-0">
-            <a
-              href={BRAND_LINKS.instagram}
-              target="_blank"
-              rel="noreferrer noopener"
+            <Link
+              to={categoryPath(item.id)}
               className="band group relative block bg-background transition-colors duration-base ease-out hover:bg-surface focus-visible:bg-surface"
               style={{ "--tier": `var(${categoryTierVars[item.id]})` } as CSSProperties}
             >
@@ -85,7 +85,7 @@ export function CategoriesSection() {
               </div>
 
               <span className="sr-only">{t("categories.openLabel")}</span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

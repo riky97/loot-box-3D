@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import { RootLayout } from "@/components/layout/RootLayout"
 import { NotFoundPage } from "@/pages/NotFoundPage"
+import { ROUTES } from "@/routes/paths"
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,13 @@ const router = createBrowserRouter([
         lazy: async () => {
           const { HomePage } = await import("@/pages/HomePage")
           return { Component: HomePage }
+        },
+      },
+      {
+        path: ROUTES.category,
+        lazy: async () => {
+          const { CategoryPage } = await import("@/pages/CategoryPage")
+          return { Component: CategoryPage }
         },
       },
       // New pages go here: add a sibling object with its own `path`

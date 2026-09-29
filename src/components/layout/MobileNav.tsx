@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next"
 
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
 import { NAV_ITEMS } from "@/components/layout/MainNav"
+import { SectionLink } from "@/components/layout/SectionLink"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -59,9 +60,9 @@ export function MobileNav() {
           className="relative z-10 flex flex-1 flex-col justify-center px-gutter"
         >
           {NAV_ITEMS.map((item, index) => (
-            <a
+            <SectionLink
               key={item.id}
-              href={`#${item.id}`}
+              sectionId={item.id}
               onClick={() => setOpen(false)}
               className={cn(
                 "flex items-baseline gap-sp-3 border-b border-border py-sp-4 first:border-t",
@@ -72,7 +73,7 @@ export function MobileNav() {
                 {String(index + 1).padStart(2, "0")}
               </span>
               {t(item.labelKey)}
-            </a>
+            </SectionLink>
           ))}
         </nav>
 

@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next"
+import { useLocation } from "react-router-dom"
 
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
 import { MainNav } from "@/components/layout/MainNav"
@@ -22,7 +23,8 @@ const WATCHED_SECTION_IDS = Object.values(SECTION_IDS)
 export function SiteHeader() {
   const { t } = useTranslation()
   const { progress, isScrolled } = useScrollProgress()
-  const activeId = useActiveSection(WATCHED_SECTION_IDS)
+  const { pathname } = useLocation()
+  const activeId = useActiveSection(WATCHED_SECTION_IDS, pathname)
 
   return (
     <header

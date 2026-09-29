@@ -5,8 +5,15 @@ import { useEffect, useState } from "react"
  * one is currently most visible in the viewport. Drives `aria-current` on the
  * matching nav link in the header. Falls back to `null` (no active section)
  * before anything has intersected yet, e.g. at the very top of the page.
+ *
+ * `pageKey` re-attaches the observer when the page changes: the header outlives
+ * the page, so on returning home from another route the sections are new
+ * elements and the old observer would be watching nothing.
  */
-export function useActiveSection(sectionIds: readonly string[]): string | null {
+export function useActiveSection(
+  sectionIds: readonly string[],
+  pageKey?: string,
+): string | null {
   const [activeId, setActiveId] = useState<string | null>(null)
 
   useEffect(() => {
@@ -14,6 +21,7 @@ export function useActiveSection(sectionIds: readonly string[]): string | null {
       .map((id) => document.getElementById(id))
       .filter((element): element is HTMLElement => element !== null)
 
+    setActiveId(null)
     if (elements.length === 0 || typeof IntersectionObserver === "undefined") return
 
     const visibleRatios = new Map<string, number>()
@@ -41,7 +49,7 @@ export function useActiveSection(sectionIds: readonly string[]): string | null {
     elements.forEach((element) => observer.observe(element))
 
     return () => observer.disconnect()
-  }, [sectionIds])
+  }, [sectionIds, pageKey])
 
   return activeId
 }

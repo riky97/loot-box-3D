@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next"
 
+import { SectionLink } from "@/components/layout/SectionLink"
 import { SECTION_IDS } from "@/routes/paths"
 import { cn } from "@/lib/utils"
 
@@ -37,9 +38,9 @@ export function MainNav({ activeId, className }: MainNavProps) {
       {NAV_ITEMS.map((item) => {
         const isActive = activeId === item.id
         return (
-          <a
+          <SectionLink
             key={item.id}
-            href={`#${item.id}`}
+            sectionId={item.id}
             aria-current={isActive ? "true" : undefined}
             className={cn(
               "group relative type-eyebrow flex min-h-[24px] items-center py-sp-2 text-muted-foreground transition-colors duration-fast ease-out hover:text-foreground",
@@ -54,7 +55,7 @@ export function MainNav({ activeId, className }: MainNavProps) {
                 isActive && "scale-x-100",
               )}
             />
-          </a>
+          </SectionLink>
         )
       })}
     </nav>
