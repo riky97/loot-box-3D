@@ -111,6 +111,26 @@
     "ctaLabel": "Scrivici su Instagram",
     "othersTitle": "Le altre categorie"
   },
+  "piecePage": {
+    "metaTitle": "{{name}} — Loot Box 3D",
+    "back": "Torna alla galleria",
+    "specsTitle": "Scheda tecnica",
+    "specs": {
+      "category": "Categoria",
+      "type": "Tipo",
+      "material": "Materiale",
+      "size": "Dimensioni",
+      "printTime": "Tempo di stampa",
+      "finish": "Finitura"
+    },
+    "originalNote": "Progettato da noi, dal modello 3D alla rifinitura.",
+    "thirdPartyNote": "Modello di un altro autore che abbiamo stampato e rifinito: lo mostriamo come esempio del nostro lavoro e non è in vendita.",
+    "ctaTitle": "Ti piace? Ne facciamo uno per te",
+    "ctaText": "Scrivici indicando questo pezzo: possiamo realizzarne uno simile o adattarlo alla tua idea.",
+    "ctaLabel": "Chiedi un pezzo simile",
+    "photoCount": "Foto {{index}} di {{total}}",
+    "relatedTitle": "Altri pezzi della stessa categoria"
+  },
   "showcase": {
     "eyebrow": "Galleria",
     "title": "Alcuni pezzi usciti dal laboratorio",

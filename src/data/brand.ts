@@ -65,5 +65,12 @@ export const ORIGINAL_DESIGNS: ReadonlySet<string> = new Set([
   "bender",
 ])
 
+/**
+ * Extra photos for a piece's own page, after the main one in `SHOWCASE_IMAGES`:
+ * details, other angles, the piece in use. Same format rules as the main photo
+ * (560x700 WebP, metadata stripped). A piece with no entry shows one photo.
+ */
+export const SHOWCASE_EXTRA_IMAGES: Record<string, readonly string[]> = {}
+
 /** Intrinsic size of every file in `SHOWCASE_IMAGES`, used to reserve space. */
 export const SHOWCASE_IMAGE_SIZE = { width: 560, height: 700 } as const

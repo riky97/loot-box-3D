@@ -1,15 +1,16 @@
 import { PenTool } from "lucide-react"
 import type { CSSProperties } from "react"
 import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
 
 import { Chip } from "@/components/common/Chip"
 import {
-  BRAND_LINKS,
   ORIGINAL_DESIGNS,
   SHOWCASE_IMAGE_SIZE,
   SHOWCASE_IMAGES,
   categoryTierVars,
 } from "@/data/brand"
+import { piecePath } from "@/routes/paths"
 import type { ShowcaseItem } from "@/types/content"
 
 interface ShowcaseCardProps {
@@ -21,16 +22,16 @@ interface ShowcaseCardProps {
 /**
  * One photographed piece: 4:5 photo, name and category chip. Shared by the
  * home gallery shelves and the category pages, so a piece looks the same
- * wherever it appears. Width comes from the parent.
+ * wherever it appears. Width comes from the parent. It opens the piece's own
+ * page (`PiecePage`) rather than Instagram, where a given piece may not have
+ * been posted and would have to be dug out of a mixed feed.
  */
 export function ShowcaseCard({ item, tabIndex }: ShowcaseCardProps) {
   const { t } = useTranslation()
 
   return (
-    <a
-      href={BRAND_LINKS.instagram}
-      target="_blank"
-      rel="noreferrer noopener"
+    <Link
+      to={piecePath(item.id)}
       tabIndex={tabIndex}
       className="spotlight group block overflow-hidden rounded-lg border-2 border-border bg-surface shadow-raised transition-[transform,border-color,box-shadow] duration-base ease-bounce hover:-translate-y-1 hover:border-primary hover:shadow-elevated"
       data-spotlight=""
@@ -64,7 +65,7 @@ export function ShowcaseCard({ item, tabIndex }: ShowcaseCardProps) {
         <span className="type-h3 truncate text-body text-foreground">{item.name}</span>
         <Chip tierVar={categoryTierVars[item.category]}>{item.tag}</Chip>
       </div>
-    </a>
+    </Link>
   )
 }
 

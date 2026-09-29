@@ -3,6 +3,7 @@
 export const ROUTES = {
   home: "/",
   category: "/categorie/:categoryId",
+  piece: "/galleria/:pieceId",
 } as const
 
 export type RouteKey = keyof typeof ROUTES
@@ -11,6 +12,11 @@ export type RoutePath = (typeof ROUTES)[RouteKey]
 /** The concrete path of one category page, e.g. `/categorie/gadget`. */
 export function categoryPath(categoryId: string): string {
   return ROUTES.category.replace(":categoryId", categoryId)
+}
+
+/** The concrete path of one gallery piece, e.g. `/galleria/cat-glasses-stand`. */
+export function piecePath(pieceId: string): string {
+  return ROUTES.piece.replace(":pieceId", pieceId)
 }
 
 // In-page anchor ids for the landing page sections, addressed by the

@@ -24,6 +24,13 @@ const router = createBrowserRouter([
           return { Component: CategoryPage }
         },
       },
+      {
+        path: ROUTES.piece,
+        lazy: async () => {
+          const { PiecePage } = await import("@/pages/PiecePage")
+          return { Component: PiecePage }
+        },
+      },
       // New pages go here: add a sibling object with its own `path`
       // (and a `lazy` loader, following the pattern above).
       {

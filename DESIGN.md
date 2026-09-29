@@ -834,7 +834,7 @@ removes the grid-hole problem entirely because there is no grid.
 
 - Pure CSS `translateX` keyframes on a duplicated track. No JS driving position.
 - **Pauses on `:hover` and on `:focus-within`** so a keyboard user can reach a tile.
-- Each tile is a link with a visible focus ring; tiles are `aspect-ratio: 4 / 5`.
+- Each tile is a link with a visible focus ring; tiles are `aspect-ratio: 4 / 5`. It opens the piece's own page, `/galleria/:id` (`PiecePage`): photos, a technical sheet whose optional rows appear only once filled in, the original-design or third-party note, an Instagram call to action and other pieces from the same category.
 - Under `prefers-reduced-motion` both shelves stop and become `overflow-x: auto` — the content stays reachable by swipe and by keyboard.
 - Different durations (34s / 42s) so the two rows never sync into a visual beat.
 - Below the shelves, one centred CTA to the Instagram grid — this is where the axis flips back to centred.

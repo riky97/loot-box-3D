@@ -20,14 +20,29 @@ export interface CategoryItem {
   tagline: string
 }
 
+/**
+ * Technical details shown on a piece's own page. Every field is optional and
+ * an absent one is simply not shown: these are facts about a real object, so
+ * a field stays empty until the studio supplies the real value.
+ */
+export interface ShowcaseSpecs {
+  material?: string
+  size?: string
+  printTime?: string
+  finish?: string
+}
+
 export interface ShowcaseItem {
-  /** Also the key into `SHOWCASE_IMAGES` in `src/data/brand.ts`. */
+  /** Also the key into `SHOWCASE_IMAGES` in `src/data/brand.ts`, and the URL slug. */
   id: string
   name: string
   category: CategoryId
   tag: string
   /** Describes the photo for screen readers; lives here because it is copy. */
   alt: string
+  /** A few lines about the piece, for its own page. */
+  description?: string
+  specs?: ShowcaseSpecs
 }
 
 export interface HowItWorksStep {
