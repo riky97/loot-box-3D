@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { BRAND_LINKS } from "@/data/brand"
 import { useContentList } from "@/i18n/useContentList"
 import { SECTION_IDS } from "@/routes/paths"
-import type { HeroStat } from "@/types/content"
+import type { HeroHighlight } from "@/types/content"
 
 const HERO_HEADING_ID = "hero-heading"
 
@@ -15,12 +15,12 @@ const HERO_HEADING_ID = "hero-heading"
  * Archetype: centred monolith (DESIGN.md 11.1).
  *
  * The headline is the whole composition — there is no hero illustration. The
- * brand mark sits behind it as an oversized watermark, and the stats become a
+ * brand mark sits behind it as an oversized watermark, and the highlights become a
  * ticker strip on the section's bottom edge rather than a row of columns.
  */
 export function HeroSection() {
   const { t } = useTranslation()
-  const stats = useContentList<HeroStat>("hero.stats")
+  const highlights = useContentList<HeroHighlight>("hero.highlights")
 
   return (
     <section
@@ -111,18 +111,21 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Ticker strip: a marquee where it cannot fit, a static justified row
-          where it can. */}
+      {/* Ticker strip: a marquee where it cannot fit, a static row where it
+          can. The claims are words, not the short numerals the strip was
+          first drawn for, so the static row stacks each label under its
+          claim and only starts at `lg:`; at `md:` four of them side by side
+          broke across lines. */}
       <div className="relative border-y-2 border-border bg-surface-alt py-sp-3">
-        <div className="ticker md:hidden">
-          <TickerTrack stats={stats} />
-          <TickerTrack stats={stats} ariaHidden />
+        <div className="ticker lg:hidden">
+          <TickerTrack highlights={highlights} />
+          <TickerTrack highlights={highlights} ariaHidden />
         </div>
-        <ul className="shell hidden list-none justify-center gap-sp-8 md:flex">
-          {stats.map((stat) => (
-            <li key={stat.label} className="flex items-baseline gap-sp-2">
-              <span className="type-display text-h3 text-primary">{stat.value}</span>
-              <span className="type-meta text-foreground-dim">{stat.label}</span>
+        <ul className="shell hidden list-none justify-center gap-sp-10 lg:flex">
+          {highlights.map((highlight) => (
+            <li key={highlight.label} className="flex flex-col items-center whitespace-nowrap text-center">
+              <span className="type-display text-h3 text-primary">{highlight.value}</span>
+              <span className="type-meta text-foreground-dim">{highlight.label}</span>
             </li>
           ))}
         </ul>
@@ -135,18 +138,18 @@ export function HeroSection() {
  * One pass of the ticker. Two identical passes are rendered and each translates
  * by -100% of its own width, so the second lands exactly where the first began
  * and the loop is seamless; the duplicate
- * is hidden from assistive tech so the stats are not announced twice.
+ * is hidden from assistive tech so the highlights are not announced twice.
  */
-function TickerTrack({ stats, ariaHidden }: { stats: HeroStat[]; ariaHidden?: boolean }) {
+function TickerTrack({ highlights, ariaHidden }: { highlights: HeroHighlight[]; ariaHidden?: boolean }) {
   return (
     <ul
       className="ticker__track list-none"
       aria-hidden={ariaHidden ? "true" : undefined}
     >
-      {stats.map((stat) => (
-        <li key={stat.label} className="flex shrink-0 items-baseline gap-sp-2">
-          <span className="type-display text-h3 text-primary">{stat.value}</span>
-          <span className="type-meta text-foreground-dim">{stat.label}</span>
+      {highlights.map((highlight) => (
+        <li key={highlight.label} className="flex shrink-0 items-baseline gap-sp-2 whitespace-nowrap">
+          <span className="type-display text-h3 text-primary">{highlight.value}</span>
+          <span className="type-meta text-foreground-dim">{highlight.label}</span>
         </li>
       ))}
     </ul>

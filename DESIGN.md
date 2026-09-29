@@ -744,9 +744,11 @@ Every one differs from v1. No archetype is used twice.
 
 The headline is the entire composition. It is set as large as the viewport
 allows, centred, breaking across three lines, with the brand mark behind it as
-an oversized low-contrast watermark. CTAs sit centred beneath. The stats become
-a thin ticker strip pinned to the section's bottom edge rather than a row of
-columns.
+an oversized low-contrast watermark. CTAs sit centred beneath. A thin ticker
+strip pinned to the section's bottom edge carries four short claims about how
+the studio works (made to measure, finished by hand, materials, careful
+shipping). They replaced invented delivery and print-hour counts: a number in
+that strip reads as a fact, so it may only carry what is true today.
 
 ```
         +--------------------------------------+
@@ -759,13 +761,13 @@ columns.
         |                                      |
         |      [ Instagram ]  [ Come funziona ]|
         +--------------------------------------+
-        |  120 PEZZI . 48H RESA . 4.9 STELLE   |   <- ticker strip
+        |  SU MISURA . A MANO . PLA E RESINA   |   <- ticker strip
         +--------------------------------------+
 ```
 
 - Watermark: `BrandMark` at ~72% of the shell width, `opacity: 0.07`, `--text`, `aria-hidden`.
 - The watermark takes the parallax offset (max 40px); the headline does not — the depth cue reads without the type ever moving.
-- Ticker strip is a marquee on mobile and a static justified row from `md:` up.
+- Ticker strip is a marquee below `lg:` and a static centred row from `lg:` up, with each label stacked under its claim.
 - **No hero illustration.** v1's `HeroPrintScene` is not reused; the type *is* the hero.
 
 ### 2. About — Sticky rail + scrolling body

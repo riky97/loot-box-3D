@@ -1,7 +1,12 @@
 // Shapes for the structured (array/object) i18n content consumed via
 // `useContentList` — these mirror the JSON structures in `src/i18n/locales/it.json`.
 
-export interface HeroStat {
+/**
+ * One entry of the hero strip: a short claim and what it means. Every entry
+ * must be true of the studio today; the strip once carried made-up delivery
+ * and print-hour counts, and a number there is read as a fact.
+ */
+export interface HeroHighlight {
   value: string
   label: string
 }

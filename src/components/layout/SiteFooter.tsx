@@ -1,3 +1,4 @@
+import { Mail } from "lucide-react"
 import { useTranslation } from "react-i18next"
 
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
@@ -38,15 +39,24 @@ export function SiteFooter() {
           {t("footer.copyright", { year: new Date().getFullYear() })}
         </p>
 
-        <a
-          href={BRAND_LINKS.instagram}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="type-meta inline-flex min-h-[44px] items-center gap-sp-2 text-foreground-dim transition-colors duration-fast ease-out hover:text-primary"
-        >
-          <InstagramGlyph className="size-4" />
-          {t("contact.instagramHandle")}
-        </a>
+        <div className="flex flex-col sm:flex-row sm:gap-sp-5">
+          <a
+            href={BRAND_LINKS.instagram}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="type-meta inline-flex min-h-[44px] items-center gap-sp-2 text-foreground-dim transition-colors duration-fast ease-out hover:text-primary"
+          >
+            <InstagramGlyph className="size-4" />
+            {t("contact.instagramHandle")}
+          </a>
+          <a
+            href={`mailto:${BRAND_LINKS.email}`}
+            className="type-meta inline-flex min-h-[44px] items-center gap-sp-2 text-foreground-dim transition-colors duration-fast ease-out hover:text-primary"
+          >
+            <Mail className="size-4" aria-hidden="true" />
+            {BRAND_LINKS.email}
+          </a>
+        </div>
 
         {/* Caveat placement 2 of 2, and the last one on the page. */}
         <p className="type-accent text-primary">{t("footer.signoff")}</p>

@@ -1,8 +1,11 @@
 import type { CategoryId } from "@/types/content"
 
-// External brand destinations. PLACEHOLDER — confirm with the client before launch.
+// External brand destinations, confirmed by the client.
 export const BRAND_LINKS = {
   instagram: "https://www.instagram.com/loot.box.3d/",
+  /** Maker profile on Stimalo, the Italian 3D-printing marketplace. */
+  stimalo: "https://stimalo.com/printer/loot-box-3d",
+  email: "lootbox.3dprint@gmail.com",
 } as const
 
 /**

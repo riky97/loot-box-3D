@@ -1,5 +1,4 @@
-// `Mail` goes back in the import when the email contact row below is re-enabled.
-import { MapPin } from "lucide-react"
+import { Mail, MapPin, Store } from "lucide-react"
 import { useTranslation } from "react-i18next"
 
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
@@ -14,7 +13,8 @@ const CONTACT_HEADING_ID = "contact-heading"
  * Archetype: single dominant panel (DESIGN.md 11.6).
  *
  * One centred panel treating the Instagram call to action as the loot box
- * itself. The details collapse into a compact strip beneath rather than
+ * itself, with email as a secondary button. The details (email, Stimalo,
+ * location, Instagram) collapse into a compact strip beneath rather than
  * becoming a second card competing with the first.
  */
 export function ContactSection() {
@@ -41,26 +41,43 @@ export function ContactSection() {
           <p className="type-h2 mt-sp-4 text-foreground">{t("contact.instagramHandle")}</p>
           <p className="mt-sp-2 text-foreground-dim">{t("contact.responseTime")}</p>
 
-          <Button asChild size="lg" className="btn-pop mt-sp-6">
-            <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
-              <InstagramGlyph className="size-4" />
-              {t("contact.instagramCta")}
-            </a>
-          </Button>
+          <div className="mt-sp-6 flex flex-col items-center gap-sp-3 sm:flex-row sm:justify-center">
+            <Button asChild size="lg" className="btn-pop w-full sm:w-auto">
+              <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
+                <InstagramGlyph className="size-4" />
+                {t("contact.instagramCta")}
+              </a>
+            </Button>
+            {/* Secondary: Instagram stays the channel the panel is built
+                around, the email is the alternative for people not on it. */}
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="btn-pop-outline w-full border-2 border-foreground sm:w-auto"
+            >
+              <a href={`mailto:${BRAND_LINKS.email}`}>
+                <Mail className="size-4" aria-hidden="true" />
+                {t("contact.emailCta")}
+              </a>
+            </Button>
+          </div>
         </div>
 
-        <ul className="flex list-none flex-col items-center gap-sp-3 sm:flex-row sm:gap-sp-6">
-          {/* Email row is disabled: the mailbox does not exist yet, and publishing
-              an address that bounces is worse than not showing one. Re-enable this
-              block once the real address is live — the copy already lives under the
-              `contact.emailLabel` / `contact.emailValue` keys in the locale file.
+        <ul className="flex list-none flex-col items-center gap-sp-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-sp-6">
           <DetailRow
             icon={<Mail className="size-4 text-primary" aria-hidden="true" />}
             label={t("contact.emailLabel")}
-            value={t("contact.emailValue")}
-            href={`mailto:${t("contact.emailValue")}`}
+            value={BRAND_LINKS.email}
+            href={`mailto:${BRAND_LINKS.email}`}
           />
-          */}
+          <DetailRow
+            icon={<Store className="size-4 text-primary" aria-hidden="true" />}
+            label={t("contact.stimaloLabel")}
+            value={t("contact.stimaloValue")}
+            href={BRAND_LINKS.stimalo}
+            external
+          />
           <DetailRow
             icon={<MapPin className="size-4 text-primary" aria-hidden="true" />}
             label={t("contact.locationLabel")}

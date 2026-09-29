@@ -29,18 +29,22 @@
     "subtitle": "Loot Box 3D trasforma anime, videogiochi, film e mondi fantasy in pezzi fisici da tenere in mano: statuette, props, gadget e oggetti per la casa rifiniti a mano, pensati da appassionati per altri appassionati.",
     "ctaPrimary": "Scopri la collezione",
     "ctaSecondary": "Scrivici su Instagram",
-    "stats": [
+    "highlights": [
       {
-        "value": "500+",
-        "label": "pezzi consegnati"
+        "value": "Su misura",
+        "label": "dalla tua idea al pezzo"
       },
       {
-        "value": "1200+",
-        "label": "ore di stampa"
+        "value": "A mano",
+        "label": "rifinito un pezzo alla volta"
       },
       {
-        "value": "30+",
-        "label": "fandom coperti"
+        "value": "PLA e resina",
+        "label": "scelti per ogni pezzo"
+      },
+      {
+        "value": "Con cura",
+        "label": "imballato e spedito a casa tua"
       }
     ],
     "annotation": "fatti a mano, uno alla volta",
@@ -260,12 +264,14 @@
   "contact": {
     "eyebrow": "Contatti",
     "title": "Parliamone su Instagram",
-    "subtitle": "Il modo più veloce per raggiungerci è un messaggio diretto: raccontaci la tua idea e iniziamo a lavorarci insieme.",
+    "subtitle": "Il modo più veloce per raggiungerci è un messaggio diretto su Instagram, ma puoi anche scriverci una mail o trovarci su Stimalo: raccontaci la tua idea e iniziamo a lavorarci insieme.",
     "instagramLabel": "Instagram",
     "instagramHandle": "@loot.box.3d",
     "instagramCta": "Scrivici su Instagram",
     "emailLabel": "Email",
-    "emailValue": "info@lootbox3d.it",
+    "emailCta": "Oppure scrivici una mail",
+    "stimaloLabel": "Stimalo",
+    "stimaloValue": "Loot Box 3D",
     "locationLabel": "Sede",
     "locationValue": "Italia",
     "responseTime": "Rispondiamo di solito entro 24-48 ore."
