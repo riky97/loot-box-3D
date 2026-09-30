@@ -16,9 +16,10 @@ const WATCHED_SECTION_IDS = Object.values(SECTION_IDS)
 
 /**
  * Sticky site header: transparent over the hero, blurred once the reader
- * scrolls, with a 2px extrusion progress bar riding its bottom edge. Desktop
- * shows the full in-page nav plus the Instagram CTA; below 1024px it
- * collapses to the wordmark and a hamburger opening `MobileNav`.
+ * scrolls, with a 2px extrusion progress bar riding its bottom edge. From
+ * 1280px it shows the full nav plus the Instagram CTA; from 1024px the nav
+ * alone; below that it collapses to the wordmark and a hamburger opening
+ * `MobileNav`.
  */
 export function SiteHeader() {
   const { t } = useTranslation()
@@ -35,7 +36,12 @@ export function SiteHeader() {
           : "border-b-2 border-transparent bg-transparent",
       )}
     >
-      <div className="shell grid h-full grid-cols-[1fr_auto] items-center lg:grid-cols-[1fr_auto_1fr]">
+      {/* From `lg:` to `xl:` there is room for the six nav entries but not for
+          the Instagram button too: with it, the entries wrapped onto two lines
+          and squeezed the wordmark below ~1120px. The button is repeated in
+          the hero and in Contatti, so it waits for `xl:`, and until then the
+          nav sits right of a wordmark kept at its natural width. */}
+      <div className="shell grid h-full grid-cols-[1fr_auto] items-center lg:grid-cols-[auto_1fr] xl:grid-cols-[1fr_auto_1fr]">
         <a
           href={ROUTES.home}
           className="flex min-h-[44px] items-center justify-self-start"
@@ -43,9 +49,12 @@ export function SiteHeader() {
           <Wordmark label={t("common.brandName")} />
         </a>
 
-        <MainNav activeId={activeId} className="hidden justify-self-center lg:flex" />
+        <MainNav
+          activeId={activeId}
+          className="hidden justify-self-end lg:flex xl:justify-self-center"
+        />
 
-        <div className="hidden justify-self-end lg:block">
+        <div className="hidden justify-self-end xl:block">
           <Button asChild size="sm" className="btn-pop">
             <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
               <InstagramGlyph className="size-4" />
