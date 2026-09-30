@@ -141,7 +141,7 @@
     "relatedTitle": "Altri pezzi della stessa categoria"
   },
   "lab": {
-    "_guida": "Pagina Laboratorio (/laboratorio). Ogni testo si può lasciare vuoto (\"\"): un campo vuoto non compare, e una voce con \"name\" o \"title\" vuoto viene saltata del tutto. Per aggiungere un materiale, un passaggio o una stampante copia una voce vuota e compilala. Materiali: \"bestFor\" = per cosa lo scegliete, \"finish\" = che superficie lascia, \"notes\" = altro. Passaggi: \"products\" = prodotti usati (marche di primer, colori, vernici), \"mediaAlt\" = descrizione del video o della foto. I video e le foto si collegano ai passaggi in src/data/brand.ts, in LAB_MEDIA, usando l'\"id\" del passaggio. La sezione Stampanti compare solo quando c'è almeno una stampante con il nome.",
+    "_guida": "Pagina Laboratorio (/laboratorio). Ogni testo si può lasciare vuoto (\"\"): un campo vuoto non compare, e una voce con \"name\" o \"title\" vuoto viene saltata del tutto. Per aggiungere un materiale, un passaggio, uno strumento o una stampante copia una voce vuota e compilala, con un \"id\" nuovo (minuscolo, senza spazi). Materiali: \"summary\" = una riga sulla scheda, \"technical\" = breve descrizione tecnica, \"uses\" = per cosa lo usate, \"notes\" = altro (es. le varianti). Passaggi: \"products\" = prodotti usati, \"mediaAlt\" = descrizione del video o della foto, gli strumenti con foto (es. colori acrilici, pennelli, aerografo) stanno in \"tools\", e ognuno indica in \"step\" l'id del passaggio sotto cui compare. Le foto si collegano in src/data/brand.ts usando gli \"id\": LAB_MATERIAL_PHOTOS per i materiali, LAB_TOOL_PHOTOS per gli strumenti, LAB_MEDIA per video e foto dei passaggi. Finché una foto manca, il sito mostra il riquadro \"Foto in arrivo\". La sezione Stampanti compare solo quando c'è almeno una stampante con il nome.",
     "metaTitle": "Come lavoriamo — Loot Box 3D",
     "metaDescription": "Materiali, rifinitura a mano e pezzi su misura: come nasce un pezzo nel laboratorio di Loot Box 3D.",
     "eyebrow": "Laboratorio",
@@ -150,58 +150,76 @@
     "materials": {
       "title": "Materiali",
       "intro": "Scegliamo il materiale in base al pezzo: resistenza, livello di dettaglio e finitura che vuoi ottenere.",
-      "bestForLabel": "Ideale per",
-      "finishLabel": "Finitura",
       "items": [
         {
+          "id": "pla",
           "name": "PLA",
-          "bestFor": "",
-          "finish": "",
+          "summary": "",
+          "technical": "",
+          "uses": "",
           "notes": "Varianti: Basic, Matte, Wood, Glow, Metal, Silk+, Pure, Marble."
         },
         {
+          "id": "petg",
           "name": "PETG Basic",
-          "bestFor": "",
-          "finish": "",
+          "summary": "",
+          "technical": "",
+          "uses": "",
           "notes": ""
         },
         {
+          "id": "asa",
           "name": "ASA",
-          "bestFor": "",
-          "finish": "",
+          "summary": "",
+          "technical": "",
+          "uses": "",
           "notes": ""
         },
         {
+          "id": "abs",
           "name": "ABS",
-          "bestFor": "",
-          "finish": "",
+          "summary": "",
+          "technical": "",
+          "uses": "",
           "notes": ""
         },
         {
+          "id": "pc",
           "name": "PC",
-          "bestFor": "",
-          "finish": "",
+          "summary": "",
+          "technical": "",
+          "uses": "",
           "notes": ""
         },
         {
+          "id": "tpu",
           "name": "TPU",
-          "bestFor": "",
-          "finish": "",
+          "summary": "",
+          "technical": "",
+          "uses": "",
           "notes": ""
         },
         {
+          "id": "resina",
           "name": "Resina",
-          "bestFor": "",
-          "finish": "",
+          "summary": "",
+          "technical": "",
+          "uses": "",
           "notes": ""
         },
         {
+          "id": "nuovo-materiale",
           "name": "",
-          "bestFor": "",
-          "finish": "",
+          "summary": "",
+          "technical": "",
+          "uses": "",
           "notes": ""
         }
-      ]
+      ],
+      "technicalLabel": "Scheda tecnica",
+      "usesLabel": "Utilizzo",
+      "openDetail": "Dettagli",
+      "closeLabel": "Chiudi"
     },
     "finishing": {
       "title": "Rifinitura a mano",
@@ -236,7 +254,8 @@
           "products": "",
           "mediaAlt": ""
         }
-      ]
+      ],
+      "toolsLabel": "Strumenti"
     },
     "custom": {
       "title": "Pezzi su misura",
@@ -265,6 +284,28 @@
         }
       ]
     },
+    "tools": {
+      "items": [
+        {
+          "step": "painting",
+          "id": "acrylics",
+          "name": "Colori acrilici",
+          "description": ""
+        },
+        {
+          "step": "painting",
+          "id": "brushes",
+          "name": "Pennelli",
+          "description": ""
+        },
+        {
+          "step": "painting",
+          "id": "nuovo-strumento",
+          "name": "",
+          "description": ""
+        }
+      ]
+    },
     "printers": {
       "title": "Le nostre stampanti",
       "intro": "",
@@ -279,7 +320,8 @@
     "cta": {
       "title": "Hai un'idea? Scrivici",
       "text": "Raccontaci cosa hai in mente: valutiamo insieme materiale, finitura, tempi e costo."
-    }
+    },
+    "photoPlaceholder": "Foto in arrivo"
   },
   "showcase": {
     "eyebrow": "Galleria",

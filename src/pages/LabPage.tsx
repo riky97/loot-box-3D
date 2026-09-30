@@ -1,16 +1,24 @@
-import { Mail } from "lucide-react"
-import type { ReactNode } from "react"
+import { ArrowRight, Mail } from "lucide-react"
+import { useRef, useState, type ReactNode, type RefObject } from "react"
 import { useTranslation } from "react-i18next"
 
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
 import { LabMediaFrame } from "@/components/common/LabMediaFrame"
+import { PhotoPlaceholder } from "@/components/common/PhotoPlaceholder"
+import { PhotoViewer } from "@/components/common/PhotoViewer"
 import { Button } from "@/components/ui/button"
-import { BRAND_LINKS, LAB_MEDIA } from "@/data/brand"
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
+import {
+  BRAND_LINKS,
+  LAB_MATERIAL_PHOTOS,
+  LAB_MEDIA,
+  LAB_TOOL_PHOTOS,
+} from "@/data/brand"
 import { useDocumentMeta } from "@/hooks/useDocumentMeta"
 import { useContentList } from "@/i18n/useContentList"
 import { cn } from "@/lib/utils"
 import { LAB_SECTION_IDS } from "@/routes/paths"
-import type { LabMaterial, LabPrinter, LabStep } from "@/types/content"
+import type { LabMaterial, LabPrinter, LabStep, LabTool } from "@/types/content"
 
 const LAB_HEADING_ID = "lab-heading"
 
@@ -34,9 +42,15 @@ export function LabPage() {
     isFilled(s.title),
   )
   const customSteps = useContentList<LabStep>("lab.custom.steps").filter((s) => isFilled(s.title))
+  const tools = useContentList<LabTool>("lab.tools.items").filter((tool) => isFilled(tool.name))
   const printers = useContentList<LabPrinter>("lab.printers.items").filter((p) =>
     isFilled(p.name),
   )
+
+  const [openMaterialId, setOpenMaterialId] = useState<string | null>(null)
+  const openMaterial = materials.find((m) => m.id === openMaterialId) ?? null
+  // The card that opened the panel, so focus can go back to it on close.
+  const materialTriggerRef = useRef<HTMLButtonElement | null>(null)
 
   useDocumentMeta({ title: t("lab.metaTitle"), description: t("lab.metaDescription") })
 
@@ -86,27 +100,22 @@ export function LabPage() {
       >
         <ul className="grid list-none gap-sp-5 sm:grid-cols-2 lg:grid-cols-3">
           {materials.map((material) => (
-            <li
-              key={material.name}
-              className="flex flex-col gap-sp-3 rounded-lg border-2 border-border bg-surface p-sp-6 shadow-raised"
-            >
-              <h3 className="type-h3 text-foreground">{material.name}</h3>
-              {isFilled(material.bestFor) || isFilled(material.finish) ? (
-                <dl className="flex flex-col gap-sp-2">
-                  {isFilled(material.bestFor) ? (
-                    <Fact label={t("lab.materials.bestForLabel")}>{material.bestFor}</Fact>
-                  ) : null}
-                  {isFilled(material.finish) ? (
-                    <Fact label={t("lab.materials.finishLabel")}>{material.finish}</Fact>
-                  ) : null}
-                </dl>
-              ) : null}
-              {isFilled(material.notes) ? (
-                <p className="text-foreground-dim">{material.notes}</p>
-              ) : null}
+            <li key={material.id}>
+              <MaterialCard
+                material={material}
+                onOpen={(trigger) => {
+                  materialTriggerRef.current = trigger
+                  setOpenMaterialId(material.id)
+                }}
+              />
             </li>
           ))}
         </ul>
+        <MaterialDialog
+          material={openMaterial}
+          onClose={() => setOpenMaterialId(null)}
+          returnFocusRef={materialTriggerRef}
+        />
       </LabSection>
 
       <LabSection
@@ -115,7 +124,15 @@ export function LabPage() {
         intro={t("lab.finishing.intro")}
         className="bg-background"
       >
-        <StepList steps={finishingSteps} productsLabel={t("lab.finishing.productsLabel")} />
+        {/* Finishing is where photos matter most, so each step keeps a frame
+            for its photo or timelapse, showing the placeholder until one exists. */}
+        <StepList
+          steps={finishingSteps}
+          tools={tools}
+          productsLabel={t("lab.finishing.productsLabel")}
+          toolsLabel={t("lab.finishing.toolsLabel")}
+          showMediaPlaceholder
+        />
       </LabSection>
 
       <LabSection
@@ -124,7 +141,12 @@ export function LabPage() {
         intro={t("lab.custom.intro")}
         className="bg-surface-alt"
       >
-        <StepList steps={customSteps} productsLabel={t("lab.finishing.productsLabel")} />
+        <StepList
+          steps={customSteps}
+          tools={tools}
+          productsLabel={t("lab.finishing.productsLabel")}
+          toolsLabel={t("lab.finishing.toolsLabel")}
+        />
       </LabSection>
 
       {printers.length > 0 ? (
@@ -215,43 +237,243 @@ function LabSection({
 
 /**
  * The steps are a real sequence, so they are an ordered list with visible
- * numbers. A step with media splits into text and clip from `md:` up; one
- * without stays a single column rather than leaving an empty half.
+ * numbers. A step with media (or, with `showMediaPlaceholder`, one still
+ * waiting for it) splits into text and frame from `md:` up; otherwise it stays
+ * a single column rather than leaving an empty half. Tools, when a step has
+ * any, sit under it as small photo cards.
  */
-function StepList({ steps, productsLabel }: { steps: LabStep[]; productsLabel: string }) {
+function StepList({
+  steps,
+  tools,
+  productsLabel,
+  toolsLabel,
+  showMediaPlaceholder = false,
+}: {
+  steps: LabStep[]
+  /** Every filled tool on the page; each step shows the ones naming it. */
+  tools: LabTool[]
+  productsLabel: string
+  toolsLabel: string
+  showMediaPlaceholder?: boolean
+}) {
+  const { t } = useTranslation()
+
   return (
-    <ol className="flex list-none flex-col gap-sp-8">
+    <ol className="flex list-none flex-col gap-sp-10">
       {steps.map((step, index) => {
         const media = LAB_MEDIA[step.id]
+        const hasFrame = Boolean(media) || showMediaPlaceholder
+        const stepTools = tools.filter((tool) => tool.step === step.id)
         return (
-          <li
-            key={step.id}
-            className={cn("grid items-center gap-sp-5", media && "md:grid-cols-2 md:gap-sp-8")}
-          >
-            <div className="flex gap-sp-4">
-              <span
-                aria-hidden="true"
-                className="type-display text-h3 tabular-nums leading-none text-primary"
-              >
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div className="flex flex-col gap-sp-2">
-                <h3 className="type-h3 text-foreground">{step.title}</h3>
-                {isFilled(step.description) ? (
-                  <p className="max-w-measure-body text-foreground-dim">{step.description}</p>
-                ) : null}
-                {isFilled(step.products) ? (
-                  <dl>
-                    <Fact label={productsLabel}>{step.products}</Fact>
-                  </dl>
-                ) : null}
+          <li key={step.id} className="flex flex-col gap-sp-5">
+            <div
+              className={cn("grid items-center gap-sp-5", hasFrame && "md:grid-cols-2 md:gap-sp-8")}
+            >
+              <div className="flex gap-sp-4">
+                <span
+                  aria-hidden="true"
+                  className="type-display text-h3 tabular-nums leading-none text-primary"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="flex flex-col gap-sp-2">
+                  <h3 className="type-h3 text-foreground">{step.title}</h3>
+                  {isFilled(step.description) ? (
+                    <p className="max-w-measure-body text-foreground-dim">{step.description}</p>
+                  ) : null}
+                  {isFilled(step.products) ? (
+                    <dl>
+                      <Fact label={productsLabel}>{step.products}</Fact>
+                    </dl>
+                  ) : null}
+                </div>
               </div>
+              {media ? (
+                <LabMediaFrame media={media} alt={step.mediaAlt || step.title} />
+              ) : showMediaPlaceholder ? (
+                <PhotoPlaceholder
+                  label={t("lab.photoPlaceholder")}
+                  className="aspect-video rounded-lg border-2 border-border"
+                />
+              ) : null}
             </div>
-            {media ? <LabMediaFrame media={media} alt={step.mediaAlt || step.title} /> : null}
+
+            {stepTools.length > 0 ? (
+              <div className="md:pl-sp-10">
+                <h4 className="type-eyebrow text-muted-foreground">{toolsLabel}</h4>
+                <ul className="mt-sp-3 grid list-none grid-cols-2 gap-sp-4 sm:grid-cols-3 lg:grid-cols-4">
+                  {stepTools.map((tool) => (
+                    <li key={tool.id}>
+                      <ToolCard tool={tool} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </li>
         )
       })}
     </ol>
+  )
+}
+
+function ToolCard({ tool }: { tool: LabTool }) {
+  const { t } = useTranslation()
+  const photo = LAB_TOOL_PHOTOS[tool.id]
+  return (
+    <figure className="flex flex-col gap-sp-2">
+      {photo ? (
+        <img
+          src={photo}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="aspect-square w-full rounded-lg border-2 border-border bg-surface-alt object-cover"
+        />
+      ) : (
+        <PhotoPlaceholder
+          label={t("lab.photoPlaceholder")}
+          className="aspect-square rounded-lg border-2 border-border"
+        />
+      )}
+      {/* The name is the photo's caption, so the image itself stays alt="". */}
+      <figcaption className="flex flex-col">
+        <span className="font-semibold text-foreground">{tool.name}</span>
+        {isFilled(tool.description) ? (
+          <span className="type-meta text-foreground-dim">{tool.description}</span>
+        ) : null}
+      </figcaption>
+    </figure>
+  )
+}
+
+/**
+ * A material in the grid: its first photo (or the placeholder), name and one
+ * line of summary. The whole card is the button that opens the detail panel.
+ */
+function MaterialCard({
+  material,
+  onOpen,
+}: {
+  material: LabMaterial
+  onOpen: (trigger: HTMLButtonElement) => void
+}) {
+  const { t } = useTranslation()
+  const photo = LAB_MATERIAL_PHOTOS[material.id]?.[0]
+  return (
+    <button
+      type="button"
+      onClick={(event) => onOpen(event.currentTarget)}
+      aria-haspopup="dialog"
+      className="group flex h-full w-full flex-col overflow-hidden rounded-lg border-2 border-border bg-surface text-left shadow-raised transition-[transform,border-color] duration-base ease-bounce hover:-translate-y-1 hover:border-primary"
+    >
+      {photo ? (
+        <img
+          src={photo}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="aspect-[4/3] w-full bg-surface-alt object-cover"
+        />
+      ) : (
+        <PhotoPlaceholder label={t("lab.photoPlaceholder")} className="aspect-[4/3]" decorative />
+      )}
+      <span className="flex flex-1 flex-col gap-sp-2 p-sp-5">
+        <span className="type-h3 text-foreground">{material.name}</span>
+        {isFilled(material.summary) ? (
+          <span className="text-foreground-dim">{material.summary}</span>
+        ) : null}
+        <span className="type-meta mt-auto inline-flex items-center gap-sp-2 pt-sp-2 text-primary">
+          {t("lab.materials.openDetail")}
+          <ArrowRight
+            aria-hidden="true"
+            className="size-4 transition-transform duration-base ease-bounce group-hover:translate-x-1"
+          />
+        </span>
+      </span>
+    </button>
+  )
+}
+
+/**
+ * The detail panel for one material: photos, technical note, uses and notes.
+ * Built on the same Radix dialog as the mobile menu, so focus is trapped and
+ * returned, Escape closes it, and the page behind does not scroll. On phones
+ * it rises from the bottom; from `sm:` up it sits centred.
+ */
+function MaterialDialog({
+  material,
+  onClose,
+  returnFocusRef,
+}: {
+  material: LabMaterial | null
+  onClose: () => void
+  /** Focused again on close; Radix only does this for its own Trigger. */
+  returnFocusRef: RefObject<HTMLButtonElement | null>
+}) {
+  const { t } = useTranslation()
+  // Keeps the last material on screen while the close animation runs, instead
+  // of the panel emptying the moment `material` becomes null.
+  const lastMaterialRef = useRef<LabMaterial | null>(null)
+  if (material) lastMaterialRef.current = material
+  const shown = material ?? lastMaterialRef.current
+
+  return (
+    <Sheet
+      open={material !== null}
+      onOpenChange={(open) => {
+        if (!open) onClose()
+      }}
+    >
+      <SheetContent
+        side="bottom"
+        closeLabel={t("lab.materials.closeLabel")}
+        aria-describedby={undefined}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault()
+          returnFocusRef.current?.focus()
+        }}
+        className={cn(
+          "max-h-[90vh] overflow-y-auto rounded-t-lg border-2 border-border bg-surface p-sp-6 shadow-elevated",
+          "sm:inset-x-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:w-[min(92vw,760px)] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-lg",
+          "sm:data-[state=open]:slide-in-from-left-1/2 sm:data-[state=open]:slide-in-from-top-[48%] sm:data-[state=closed]:slide-out-to-left-1/2 sm:data-[state=closed]:slide-out-to-top-[48%]",
+        )}
+      >
+        {shown ? (
+          <div className="flex flex-col gap-sp-5 sm:grid sm:grid-cols-2 sm:items-start sm:gap-sp-6">
+            <PhotoViewer
+              key={shown.id}
+              photos={LAB_MATERIAL_PHOTOS[shown.id] ?? []}
+              alt={shown.name}
+              placeholderLabel={t("lab.photoPlaceholder")}
+              aspectClass="aspect-[4/3]"
+            />
+            <div className="flex flex-col gap-sp-4 sm:pr-sp-8">
+              {/* The explicit size and weight replace SheetTitle's own `text-lg
+                  font-semibold`: utilities outrank the `type-h2` component
+                  class, so without them the title renders at 18px. */}
+              <SheetTitle className="type-h2 text-[length:var(--fs-h2)] font-extrabold text-foreground">{shown.name}</SheetTitle>
+              {isFilled(shown.summary) ? (
+                <p className="type-lead text-foreground-dim">{shown.summary}</p>
+              ) : null}
+              {isFilled(shown.technical) || isFilled(shown.uses) ? (
+                <dl className="flex flex-col gap-sp-3">
+                  {isFilled(shown.technical) ? (
+                    <Fact label={t("lab.materials.technicalLabel")}>{shown.technical}</Fact>
+                  ) : null}
+                  {isFilled(shown.uses) ? (
+                    <Fact label={t("lab.materials.usesLabel")}>{shown.uses}</Fact>
+                  ) : null}
+                </dl>
+              ) : null}
+              {isFilled(shown.notes) ? (
+                <p className="text-foreground-dim">{shown.notes}</p>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
+      </SheetContent>
+    </Sheet>
   )
 }
 

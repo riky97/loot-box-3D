@@ -64,12 +64,32 @@ export interface ShowcaseItem {
  */
 
 export interface LabMaterial {
+  /** Key into `LAB_MATERIAL_PHOTOS` in brand.ts. */
+  id: string
   name: string
-  /** What the material is chosen for, e.g. "dettagli fini, statuette". */
-  bestFor: string
-  /** The surface it leaves, e.g. "liscia, pronta da dipingere". */
-  finish: string
+  /** One line on the card, e.g. "robusto, per pezzi da esterno". */
+  summary: string
+  /** Short technical description, shown in the detail panel. */
+  technical: string
+  /** What the studio uses it for, shown in the detail panel. */
+  uses: string
+  /** Anything else, e.g. the PLA variants. */
   notes: string
+}
+
+/**
+ * A tool or product shown with a photo under a step, e.g. acrylics, brushes.
+ * Kept in one flat list (`lab.tools.items`) rather than nested in each step:
+ * i18next types every key path of it.json, and an array inside an array of
+ * steps pushed that past TypeScript's instantiation depth limit.
+ */
+export interface LabTool {
+  /** `LabStep.id` of the step this tool appears under. */
+  step: string
+  /** Key into `LAB_TOOL_PHOTOS` in brand.ts. */
+  id: string
+  name: string
+  description: string
 }
 
 export interface LabStep {

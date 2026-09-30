@@ -921,6 +921,18 @@ detail lives one click away for the visitor who wants it. Reached from the
 - All copy comes from `lab` in it.json. Blank fields are not shown, entries with
   a blank name or title are skipped, and Printers appears only once a printer
   is named, so the page can be filled in gradually.
+- Materials are cards that open a detail panel (a Radix dialog: bottom sheet on
+  phones, centred from `sm:`) with photos, a technical note, uses and notes.
+  Photos come from `LAB_MATERIAL_PHOTOS`; focus returns to the card on close.
+- Tools and products (acrylics, brushes, later the airbrush) are listed in
+  `lab.tools.items`, each naming the step it sits under, with a photo from
+  `LAB_TOOL_PHOTOS`. Flat on purpose: nested inside the steps they pushed
+  i18next's key typing past TypeScript's depth limit.
+- Until a photo exists, `PhotoPlaceholder` stands in: a green hatch with the
+  brand mark and a "Foto in arrivo" chip, the treatment the gallery used before
+  its photography arrived. Finishing steps always keep a photo frame, so the
+  placeholder shows there too. Adding the file and its entry in brand.ts
+  replaces it; nothing else changes.
 - A step can carry a timelapse or photo through `LAB_MEDIA` in brand.ts;
   `LabMediaFrame` loads a video only near the screen, plays it muted and looped
   while visible, pauses it off screen, and under reduced motion shows the

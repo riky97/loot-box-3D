@@ -96,5 +96,26 @@ export type LabMedia =
 
 export const LAB_MEDIA: Record<string, LabMedia> = {}
 
+/**
+ * Photos of each material for its detail panel on the lab page, keyed by
+ * `LabMaterial.id` in it.json; the first one also shows on the card. A material
+ * with no entry shows the "Foto in arrivo" placeholder. 4:3 WebP, 1200x900,
+ * metadata stripped, in `public/laboratorio/materiali/`.
+ *
+ * Example:
+ *   pla: ["/laboratorio/materiali/pla-1.webp", "/laboratorio/materiali/pla-2.webp"],
+ */
+export const LAB_MATERIAL_PHOTOS: Record<string, readonly string[]> = {}
+
+/**
+ * One photo per tool or product under a lab step, keyed by `LabTool.id` in
+ * it.json. A tool with no entry shows the placeholder. Square WebP, 800x800,
+ * metadata stripped, in `public/laboratorio/strumenti/`.
+ *
+ * Example:
+ *   acrylics: "/laboratorio/strumenti/acrilici.webp",
+ */
+export const LAB_TOOL_PHOTOS: Record<string, string> = {}
+
 /** Intrinsic size of every file in `SHOWCASE_IMAGES`, used to reserve space. */
 export const SHOWCASE_IMAGE_SIZE = { width: 560, height: 700 } as const
