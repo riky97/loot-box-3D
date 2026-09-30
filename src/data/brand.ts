@@ -19,6 +19,7 @@ export const BRAND_LINKS = {
  */
 export const categoryTierVars: Record<CategoryId, string> = {
   anime: "--tier-anime",
+  film: "--tier-film",
   gadget: "--tier-gadget",
   gaming: "--tier-gaming",
   other: "--tier-other",

@@ -5,7 +5,7 @@ const PIECE_COUNT = 40
 
 // The three decorative accents. These are fills, never text, so using them here
 // is exactly what they are for.
-const TIER_VARS = ["--accent-vivid", "--gold", "--green-vivid", "--primary"] as const
+const TIER_VARS = ["--accent-vivid", "--gold", "--green-vivid", "--violet-vivid", "--primary"] as const
 
 /**
  * The burst that fires when the Konami code lands.

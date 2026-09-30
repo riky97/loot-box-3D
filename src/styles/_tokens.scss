@@ -47,6 +47,7 @@ $color-primary-deep: 152 45% 15%; // #153727   pressed-state offset shadow
 $color-accent-vivid: 345 100% 60%; // #FF3366   3.37 — fills, glows, gradients
 $color-gold: 51 100% 50%; // #FFD700   1.33 — fills and rules only
 $color-green-vivid: 160 100% 40%; // #00CC88   2.00 — fills and rules only
+$color-violet-vivid: 265 65% 62%; // #945FDD   4.04 — fills and rules only
 
 // -- Text-safe counterparts of the decorative accents -------------------------
 $color-gold-ink: 47 100% 27%; // #8A6D00   4.67 AA
@@ -78,6 +79,7 @@ $color-ring: $color-primary;
 $color-tier-anime: $color-accent-vivid;
 $color-tier-gadget: $color-gold;
 $color-tier-gaming: $color-green-vivid;
+$color-tier-film: $color-violet-vivid;
 $color-tier-other: $color-muted-foreground;
 
 // -----------------------------------------------------------------------------
@@ -191,6 +193,7 @@ $dur-shelf-b: 42s; // deliberately not a multiple of A, so the rows never sync
   --gold-ink: #{$color-gold-ink};
   --green: #{$color-green};
   --green-vivid: #{$color-green-vivid};
+  --violet-vivid: #{$color-violet-vivid};
 
   // -- Colors: shadcn/ui semantic set -----------------------------------------
   --card: #{$color-card};
@@ -212,6 +215,7 @@ $dur-shelf-b: 42s; // deliberately not a multiple of A, so the rows never sync
   --tier-anime: #{$color-tier-anime};
   --tier-gadget: #{$color-tier-gadget};
   --tier-gaming: #{$color-tier-gaming};
+  --tier-film: #{$color-tier-film};
   --tier-other: #{$color-tier-other};
 
   // -- Typography -------------------------------------------------------------

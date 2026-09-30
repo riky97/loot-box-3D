@@ -89,6 +89,12 @@
         "tagline": "Per chi ha il poster in camera"
       },
       {
+        "id": "film",
+        "name": "Film & Fantasy",
+        "description": "Statuette, repliche e decorazioni ispirate a film, serie e mondi fantasy.",
+        "tagline": "Per chi conosce la strada per Mordor"
+      },
+      {
         "id": "gadget",
         "name": "Gadget & Collezionabili",
         "description": "Gadget e mini collezioni progettati da noi, e oggetti d'arredo per la casa, come il gatto porta-occhiali.",
@@ -361,7 +367,7 @@
       {
         "id": "boromir-pen-holder",
         "name": "Boromir portapenne",
-        "category": "gadget",
+        "category": "film",
         "tag": "Da scrivania",
         "alt": "Portapenne a forma di Boromir inginocchiato, con le penne infilate come le frecce del film.",
         "description": "",
@@ -403,7 +409,7 @@
       {
         "id": "fellowship-sword",
         "name": "Spada della Compagnia",
-        "category": "other",
+        "category": "film",
         "tag": "Decorazione",
         "alt": "Spada nera stampata a sagoma, con le figure della Compagnia dell'Anello in cammino tra le montagne lungo la lama.",
         "description": "",
@@ -417,7 +423,7 @@
       {
         "id": "resin-dragon",
         "name": "Drago in resina",
-        "category": "other",
+        "category": "film",
         "tag": "Statuetta",
         "alt": "Statuetta di drago in resina azzurra con le ali aperte, appollaiato su un cumulo di teschi.",
         "description": "",

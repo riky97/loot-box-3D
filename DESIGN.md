@@ -66,6 +66,7 @@ assumed.
   --accent-vivid:   #FF3366;   /* the seed magenta: gradients, glows, shadow tints */
   --gold:           #FFD700;   /* fills and rules only */
   --green-vivid:    #00CC88;   /* fills and rules only */
+  --violet-vivid:   #945FDD;   /* fills and rules only: the Film & Fantasy tier */
 
   /* Accent — text-safe variants of the above */
   --gold-ink:       #8A6D00;   /* gold as readable text */
@@ -107,10 +108,10 @@ assumed.
 ### Color Rules
 
 1. **Zero hardcoded hex outside `_tokens.scss`.** Every colour is referenced through a custom property. A `grep` for `#[0-9a-fA-F]{6}` outside the token file must return nothing.
-2. **`--accent-vivid`, `--gold` and `--green-vivid` are decoration, never text.** They fail AA on cream at body size. Use them as fills, rules, gradient stops, glow tints and shadow colours. When their hue must carry words, use `--primary`, `--gold-ink` and `--green` instead.
+2. **`--accent-vivid`, `--gold`, `--green-vivid` and `--violet-vivid` are decoration, never text.** They fail AA on cream at body size. Use them as fills, rules, gradient stops, glow tints and shadow colours. When their hue must carry words, use `--primary`, `--gold-ink` and `--green` instead.
 3. **Gold is a background, not a foreground.** `--text` on a `--gold` fill is 11.22 and excellent. `--gold` on cream is 1.33 and invisible.
 4. **One accent per section.** Forest green leads; gold and green appear as the category coding and as small punctuation. Never all three competing in one viewport.
-5. **The category colour coding is fixed**: anime → `--accent-vivid`, gadget → `--gold`, gaming → `--green-vivid`, other → `--text-tertiary`. These tint borders, chips and card glows only; the card's own text stays `--text` / `--text-secondary`.
+5. **The category colour coding is fixed**: anime → `--accent-vivid`, film → `--violet-vivid`, gadget → `--gold`, gaming → `--green-vivid`, other → `--text-tertiary`. These tint borders, chips and card glows only; the card's own text stays `--text` / `--text-secondary`.
 
 ---
 

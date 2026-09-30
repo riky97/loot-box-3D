@@ -20,7 +20,7 @@ export interface AboutPillar {
   labSection: LabSectionId
 }
 
-export type CategoryId = "anime" | "gadget" | "gaming" | "other"
+export type CategoryId = "anime" | "film" | "gadget" | "gaming" | "other"
 
 export interface CategoryItem {
   id: CategoryId

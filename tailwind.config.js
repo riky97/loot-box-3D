@@ -41,6 +41,7 @@ export default {
         "accent-vivid": "hsl(var(--accent-vivid) / <alpha-value>)",
         gold: "hsl(var(--gold) / <alpha-value>)",
         "green-vivid": "hsl(var(--green-vivid) / <alpha-value>)",
+        "violet-vivid": "hsl(var(--violet-vivid) / <alpha-value>)",
         // Text-safe counterparts.
         "gold-ink": "hsl(var(--gold-ink) / <alpha-value>)",
         green: "hsl(var(--green) / <alpha-value>)",
