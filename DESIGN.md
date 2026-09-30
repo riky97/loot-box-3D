@@ -871,26 +871,26 @@ alternation itself carries the sequence.
 
 ### 6. Contact — Single dominant panel
 
-One panel, centred, occupying most of the viewport: the Instagram call to
-action treated as the loot box itself. Location and handle collapse into a
-compact strip beneath it rather than a second card.
+One panel, centred: the three ways to reach the studio, side by side with the
+same structure (icon, channel name, the handle or address itself, a button):
+Instagram, email and the Stimalo profile. The location sits in a strip beneath
+rather than in a second card.
 
 ```
-        +--------------------------------------+
-        |                                      |
-        |             [ IG glyph ]             |
-        |                                      |
-        |            @loot.box.3d              |   <- H2 scale
-        |      Rispondiamo entro 24 ore        |
-        |                                      |
-        |          [  Scrivici ora  ]          |
-        |                                      |
-        +--------------------------------------+
-             SEDE . Palermo   |   IG . @loot.box.3d
+        +----------------------------------------------+
+        |        Rispondiamo di solito entro 24-48 ore |
+        |                                              |
+        |   [IG]           [@]            [Stimalo]    |
+        |  @loot.box.3d  lootbox.3dprint@  Loot Box 3D |
+        |                  gmail.com                   |
+        |  [Instagram]    ( Mail )        ( Profilo )  |
+        +----------------------------------------------+
+                  SEDE . Abbiategrasso (MI)
 ```
 
 - The panel carries `--shadow-glow`; it is the only element on the page permitted to use it.
-- The email row stays commented out, exactly as on `master` — the mailbox does not exist yet, and the `contact.emailLabel` / `contact.emailValue` keys remain in the locale file so re-enabling is a one-line change.
+- Only Instagram's button is filled, as the fastest channel; email and Stimalo are outlined, so the panel never holds three competing green buttons.
+- Stacks to one column with dividers below `sm:`. The email address wraps only after the "@".
 
 ### 7. Footer — Baseline strip
 
