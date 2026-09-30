@@ -762,7 +762,7 @@ that strip reads as a fact, so it may only carry what is true today.
         |                                      |
         |      [ Instagram ]  [ Come funziona ]|
         +--------------------------------------+
-        |  SU MISURA . A MANO . PLA E RESINA   |   <- ticker strip
+        |  SU MISURA . A MANO . MATERIALI      |   <- ticker strip
         +--------------------------------------+
 ```
 
