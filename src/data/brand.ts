@@ -6,6 +6,12 @@ export const BRAND_LINKS = {
   /** Maker profile on Stimalo, the Italian 3D-printing marketplace. */
   stimalo: "https://stimalo.com/printer/loot-box-3d",
   email: "lootbox.3dprint@gmail.com",
+  /**
+   * Google Maps search for the town only: the site states no street address.
+   * Swap for the studio's address or Google Business profile link if one is
+   * published.
+   */
+  maps: "https://www.google.com/maps/search/?api=1&query=Abbiategrasso%2C%20MI",
 } as const
 
 /**

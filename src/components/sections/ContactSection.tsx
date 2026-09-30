@@ -13,12 +13,12 @@ const CONTACT_HEADING_ID = "contact-heading"
 /**
  * Archetype: single dominant panel (DESIGN.md 11.6).
  *
- * One centred panel holding the three ways to reach the studio, side by side
- * with the same structure: Instagram, email and the Stimalo profile, each with
- * its handle or address visible and its own button. Only Instagram's button
- * is filled, as the fastest channel; the other two are outlined so the panel
- * does not hold three competing green buttons. The location sits in a strip
- * beneath rather than in a second card.
+ * One centred panel holding the ways to reach the studio, in a two-by-two grid
+ * with the same structure: Instagram, email, the Stimalo profile and the
+ * location (linked to Google Maps), each with its handle or address visible
+ * and its own button. Only Instagram's button is filled, as the fastest
+ * channel; the others are outlined so the panel does not hold four competing
+ * green buttons.
  */
 export function ContactSection() {
   const { t } = useTranslation()
@@ -42,7 +42,10 @@ export function ContactSection() {
         <div className="w-full rounded-lg border-2 border-primary bg-surface p-sp-6 shadow-glow sm:p-sp-8">
           <p className="text-foreground-dim">{t("contact.responseTime")}</p>
 
-          <ul className="mt-sp-6 grid list-none gap-sp-6 divide-y-2 divide-border sm:grid-cols-3 sm:gap-sp-5 sm:divide-y-0">
+          {/* Two by two from `sm:` up: four columns in this panel leave the
+              button labels too narrow, and three would strand the location
+              alone on a second row. */}
+          <ul className="mt-sp-6 grid list-none gap-sp-6 divide-y-2 divide-border sm:grid-cols-2 sm:gap-x-sp-6 sm:gap-y-sp-8 sm:divide-y-0">
             <Channel
               icon={<InstagramGlyph className="size-6" />}
               label={t("contact.instagramLabel")}
@@ -89,14 +92,25 @@ export function ContactSection() {
                 </a>
               </Button>
             </Channel>
+            <Channel
+              icon={<MapPin className="size-6" aria-hidden="true" />}
+              label={t("contact.locationLabel")}
+              value={t("contact.locationValue")}
+            >
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="btn-pop-outline w-full border-2 border-foreground"
+              >
+                <a href={BRAND_LINKS.maps} target="_blank" rel="noreferrer noopener">
+                  <MapPin className="size-4" aria-hidden="true" />
+                  {t("contact.locationCta")}
+                </a>
+              </Button>
+            </Channel>
           </ul>
         </div>
-
-        <p className="inline-flex items-center gap-sp-2">
-          <MapPin className="size-4 text-primary" aria-hidden="true" />
-          <span className="type-chip text-muted-foreground">{t("contact.locationLabel")}</span>
-          <span className="text-foreground">{t("contact.locationValue")}</span>
-        </p>
       </div>
     </section>
   )
