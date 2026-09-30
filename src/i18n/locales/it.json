@@ -157,6 +157,36 @@
           "name": "PLA",
           "bestFor": "",
           "finish": "",
+          "notes": "Varianti: Basic, Matte, Wood, Glow, Metal, Silk+, Pure, Marble."
+        },
+        {
+          "name": "PETG Basic",
+          "bestFor": "",
+          "finish": "",
+          "notes": ""
+        },
+        {
+          "name": "ASA",
+          "bestFor": "",
+          "finish": "",
+          "notes": ""
+        },
+        {
+          "name": "ABS",
+          "bestFor": "",
+          "finish": "",
+          "notes": ""
+        },
+        {
+          "name": "PC",
+          "bestFor": "",
+          "finish": "",
+          "notes": ""
+        },
+        {
+          "name": "TPU",
+          "bestFor": "",
+          "finish": "",
           "notes": ""
         },
         {
@@ -194,7 +224,7 @@
         },
         {
           "id": "painting",
-          "title": "Verniciatura a mano",
+          "title": "Pittura a mano",
           "description": "Dipingiamo il pezzo a mano, curando i dettagli.",
           "products": "",
           "mediaAlt": ""
