@@ -12,6 +12,8 @@ import {
   BRAND_LINKS,
   LAB_MATERIAL_PHOTOS,
   LAB_MEDIA,
+  LAB_PRINTER_PHOTOS,
+  LAB_SECTION_PHOTOS,
   LAB_TOOL_PHOTOS,
 } from "@/data/brand"
 import { useDocumentMeta } from "@/hooks/useDocumentMeta"
@@ -96,6 +98,8 @@ export function LabPage() {
         id={LAB_SECTION_IDS.materials}
         title={t("lab.materials.title")}
         intro={t("lab.materials.intro")}
+        photo={LAB_SECTION_PHOTOS.materials}
+        photoAlt={t("lab.materials.photoAlt")}
         className="bg-surface-alt"
       >
         <ul className="grid list-none gap-sp-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -157,20 +161,36 @@ export function LabPage() {
           className="bg-background"
         >
           <ul className="grid list-none gap-sp-5 sm:grid-cols-2 lg:grid-cols-3">
-            {printers.map((printer) => (
-              <li
-                key={printer.name}
-                className="flex flex-col gap-sp-2 rounded-lg border-2 border-border bg-surface p-sp-6 shadow-raised"
-              >
-                <h3 className="type-h3 text-foreground">{printer.name}</h3>
-                {isFilled(printer.technology) ? (
-                  <p className="type-meta text-muted-foreground">{printer.technology}</p>
-                ) : null}
-                {isFilled(printer.notes) ? (
-                  <p className="text-foreground-dim">{printer.notes}</p>
-                ) : null}
-              </li>
-            ))}
+            {printers.map((printer) => {
+              const photo = LAB_PRINTER_PHOTOS[printer.id]
+              return (
+                <li
+                  key={printer.id}
+                  className="flex flex-col overflow-hidden rounded-lg border-2 border-border bg-surface shadow-raised"
+                >
+                  {photo ? (
+                    <img
+                      src={photo}
+                      alt={printer.photoAlt}
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-[4/3] w-full bg-surface-alt object-cover"
+                    />
+                  ) : (
+                    <PhotoPlaceholder label={t("lab.photoPlaceholder")} className="aspect-[4/3]" />
+                  )}
+                  <div className="flex flex-col gap-sp-2 p-sp-6">
+                    <h3 className="type-h3 text-foreground">{printer.name}</h3>
+                    {isFilled(printer.technology) ? (
+                      <p className="type-meta text-muted-foreground">{printer.technology}</p>
+                    ) : null}
+                    {isFilled(printer.notes) ? (
+                      <p className="text-foreground-dim">{printer.notes}</p>
+                    ) : null}
+                  </div>
+                </li>
+              )
+            })}
           </ul>
         </LabSection>
       ) : null}
@@ -206,16 +226,24 @@ export function LabPage() {
   )
 }
 
+/**
+ * A lab page section. With `photo`, the title and intro sit beside an opening
+ * photo from `md:` up, and above it on phones.
+ */
 function LabSection({
   id,
   title,
   intro,
+  photo,
+  photoAlt = "",
   className,
   children,
 }: {
   id: string
   title: string
   intro: string
+  photo?: string
+  photoAlt?: string
   className?: string
   children: ReactNode
 }) {
@@ -223,11 +251,29 @@ function LabSection({
   return (
     <section id={id} aria-labelledby={headingId} className={cn("section-pad", className)}>
       <div className="shell flex flex-col gap-sp-8">
-        <div className="flex flex-col gap-sp-3">
-          <h2 id={headingId} className="type-h2 text-foreground">
-            {title}
-          </h2>
-          {isFilled(intro) ? <p className="max-w-measure-lead text-foreground-dim">{intro}</p> : null}
+        <div
+          className={cn(
+            "grid items-center gap-sp-5",
+            photo && "md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:gap-sp-8",
+          )}
+        >
+          <div className="flex flex-col gap-sp-3">
+            <h2 id={headingId} className="type-h2 text-foreground">
+              {title}
+            </h2>
+            {isFilled(intro) ? (
+              <p className="max-w-measure-lead text-foreground-dim">{intro}</p>
+            ) : null}
+          </div>
+          {photo ? (
+            <img
+              src={photo}
+              alt={photoAlt}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/3] w-full rounded-lg border-2 border-border bg-surface-alt object-cover shadow-raised"
+            />
+          ) : null}
         </div>
         {children}
       </div>
@@ -469,6 +515,9 @@ function MaterialDialog({
               {isFilled(shown.notes) ? (
                 <p className="text-foreground-dim">{shown.notes}</p>
               ) : null}
+              <FactList label={t("lab.materials.printParamsLabel")} items={shown.printParams} />
+              <FactList label={t("lab.materials.prosLabel")} items={shown.pros} />
+              <FactList label={t("lab.materials.consLabel")} items={shown.cons} />
             </div>
           </div>
         ) : null}
@@ -482,6 +531,22 @@ function Fact({ label, children }: { label: string; children: ReactNode }) {
     <div>
       <dt className="type-meta text-muted-foreground">{label}</dt>
       <dd className="text-foreground">{children}</dd>
+    </div>
+  )
+}
+
+/** A labelled bullet list in the material panel; nothing if every entry is blank. */
+function FactList({ label, items }: { label: string; items: string[] | undefined }) {
+  const filled = (items ?? []).filter(isFilled)
+  if (filled.length === 0) return null
+  return (
+    <div>
+      <h3 className="type-meta text-muted-foreground">{label}</h3>
+      <ul className="mt-sp-1 list-disc pl-sp-5 text-foreground marker:text-primary">
+        {filled.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
     </div>
   )
 }

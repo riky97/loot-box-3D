@@ -27,7 +27,7 @@ const PIECE_HEADING_ID = "piece-heading"
 const RELATED_LIMIT = 4
 
 /** Display order of the optional spec rows; each shows only when filled in. */
-const SPEC_KEYS: (keyof ShowcaseSpecs)[] = ["material", "size", "printTime", "finish"]
+const SPEC_KEYS: (keyof ShowcaseSpecs)[] = ["material", "printer", "size", "printTime", "finish"]
 
 /**
  * One gallery piece on its own page: its photos, a technical sheet, who

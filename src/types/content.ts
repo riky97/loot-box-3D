@@ -38,6 +38,8 @@ export interface CategoryItem {
  */
 export interface ShowcaseSpecs {
   material?: string
+  /** The printer it was made on, e.g. "Bambu Lab A1". */
+  printer?: string
   size?: string
   printTime?: string
   finish?: string
@@ -75,6 +77,10 @@ export interface LabMaterial {
   uses: string
   /** Anything else, e.g. the PLA variants. */
   notes: string
+  /** Print settings, one per entry, e.g. "Temperatura ugello: 190-230 °C". */
+  printParams: string[]
+  pros: string[]
+  cons: string[]
 }
 
 /**
@@ -104,9 +110,13 @@ export interface LabStep {
 }
 
 export interface LabPrinter {
+  /** Key into `LAB_PRINTER_PHOTOS` in brand.ts. */
+  id: string
   name: string
   technology: string
   notes: string
+  /** Describes the printer's photo, once one exists in `LAB_PRINTER_PHOTOS`. */
+  photoAlt: string
 }
 
 export interface HowItWorksStep {

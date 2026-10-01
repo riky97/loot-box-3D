@@ -43,17 +43,24 @@ export const categoryTierVars: Record<CategoryId, string> = {
  */
 export const SHOWCASE_IMAGES: Record<string, string> = {
   samehada: "/showcase/samehada.webp",
-  "cape-buttons": "/showcase/cape-buttons.webp",
-  "vegeta-chibi": "/showcase/vegeta-chibi.webp",
-  charizard: "/showcase/charizard.webp",
-  "pokeball-card-box": "/showcase/pokeball-card-box.webp",
-  "graded-card-case": "/showcase/graded-card-case.webp",
-  "boromir-pen-holder": "/showcase/boromir-pen-holder.webp",
-  bender: "/showcase/bender.webp",
-  "resin-dragon": "/showcase/resin-dragon.webp",
+  "balrog-bust": "/showcase/balrog-bust.webp",
+  gengar: "/showcase/gengar.webp",
+  "monza-circuit": "/showcase/monza-circuit.webp",
+  "pokeball-switch-case": "/showcase/pokeball-switch-case.webp",
+  "jurassic-park-raptor": "/showcase/jurassic-park-raptor.webp",
+  "one-piece-bookends": "/showcase/one-piece-bookends.webp",
   "cat-glasses-stand": "/showcase/cat-glasses-stand.webp",
+  "tcg-kallax-storage": "/showcase/tcg-kallax-storage.webp",
+  "dragon-trainer-cake-topper": "/showcase/dragon-trainer-cake-topper.webp",
+  "lugia-keychain": "/showcase/lugia-keychain.webp",
+  "dino-pen-holder": "/showcase/dino-pen-holder.webp",
+  "spiderman-mega-brick": "/showcase/spiderman-mega-brick.webp",
+  "graded-card-case": "/showcase/graded-card-case.webp",
+  "jiji-bookmark": "/showcase/jiji-bookmark.webp",
+  "boromir-pen-holder": "/showcase/boromir-pen-holder.webp",
+  "iphone-cover": "/showcase/iphone-cover.webp",
   "fellowship-sword": "/showcase/fellowship-sword.webp",
-  "trex-totoro": "/showcase/trex-totoro.webp",
+  bender: "/showcase/bender.webp",
 }
 
 /**
@@ -64,16 +71,10 @@ export const SHOWCASE_IMAGES: Record<string, string> = {
  * A fact about the piece, not copy, so it lives here and not in each locale,
  * where two languages could disagree about who designed something.
  *
- * TEST DATA — four ids drawn at random to exercise the badge. The client has
- * not said which pieces are theirs yet, and a badge on the wrong piece is a
- * false attribution on a public page. Replace before this reaches master.
+ * Confirmed by the client on 2026-10-01. A badge on the wrong piece is a false
+ * attribution on a public page, so add an id only on the client's word.
  */
-export const ORIGINAL_DESIGNS: ReadonlySet<string> = new Set([
-  "vegeta-chibi",
-  "trex-totoro",
-  "cape-buttons",
-  "bender",
-])
+export const ORIGINAL_DESIGNS: ReadonlySet<string> = new Set(["samehada", "cat-glasses-stand"])
 
 /**
  * Extra photos for a piece's own page, after the main one in `SHOWCASE_IMAGES`:
@@ -101,7 +102,10 @@ export type LabMedia =
   | { type: "video"; src: string; poster?: string }
   | { type: "image"; src: string }
 
-export const LAB_MEDIA: Record<string, LabMedia> = {}
+export const LAB_MEDIA: Record<string, LabMedia> = {
+  painting: { type: "image", src: "/laboratorio/pittura.webp" },
+  "finishing-extra": { type: "image", src: "/laboratorio/lucidatura.webp" },
+}
 
 /**
  * Photos of each material for its detail panel on the lab page, keyed by
@@ -122,7 +126,29 @@ export const LAB_MATERIAL_PHOTOS: Record<string, readonly string[]> = {}
  * Example:
  *   acrylics: "/laboratorio/strumenti/acrilici.webp",
  */
-export const LAB_TOOL_PHOTOS: Record<string, string> = {}
+export const LAB_TOOL_PHOTOS: Record<string, string> = {
+  acrylics: "/laboratorio/strumenti/acrilici.webp",
+  brushes: "/laboratorio/strumenti/pennelli.webp",
+}
+
+/**
+ * One photo per printer, keyed by `LabPrinter.id` in it.json, with its alt in
+ * `photoAlt` there. A printer with no entry shows the placeholder. 4:3 WebP,
+ * 1200x900, metadata stripped, in `public/laboratorio/stampanti/`.
+ */
+export const LAB_PRINTER_PHOTOS: Record<string, string> = {
+  "bambu-h2s": "/laboratorio/stampanti/bambu-h2s.webp",
+  "bambu-a1": "/laboratorio/stampanti/bambu-a1.webp",
+}
+
+/**
+ * An opening photo beside a lab section's title, keyed by the section's key in
+ * `LAB_SECTION_IDS`, with its alt in it.json as `lab.<section>.photoAlt`.
+ * 4:3 WebP, 1200x900, metadata stripped.
+ */
+export const LAB_SECTION_PHOTOS: Partial<Record<"materials", string>> = {
+  materials: "/laboratorio/materiali.webp",
+}
 
 /** Intrinsic size of every file in `SHOWCASE_IMAGES`, used to reserve space. */
 export const SHOWCASE_IMAGE_SIZE = { width: 560, height: 700 } as const

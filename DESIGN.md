@@ -688,16 +688,23 @@ Recorded so the comparison against `master` stays honest.
 | Tier L2–L3 suggested | L2 | L3 requires GSAP/Three.js, which `plan.md` §2 gates behind explicit approval — approval was declined in favour of a zero-dependency build |
 | Emoji permitted in Playful tone | not used | the brand mark is line art; emoji would compete with it |
 
-**Image strategy.** The showcase uses the client's own photography: twelve
-pieces, six per shelf, chosen from their shared album. Six is a floor, not a
+**Image strategy.** The showcase uses the client's own photography: nineteen
+pieces (ten and nine per shelf), exactly the set in the client's "Foto per
+sito" album as of 2026-10-01; pieces without a photo there were removed. Six is a floor, not a
 taste: a shelf repeats a photo on screen whenever one pass (6 x 304px = 1824px)
 is narrower than the viewport, and four per shelf made that visible from about
 1216px up. Order the list so no two neighbours in a shelf share a category,
 wrap-around included. Each file is a 4:5
-centre crop at 560x700 (2x the widest tile) in WebP, stored in
+crop at 560x700 (2x the widest tile) in WebP, stored in
 `public/showcase/`, with all metadata stripped because the phone originals
 carry GPS coordinates. Paths live in `SHOWCASE_IMAGES` in `src/data/brand.ts`;
 names, tags and alt text live in the locale file, since they are copy.
+
+Each piece's technical sheet comes from the client's comments on the album:
+material, printer and finish, plus a description where the comment said more.
+Size and print time were not given and stay blank, so they do not show. The
+"Design originale" badge (`ORIGINAL_DESIGNS`) is on the pieces the client
+named as their own design, and only those.
 
 History, so it is not repeated: the first draft specified Unsplash
 placeholders, but the photo IDs written here did not resolve and every tile
@@ -923,8 +930,15 @@ detail lives one click away for the visitor who wants it. Reached from the
   a blank name or title are skipped, and Printers appears only once a printer
   is named, so the page can be filled in gradually.
 - Materials are cards that open a detail panel (a Radix dialog: bottom sheet on
-  phones, centred from `sm:`) with photos, a technical note, uses and notes.
-  Photos come from `LAB_MATERIAL_PHOTOS`; focus returns to the card on close.
+  phones, centred from `sm:`) with photos, a technical note, uses, notes and
+  three bullet lists: print settings, pros and cons, transcribed from the
+  client's "Rubrica Materiali" sheets (kept as text, not images: their small
+  print is unreadable on a phone). Photos come from `LAB_MATERIAL_PHOTOS`;
+  focus returns to the card on close.
+- A section can open with a 4:3 photo beside its title (`LAB_SECTION_PHOTOS`,
+  alt in `lab.<section>.photoAlt`); Materials uses the filament shelf.
+- Printers are cards with a 4:3 photo from `LAB_PRINTER_PHOTOS` (keyed by
+  `LabPrinter.id`, alt in `photoAlt`), or the placeholder until one exists.
 - Tools and products (acrylics, brushes, later the airbrush) are listed in
   `lab.tools.items`, each naming the step it sits under, with a photo from
   `LAB_TOOL_PHOTOS`. Flat on purpose: nested inside the steps they pushed
@@ -937,7 +951,10 @@ detail lives one click away for the visitor who wants it. Reached from the
 - A step can carry a timelapse or photo through `LAB_MEDIA` in brand.ts;
   `LabMediaFrame` loads a video only near the screen, plays it muted and looped
   while visible, pauses it off screen, and under reduced motion shows the
-  poster with controls instead of autoplaying.
+  poster with controls instead of autoplaying. Painting and Polishing use
+  gallery photos (the Balrog, the cat glasses stand) as their examples. A
+  portrait photo that cannot fill the 16:9 frame without losing the piece is
+  fitted whole over a blurred enlargement of itself.
 
 ---
 
