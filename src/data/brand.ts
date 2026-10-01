@@ -110,13 +110,26 @@ export const LAB_MEDIA: Record<string, LabMedia> = {
 /**
  * Photos of each material for its detail panel on the lab page, keyed by
  * `LabMaterial.id` in it.json; the first one also shows on the card. A material
- * with no entry shows the "Foto in arrivo" placeholder. 4:3 WebP, 1200x900,
- * metadata stripped, in `public/laboratorio/materiali/`.
+ * with no entry shows the "Foto in arrivo" placeholder. Files live in
+ * `public/laboratorio/materiali/`, WebP with metadata stripped.
  *
- * Example:
- *   pla: ["/laboratorio/materiali/pla-1.webp", "/laboratorio/materiali/pla-2.webp"],
+ * The first photo is the client's illustrated "Rubrica Materiali" sheet, 1000px
+ * wide at its own tall ratio: the card shows its top (title and "Cos'è") in a
+ * 4:3 frame, and the panel shows it whole, with a link to open it full size.
+ * Further photos of the material itself can follow it in the list.
  */
-export const LAB_MATERIAL_PHOTOS: Record<string, readonly string[]> = {}
+const materialSheet = (id: string) => [`/laboratorio/materiali/${id}.webp`]
+
+export const LAB_MATERIAL_PHOTOS: Record<string, readonly string[]> = {
+  pla: materialSheet("pla"),
+  petg: materialSheet("petg"),
+  asa: materialSheet("asa"),
+  abs: materialSheet("abs"),
+  pc: materialSheet("pc"),
+  tpu: materialSheet("tpu"),
+  nylon: materialSheet("nylon"),
+  resina: materialSheet("resina"),
+}
 
 /**
  * One photo per tool or product under a lab step, keyed by `LabTool.id` in

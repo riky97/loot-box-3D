@@ -1,3 +1,4 @@
+import { Expand } from "lucide-react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -12,6 +13,13 @@ interface PhotoViewerProps {
   placeholderLabel: string
   /** Aspect ratio of the main frame, e.g. `aspect-[4/3]`. */
   aspectClass: string
+  /**
+   * Show the photo at its own ratio, uncropped, instead of filling the frame;
+   * `aspectClass` then sizes only the placeholder. For images with text.
+   */
+  natural?: boolean
+  /** When set, a link under the photo opens it full size in a new tab. */
+  enlargeLabel?: string
 }
 
 /**
@@ -19,7 +27,14 @@ interface PhotoViewerProps {
  * one. With no photos it shows `PhotoPlaceholder`, so a caller never has to
  * branch on whether the studio has supplied pictures yet.
  */
-export function PhotoViewer({ photos, alt, placeholderLabel, aspectClass }: PhotoViewerProps) {
+export function PhotoViewer({
+  photos,
+  alt,
+  placeholderLabel,
+  aspectClass,
+  natural = false,
+  enlargeLabel,
+}: PhotoViewerProps) {
   const { t } = useTranslation()
   const [index, setIndex] = useState(0)
 
@@ -45,10 +60,22 @@ export function PhotoViewer({ photos, alt, placeholderLabel, aspectClass }: Phot
         }
         decoding="async"
         className={cn(
-          aspectClass,
-          "w-full rounded-lg border-2 border-border bg-surface-alt object-cover",
+          !natural && aspectClass,
+          "w-full rounded-lg border-2 border-border bg-surface-alt",
+          natural ? "h-auto" : "object-cover",
         )}
       />
+      {enlargeLabel ? (
+        <a
+          href={photos[current]}
+          target="_blank"
+          rel="noopener"
+          className="inline-flex min-h-[44px] items-center gap-sp-2 self-start font-semibold text-primary underline-offset-4 hover:underline"
+        >
+          <Expand className="size-4" aria-hidden="true" />
+          {enlargeLabel}
+        </a>
+      ) : null}
       {photos.length > 1 ? (
         <ul className="flex list-none flex-wrap gap-sp-2">
           {photos.map((src, photoIndex) => (

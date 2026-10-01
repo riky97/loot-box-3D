@@ -148,7 +148,7 @@
     "relatedTitle": "Altri pezzi della stessa categoria"
   },
   "lab": {
-    "_guida": "Pagina Laboratorio (/laboratorio). Ogni testo si può lasciare vuoto (\"\"): un campo vuoto non compare, e una voce con \"name\" o \"title\" vuoto viene saltata del tutto. Per aggiungere un materiale, un passaggio, uno strumento o una stampante copia una voce vuota e compilala, con un \"id\" nuovo (minuscolo, senza spazi). Materiali: \"summary\" = una riga sulla scheda, \"technical\" = breve descrizione tecnica, \"uses\" = per cosa lo usate, \"notes\" = altro (es. le varianti), \"printParams\", \"pros\" e \"cons\" = elenchi (parametri di stampa, pro e contro), una voce per riga. Passaggi: \"products\" = prodotti usati, \"mediaAlt\" = descrizione del video o della foto, gli strumenti con foto (es. colori acrilici, pennelli, aerografo) stanno in \"tools\", e ognuno indica in \"step\" l'id del passaggio sotto cui compare. Le foto si collegano in src/data/brand.ts usando gli \"id\": LAB_MATERIAL_PHOTOS per i materiali, LAB_TOOL_PHOTOS per gli strumenti, LAB_MEDIA per video e foto dei passaggi, LAB_PRINTER_PHOTOS per le stampanti. Finché una foto manca, il sito mostra il riquadro \"Foto in arrivo\". La sezione Stampanti compare solo quando c'è almeno una stampante con il nome.",
+    "_guida": "Pagina Laboratorio (/laboratorio). Ogni testo si può lasciare vuoto (\"\"): un campo vuoto non compare, e una voce con \"name\" o \"title\" vuoto viene saltata del tutto. Per aggiungere un materiale, un passaggio, uno strumento o una stampante copia una voce vuota e compilala, con un \"id\" nuovo (minuscolo, senza spazi). Materiali: \"summary\" = una riga sulla scheda, \"technical\" = breve descrizione tecnica, \"uses\" = per cosa lo usate, \"notes\" = altro (es. le varianti), \"printParams\", \"pros\" e \"cons\" = elenchi (parametri di stampa, pro e contro), una voce per riga. Passaggi: \"products\" = prodotti usati, \"mediaAlt\" = descrizione del video o della foto, gli strumenti con foto (es. colori acrilici, pennelli, aerografo) stanno in \"tools\", e ognuno indica in \"step\" l'id del passaggio sotto cui compare. Le foto si collegano in src/data/brand.ts usando gli \"id\": LAB_MATERIAL_PHOTOS per i materiali (la prima è la scheda della Rubrica Materiali), LAB_TOOL_PHOTOS per gli strumenti, LAB_MEDIA per video e foto dei passaggi, LAB_PRINTER_PHOTOS per le stampanti. Finché una foto manca, il sito mostra il riquadro \"Foto in arrivo\". La sezione Stampanti compare solo quando c'è almeno una stampante con il nome.",
     "metaTitle": "Come lavoriamo — Loot Box 3D",
     "metaDescription": "Materiali, rifinitura a mano e pezzi su misura: come nasce un pezzo nel laboratorio di Loot Box 3D.",
     "eyebrow": "Laboratorio",
@@ -387,7 +387,9 @@
       "photoAlt": "Lo scaffale delle bobine di filamento nel nostro laboratorio, con una scatola di PLA Pure.",
       "printParamsLabel": "Parametri di stampa",
       "prosLabel": "Pro",
-      "consLabel": "Contro"
+      "consLabel": "Contro",
+      "sheetAlt": "Scheda illustrata: {{name}}, con descrizione, parametri di stampa, pro e contro.",
+      "enlargeSheet": "Apri la scheda a tutta pagina"
     },
     "finishing": {
       "title": "Rifinitura a mano",

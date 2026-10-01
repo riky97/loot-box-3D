@@ -419,7 +419,7 @@ function MaterialCard({
           alt=""
           loading="lazy"
           decoding="async"
-          className="aspect-[4/3] w-full bg-surface-alt object-cover"
+          className="aspect-[4/3] w-full bg-surface-alt object-cover object-top"
         />
       ) : (
         <PhotoPlaceholder label={t("lab.photoPlaceholder")} className="aspect-[4/3]" decorative />
@@ -490,9 +490,11 @@ function MaterialDialog({
             <PhotoViewer
               key={shown.id}
               photos={LAB_MATERIAL_PHOTOS[shown.id] ?? []}
-              alt={shown.name}
+              alt={t("lab.materials.sheetAlt", { name: shown.name })}
               placeholderLabel={t("lab.photoPlaceholder")}
               aspectClass="aspect-[4/3]"
+              natural
+              enlargeLabel={t("lab.materials.enlargeSheet")}
             />
             <div className="flex flex-col gap-sp-4 sm:pr-sp-8">
               {/* The explicit size and weight replace SheetTitle's own `text-lg
