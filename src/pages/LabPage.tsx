@@ -419,7 +419,7 @@ function MaterialCard({
           alt=""
           loading="lazy"
           decoding="async"
-          className="aspect-[4/3] w-full bg-surface-alt object-cover object-top"
+          className="aspect-[4/3] w-full bg-surface-alt object-cover"
         />
       ) : (
         <PhotoPlaceholder label={t("lab.photoPlaceholder")} className="aspect-[4/3]" decorative />
@@ -442,7 +442,9 @@ function MaterialCard({
 }
 
 /**
- * The detail panel for one material: photos, technical note, uses and notes.
+ * The detail panel for one material: photos, technical note, uses, notes and
+ * the print settings, pros and cons. With no photos yet it shows the text
+ * alone in a narrower panel, rather than a placeholder.
  * Built on the same Radix dialog as the mobile menu, so focus is trapped and
  * returned, Escape closes it, and the page behind does not scroll. On phones
  * it rises from the bottom; from `sm:` up it sits centred.
@@ -463,6 +465,7 @@ function MaterialDialog({
   const lastMaterialRef = useRef<LabMaterial | null>(null)
   if (material) lastMaterialRef.current = material
   const shown = material ?? lastMaterialRef.current
+  const photos = shown ? (LAB_MATERIAL_PHOTOS[shown.id] ?? []) : []
 
   return (
     <Sheet
@@ -481,21 +484,27 @@ function MaterialDialog({
         }}
         className={cn(
           "max-h-[90vh] overflow-y-auto rounded-t-lg border-2 border-border bg-surface p-sp-6 shadow-elevated",
-          "sm:inset-x-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:w-[min(92vw,760px)] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-lg",
+          "sm:inset-x-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-lg",
+          photos.length > 0 ? "sm:w-[min(92vw,760px)]" : "sm:w-[min(92vw,560px)]",
           "sm:data-[state=open]:slide-in-from-left-1/2 sm:data-[state=open]:slide-in-from-top-[48%] sm:data-[state=closed]:slide-out-to-left-1/2 sm:data-[state=closed]:slide-out-to-top-[48%]",
         )}
       >
         {shown ? (
-          <div className="flex flex-col gap-sp-5 sm:grid sm:grid-cols-2 sm:items-start sm:gap-sp-6">
-            <PhotoViewer
-              key={shown.id}
-              photos={LAB_MATERIAL_PHOTOS[shown.id] ?? []}
-              alt={t("lab.materials.sheetAlt", { name: shown.name })}
-              placeholderLabel={t("lab.photoPlaceholder")}
-              aspectClass="aspect-[4/3]"
-              natural
-              enlargeLabel={t("lab.materials.enlargeSheet")}
-            />
+          <div
+            className={cn(
+              "flex flex-col gap-sp-5",
+              photos.length > 0 && "sm:grid sm:grid-cols-2 sm:items-start sm:gap-sp-6",
+            )}
+          >
+            {photos.length > 0 ? (
+              <PhotoViewer
+                key={shown.id}
+                photos={photos}
+                alt={shown.name}
+                placeholderLabel={t("lab.photoPlaceholder")}
+                aspectClass="aspect-[4/3]"
+              />
+            ) : null}
             <div className="flex flex-col gap-sp-4 sm:pr-sp-8">
               {/* The explicit size and weight replace SheetTitle's own `text-lg
                   font-semibold`: utilities outrank the `type-h2` component

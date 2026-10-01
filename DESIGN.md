@@ -936,12 +936,11 @@ detail lives one click away for the visitor who wants it. Reached from the
 - Materials are cards that open a detail panel (a Radix dialog: bottom sheet on
   phones, centred from `sm:`) with photos, a technical note, uses, notes and
   three bullet lists: print settings, pros and cons, transcribed from the
-  client's "Rubrica Materiali" sheets. The sheets themselves are the first
-  photo in `LAB_MATERIAL_PHOTOS`: the card crops their top (title and "Cos'è")
-  into its 4:3 frame, and the panel shows them whole at their own ratio, with
-  a link to open them full size, since their small print needs zooming on a
-  phone. The text lists repeat what the sheet says, so it stays readable and
-  reaches screen readers. Focus returns to the card on close.
+  client's "Rubrica Materiali" sheets (transcribed; the sheet images were
+  shown for a while and removed on 2026-10-01, as the client is taking photos
+  of the materials instead). Photos come from `LAB_MATERIAL_PHOTOS`; until a
+  material has one, its card shows the placeholder and its panel shows the
+  text alone, in a narrower single column. Focus returns to the card on close.
 - A section can open with a 4:3 photo beside its title (`LAB_SECTION_PHOTOS`,
   alt in `lab.<section>.photoAlt`); Materials uses the filament shelf.
 - Printers are cards with a 4:3 photo from `LAB_PRINTER_PHOTOS` (keyed by
