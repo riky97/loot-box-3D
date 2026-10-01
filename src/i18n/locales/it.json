@@ -866,7 +866,11 @@
     "locationLabel": "Sede",
     "locationValue": "Abbiategrasso (MI)",
     "locationCta": "Apri su Maps",
-    "responseTime": "Rispondiamo di solito entro 24-48 ore."
+    "responseTime": "Rispondiamo di solito entro 24-48 ore.",
+    "instagramNote": "Il più veloce",
+    "emailCopy": "Copia l'indirizzo email",
+    "emailCopied": "Indirizzo copiato",
+    "emailCopyFailed": "Copia non riuscita: seleziona l'indirizzo a mano"
   },
   "footer": {
     "tagline": "Se lo immagini, lo stampiamo.",

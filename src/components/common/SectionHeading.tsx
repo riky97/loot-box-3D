@@ -43,7 +43,12 @@ export function SectionHeading({
         className,
       )}
     >
-      <p className="type-eyebrow inline-block self-start border-b-2 border-primary pb-sp-1 text-primary">
+      <p
+        className={cn(
+          "type-eyebrow inline-block border-b-2 border-primary pb-sp-1 text-primary",
+          align === "center" ? "self-center" : "self-start",
+        )}
+      >
         {eyebrow}
       </p>
       <h2 id={id} className="type-h2 text-foreground">

@@ -742,7 +742,7 @@ The three axes:
 | 3 | Categories | 4 equal cards in a row | **Expanding full-width bands** | Banded |
 | 4 | Showcase | dense 3-column bento grid | **Counter-scrolling shelves** | Banded to Centred |
 | 5 | How it works | horizontal timeline | **Zig-zag cascade with bleeding numerals** | Split (alternating) |
-| 6 | Contact | split 5/7, heading left, cards right | **Single dominant panel** | Centred |
+| 6 | Contact | split 5/7, heading left, cards right | **Text beside a single dominant panel of channel rows** | Split |
 | 7 | Footer | standard multi-column | **Baseline strip under an oversized wordmark** | Banded |
 
 Every one differs from v1. No archetype is used twice.
@@ -876,28 +876,32 @@ alternation itself carries the sequence.
 - Markup is a real `<ol>`; the zig-zag is `align-self` alternation on the list items.
 - **Below `md:` the cascade collapses to a single left-aligned column.** Alternating blocks on a narrow viewport just look broken.
 
-### 6. Contact — Single dominant panel
+### 6. Contact — Text beside a single dominant panel
 
-One panel, centred: the three ways to reach the studio, side by side with the
-same structure (icon, channel name, the handle or address itself, a button):
-Instagram, email and the Stimalo profile. The location sits in a strip beneath
-rather than in a second card.
+Redesigned on 2026-10-01 at the owner's request: the centred panel of four
+identical cells, each with its own button, read as a form and repeated every
+channel three times (label, handle, button). Now, from `lg:`, the heading, the
+response time and the location sit on the left, and the panel on the right
+holds one row per way to write to the studio. The row is the link: icon,
+channel name, handle, arrow.
 
 ```
-        +----------------------------------------------+
-        |        Rispondiamo di solito entro 24-48 ore |
-        |                                              |
-        |   [IG]           [@]            [Stimalo]    |
-        |  @loot.box.3d  lootbox.3dprint@  Loot Box 3D |
-        |                  gmail.com                   |
-        |  [Instagram]    ( Mail )        ( Profilo )  |
-        +----------------------------------------------+
-                  SEDE . Abbiategrasso (MI)
+  CONTATTI                       +--------------------------------------+
+  Parliamone                     | [IG] Instagram    IL PIU VELOCE   -> |  filled
+  Scrivici dove preferisci...    |      @loot.box.3d                    |
+                                 | [@]  Email                     | [⧉] |  copy
+  (o) Rispondiamo entro 24-48 ore|      lootbox.3dprint@gmail.com |     |
+  (.) Abbiategrasso (MI)  Maps ->| [S]  Stimalo                      -> |
+                                 |      Loot Box 3D                     |
+                                 +--------------------------------------+
 ```
 
 - The panel carries `--shadow-glow`; it is the only element on the page permitted to use it.
-- Only Instagram's button is filled, as the fastest channel; email and Stimalo are outlined, so the panel never holds three competing green buttons.
-- Stacks to one column with dividers below `sm:`. The email address wraps only after the "@".
+- Only the Instagram row is filled, as the fastest channel, with a gold "Il più veloce" chip from `sm:`; email and Stimalo are outlined rows with the pop shadow.
+- The email row is two controls side by side, never nested: the address as the mailto link, and a square copy button (a mailto link often opens a mail program nobody uses). It confirms with a check icon and a polite live region for two seconds, and falls back to a selected textarea where the async clipboard is refused.
+- The location is information, not a channel, so it sits with the text and links to Maps.
+- Below `lg:` everything stacks, text first. The email address wraps only after the "@".
+- Axis exception: this makes Contact a Split section right after the zig-zag of How it works. Accepted because the cascade alternates sides while Contact is one static two-column block, so the two do not read as the same composition.
 
 ### 7. Footer — Baseline strip
 
