@@ -152,6 +152,7 @@ export const LAB_TOOL_PHOTOS: Record<string, string> = {
 export const LAB_PRINTER_PHOTOS: Record<string, string> = {
   "bambu-h2s": "/laboratorio/stampanti/bambu-h2s.webp",
   "bambu-a1": "/laboratorio/stampanti/bambu-a1.webp",
+  "anycubic-m5s": "/laboratorio/stampanti/anycubic-m5s.webp",
 }
 
 /**
