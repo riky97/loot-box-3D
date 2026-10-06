@@ -688,9 +688,13 @@ Recorded so the comparison against `master` stays honest.
 | Tier L2–L3 suggested | L2 | L3 requires GSAP/Three.js, which `plan.md` §2 gates behind explicit approval — approval was declined in favour of a zero-dependency build |
 | Emoji permitted in Playful tone | not used | the brand mark is line art; emoji would compete with it |
 
-**Image strategy.** The showcase uses the client's own photography: nineteen
-pieces (ten and nine per shelf), exactly the set in the client's "Foto per
-sito" album as of 2026-10-01; pieces without a photo there were removed. Six is a floor, not a
+**Image strategy.** The showcase uses the client's own photography: twenty-three
+pieces (twelve and eleven per shelf), the set in the client's "Foto per sito"
+album as of 2026-10-06; pieces without a photo there were removed. A piece can
+add more photos (`SHOWCASE_EXTRA_IMAGES`) and one short clip
+(`SHOWCASE_VIDEOS`, 4:5, no audio, alt in `videoAlt`), which its own page lists
+after the photos with a play mark on the thumbnail; the gallery card always
+shows the still. Six is a floor, not a
 taste: a shelf repeats a photo on screen whenever one pass (6 x 304px = 1824px)
 is narrower than the viewport, and four per shelf made that visible from about
 1216px up. Order the list so no two neighbours in a shelf share a category,
@@ -937,12 +941,16 @@ detail lives one click away for the visitor who wants it. Reached from the
   phones, centred from `sm:`) with photos, a technical note, uses, notes and
   three bullet lists: print settings, pros and cons, transcribed from the
   client's "Rubrica Materiali" sheets (transcribed; the sheet images were
-  shown for a while and removed on 2026-10-01, as the client is taking photos
-  of the materials instead). Photos come from `LAB_MATERIAL_PHOTOS`; until a
-  material has one, its card shows the placeholder and its panel shows the
-  text alone, in a narrower single column. Focus returns to the card on close.
-- A section can open with a 4:3 photo beside its title (`LAB_SECTION_PHOTOS`,
-  alt in `lab.<section>.photoAlt`); Materials uses the filament shelf.
+  shown for a while and removed on 2026-10-01). Seven materials, the ones the
+  studio certainly uses; Nylon was dropped on 2026-10-06. Photos come from
+  `LAB_MATERIAL_PHOTOS`: the makers' product shots, with their copyright mark
+  kept visible by the client's choice, padded to 4:3 rather than cropped so
+  the mark survives. A material without one shows the placeholder on its card
+  and the text alone, in a narrower single column, in its panel. Focus returns
+  to the card on close.
+- A section can open with a 4:5 photo or clip beside its title
+  (`LAB_SECTION_MEDIA`, alt in `lab.<section>.mediaAlt`); Materials opens with
+  the turning colour wheel of filament samples.
 - Printers are cards with a 4:3 photo from `LAB_PRINTER_PHOTOS` (keyed by
   `LabPrinter.id`, alt in `photoAlt`), or the placeholder until one exists.
 - Tools and products (acrylics, brushes, later the airbrush) are listed in
@@ -955,12 +963,14 @@ detail lives one click away for the visitor who wants it. Reached from the
   placeholder shows there too. Adding the file and its entry in brand.ts
   replaces it; nothing else changes.
 - A step can carry a timelapse or photo through `LAB_MEDIA` in brand.ts;
-  `LabMediaFrame` loads a video only near the screen, plays it muted and looped
-  while visible, pauses it off screen, and under reduced motion shows the
-  poster with controls instead of autoplaying. Painting and Polishing use
-  gallery photos (the Balrog, the cat glasses stand) as their examples. A
-  portrait photo that cannot fill the 16:9 frame without losing the piece is
-  fitted whole over a blurred enlargement of itself.
+  `MediaFrame` (shared with the section openings and the piece pages) loads a
+  video only near the screen, plays it muted and looped while visible, pauses
+  it off screen, and under reduced motion shows the poster with controls
+  instead of autoplaying. Painting shows the Kratos turntable and Polishing the
+  cat glasses stand. Portrait footage that cannot fill the 16:9 frame without
+  losing the piece is fitted whole over a blurred enlargement of itself.
+- Clips are re-encoded before they ship: H.264 MP4, audio track and metadata
+  removed, `+faststart`, about 0.5-2 MB each, first frame saved as the poster.
 
 ---
 

@@ -55,6 +55,8 @@ export interface ShowcaseItem {
   alt: string
   /** A few lines about the piece, for its own page. */
   description?: string
+  /** Describes the clip in `SHOWCASE_VIDEOS`, for pieces that have one. */
+  videoAlt?: string
   specs?: ShowcaseSpecs
 }
 

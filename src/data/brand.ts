@@ -61,6 +61,10 @@ export const SHOWCASE_IMAGES: Record<string, string> = {
   "iphone-cover": "/showcase/iphone-cover.webp",
   "fellowship-sword": "/showcase/fellowship-sword.webp",
   bender: "/showcase/bender.webp",
+  pikachu: "/showcase/pikachu.webp",
+  "guinea-pig-keychain": "/showcase/guinea-pig-keychain.webp",
+  "league-of-legends-logo": "/showcase/league-of-legends-logo.webp",
+  "kratos-bust": "/showcase/kratos-bust.webp",
 }
 
 /**
@@ -84,7 +88,23 @@ export const ORIGINAL_DESIGNS: ReadonlySet<string> = new Set(["samehada", "cat-g
  * Example, with the files placed in `public/showcase/`:
  *   "cat-glasses-stand": ["/showcase/cat-glasses-stand-2.webp", "/showcase/cat-glasses-stand-3.webp"],
  */
-export const SHOWCASE_EXTRA_IMAGES: Record<string, readonly string[]> = {}
+export const SHOWCASE_EXTRA_IMAGES: Record<string, readonly string[]> = {
+  "league-of-legends-logo": ["/showcase/league-of-legends-logo-2.webp"],
+}
+
+/**
+ * A short clip for a piece's own page, shown after its photos (a turntable,
+ * the piece in use), keyed by `ShowcaseItem.id`; its alt is `videoAlt` on the
+ * item in it.json. MP4 (H.264), 4:5 at 720x900, no audio track, metadata
+ * stripped, a few seconds; `poster` is its first frame as 560x700 WebP. Files
+ * live in `public/showcase/video/`. The gallery card keeps the still photo.
+ */
+export const SHOWCASE_VIDEOS: Record<string, { src: string; poster: string }> = {
+  "kratos-bust": {
+    src: "/showcase/video/kratos-bust.mp4",
+    poster: "/showcase/video/kratos-bust.webp",
+  },
+}
 
 /**
  * Timelapses and photos for the lab page, keyed by `LabStep.id` in it.json.
@@ -103,7 +123,11 @@ export type LabMedia =
   | { type: "image"; src: string }
 
 export const LAB_MEDIA: Record<string, LabMedia> = {
-  painting: { type: "image", src: "/laboratorio/pittura.webp" },
+  painting: {
+    type: "video",
+    src: "/laboratorio/pittura.mp4",
+    poster: "/laboratorio/pittura-poster.webp",
+  },
   "finishing-extra": { type: "image", src: "/laboratorio/lucidatura.webp" },
 }
 
@@ -114,10 +138,22 @@ export const LAB_MEDIA: Record<string, LabMedia> = {
  * panel shows the text alone. 4:3 WebP, 1200x900, metadata stripped, in
  * `public/laboratorio/materiali/`.
  *
- * Example:
- *   pla: ["/laboratorio/materiali/pla-1.webp", "/laboratorio/materiali/pla-2.webp"],
+ * These are the makers' own product shots (Bambu Lab, Anycubic), used with the
+ * client's agreement and with their copyright mark left visible: each is the
+ * image area of the store photo, padded to 4:3 with its own background colour
+ * rather than cropped, so the mark is never cut off.
  */
-export const LAB_MATERIAL_PHOTOS: Record<string, readonly string[]> = {}
+const materialPhoto = (id: string) => [`/laboratorio/materiali/${id}.webp`]
+
+export const LAB_MATERIAL_PHOTOS: Record<string, readonly string[]> = {
+  pla: materialPhoto("pla"),
+  petg: materialPhoto("petg"),
+  asa: materialPhoto("asa"),
+  abs: materialPhoto("abs"),
+  pc: materialPhoto("pc"),
+  tpu: materialPhoto("tpu"),
+  resina: materialPhoto("resina"),
+}
 
 /**
  * One photo per tool or product under a lab step, keyed by `LabTool.id` in
@@ -144,12 +180,17 @@ export const LAB_PRINTER_PHOTOS: Record<string, string> = {
 }
 
 /**
- * An opening photo beside a lab section's title, keyed by the section's key in
- * `LAB_SECTION_IDS`, with its alt in it.json as `lab.<section>.photoAlt`.
- * 4:3 WebP, 1200x900, metadata stripped.
+ * An opening photo or clip beside a lab section's title, keyed by the
+ * section's key in `LAB_SECTION_IDS`, with its alt in it.json as
+ * `lab.<section>.mediaAlt`. 4:5 (a video at 720x900, no audio, with its first
+ * frame as the poster), metadata stripped.
  */
-export const LAB_SECTION_PHOTOS: Partial<Record<"materials", string>> = {
-  materials: "/laboratorio/materiali.webp",
+export const LAB_SECTION_MEDIA: Partial<Record<"materials", LabMedia>> = {
+  materials: {
+    type: "video",
+    src: "/laboratorio/materiali.mp4",
+    poster: "/laboratorio/materiali-poster.webp",
+  },
 }
 
 /** Intrinsic size of every file in `SHOWCASE_IMAGES`, used to reserve space. */

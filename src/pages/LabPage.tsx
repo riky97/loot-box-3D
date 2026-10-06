@@ -3,7 +3,7 @@ import { useRef, useState, type ReactNode, type RefObject } from "react"
 import { useTranslation } from "react-i18next"
 
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
-import { LabMediaFrame } from "@/components/common/LabMediaFrame"
+import { MediaFrame } from "@/components/common/MediaFrame"
 import { PhotoPlaceholder } from "@/components/common/PhotoPlaceholder"
 import { PhotoViewer } from "@/components/common/PhotoViewer"
 import { Button } from "@/components/ui/button"
@@ -13,8 +13,9 @@ import {
   LAB_MATERIAL_PHOTOS,
   LAB_MEDIA,
   LAB_PRINTER_PHOTOS,
-  LAB_SECTION_PHOTOS,
+  LAB_SECTION_MEDIA,
   LAB_TOOL_PHOTOS,
+  type LabMedia,
 } from "@/data/brand"
 import { useDocumentMeta } from "@/hooks/useDocumentMeta"
 import { useContentList } from "@/i18n/useContentList"
@@ -98,8 +99,8 @@ export function LabPage() {
         id={LAB_SECTION_IDS.materials}
         title={t("lab.materials.title")}
         intro={t("lab.materials.intro")}
-        photo={LAB_SECTION_PHOTOS.materials}
-        photoAlt={t("lab.materials.photoAlt")}
+        media={LAB_SECTION_MEDIA.materials}
+        mediaAlt={t("lab.materials.mediaAlt")}
         className="bg-surface-alt"
       >
         <ul className="grid list-none gap-sp-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -227,23 +228,23 @@ export function LabPage() {
 }
 
 /**
- * A lab page section. With `photo`, the title and intro sit beside an opening
- * photo from `md:` up, and above it on phones.
+ * A lab page section. With `media`, the title and intro sit beside an opening
+ * 4:5 photo or clip from `md:` up, and above it on phones.
  */
 function LabSection({
   id,
   title,
   intro,
-  photo,
-  photoAlt = "",
+  media,
+  mediaAlt = "",
   className,
   children,
 }: {
   id: string
   title: string
   intro: string
-  photo?: string
-  photoAlt?: string
+  media?: LabMedia
+  mediaAlt?: string
   className?: string
   children: ReactNode
 }) {
@@ -254,7 +255,7 @@ function LabSection({
         <div
           className={cn(
             "grid items-center gap-sp-5",
-            photo && "md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:gap-sp-8",
+            media && "md:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] md:gap-sp-8",
           )}
         >
           <div className="flex flex-col gap-sp-3">
@@ -265,13 +266,11 @@ function LabSection({
               <p className="max-w-measure-lead text-foreground-dim">{intro}</p>
             ) : null}
           </div>
-          {photo ? (
-            <img
-              src={photo}
-              alt={photoAlt}
-              loading="lazy"
-              decoding="async"
-              className="aspect-[4/3] w-full rounded-lg border-2 border-border bg-surface-alt object-cover shadow-raised"
+          {media ? (
+            <MediaFrame
+              media={media}
+              alt={mediaAlt}
+              className="mx-auto aspect-[4/5] max-w-[18rem] rounded-lg border-2 border-border shadow-raised md:max-w-none"
             />
           ) : null}
         </div>
@@ -335,7 +334,7 @@ function StepList({
                 </div>
               </div>
               {media ? (
-                <LabMediaFrame media={media} alt={step.mediaAlt || step.title} />
+                <MediaFrame media={media} alt={step.mediaAlt || step.title} />
               ) : showMediaPlaceholder ? (
                 <PhotoPlaceholder
                   label={t("lab.photoPlaceholder")}

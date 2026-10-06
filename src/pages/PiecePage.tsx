@@ -1,9 +1,10 @@
-import { ArrowLeft, PenTool } from "lucide-react"
+import { ArrowLeft, PenTool, Play } from "lucide-react"
 import { useState, type CSSProperties, type ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 import { Link, useParams } from "react-router-dom"
 
 import { InstagramGlyph } from "@/components/common/InstagramGlyph"
+import { MediaFrame } from "@/components/common/MediaFrame"
 import { ShowcaseCard } from "@/components/common/ShowcaseCard"
 import { SectionLink } from "@/components/layout/SectionLink"
 import { Button } from "@/components/ui/button"
@@ -13,6 +14,7 @@ import {
   SHOWCASE_EXTRA_IMAGES,
   SHOWCASE_IMAGE_SIZE,
   SHOWCASE_IMAGES,
+  SHOWCASE_VIDEOS,
   categoryTierVars,
 } from "@/data/brand"
 import { useDocumentMeta } from "@/hooks/useDocumentMeta"
@@ -67,6 +69,10 @@ function PieceDetail({ piece, pieces }: { piece: ShowcaseItem; pieces: ShowcaseI
   const category = categories.find((item) => item.id === piece.category)
   const isOriginal = ORIGINAL_DESIGNS.has(piece.id)
   const photos = [SHOWCASE_IMAGES[piece.id], ...(SHOWCASE_EXTRA_IMAGES[piece.id] ?? [])]
+  const video = SHOWCASE_VIDEOS[piece.id]
+  // The clip, when there is one, comes after the photos.
+  const mediaCount = photos.length + (video ? 1 : 0)
+  const showingVideo = video !== undefined && photoIndex === photos.length
   const related = pieces
     .filter((item) => item.category === piece.category && item.id !== piece.id)
     .slice(0, RELATED_LIMIT)
@@ -90,39 +96,59 @@ function PieceDetail({ piece, pieces }: { piece: ShowcaseItem; pieces: ShowcaseI
         <div className="mt-sp-6 grid items-start gap-sp-8 md:grid-cols-2">
           <div className="flex flex-col gap-sp-3">
             <div className="overflow-hidden rounded-lg border-2 border-border bg-surface shadow-raised">
-              {/* Only the first photo has written alt text; the extras are
-                  labelled by position, which the thumbnails also announce. */}
-              <img
-                src={photos[photoIndex]}
-                alt={
-                  photoIndex === 0
-                    ? piece.alt
-                    : t("piecePage.photoCount", { index: photoIndex + 1, total: photos.length })
-                }
-                width={SHOWCASE_IMAGE_SIZE.width}
-                height={SHOWCASE_IMAGE_SIZE.height}
-                className="aspect-[4/5] w-full bg-surface-alt object-cover"
-              />
+              {showingVideo ? (
+                <MediaFrame
+                  media={{ type: "video", ...video }}
+                  alt={piece.videoAlt || piece.name}
+                  className="aspect-[4/5]"
+                />
+              ) : (
+                // Only the first photo has written alt text; the extras are
+                // labelled by position, which the thumbnails also announce.
+                <img
+                  src={photos[photoIndex]}
+                  alt={
+                    photoIndex === 0
+                      ? piece.alt
+                      : t("piecePage.photoCount", { index: photoIndex + 1, total: mediaCount })
+                  }
+                  width={SHOWCASE_IMAGE_SIZE.width}
+                  height={SHOWCASE_IMAGE_SIZE.height}
+                  className="aspect-[4/5] w-full bg-surface-alt object-cover"
+                />
+              )}
             </div>
 
-            {photos.length > 1 ? (
+            {mediaCount > 1 ? (
               <ul className="flex list-none flex-wrap gap-sp-2">
-                {photos.map((src, index) => (
-                  <li key={src}>
-                    <button
-                      type="button"
-                      onClick={() => setPhotoIndex(index)}
-                      aria-pressed={index === photoIndex}
-                      aria-label={t("piecePage.photoCount", { index: index + 1, total: photos.length })}
-                      className={cn(
-                        "block size-16 overflow-hidden rounded-md border-2 transition-colors duration-fast ease-out",
-                        index === photoIndex ? "border-primary" : "border-border hover:border-foreground",
-                      )}
-                    >
-                      <img src={src} alt="" className="size-full object-cover" loading="lazy" />
-                    </button>
-                  </li>
-                ))}
+                {[...photos, ...(video ? [video.poster] : [])].map((src, index) => {
+                  const isVideo = video !== undefined && index === photos.length
+                  return (
+                    <li key={src}>
+                      <button
+                        type="button"
+                        onClick={() => setPhotoIndex(index)}
+                        aria-pressed={index === photoIndex}
+                        aria-label={
+                          isVideo
+                            ? t("piecePage.videoLabel")
+                            : t("piecePage.photoCount", { index: index + 1, total: mediaCount })
+                        }
+                        className={cn(
+                          "relative block size-16 overflow-hidden rounded-md border-2 transition-colors duration-fast ease-out",
+                          index === photoIndex ? "border-primary" : "border-border hover:border-foreground",
+                        )}
+                      >
+                        <img src={src} alt="" className="size-full object-cover" loading="lazy" />
+                        {isVideo ? (
+                          <span className="absolute inset-0 flex items-center justify-center bg-foreground/30">
+                            <Play className="size-6 fill-background text-background" aria-hidden="true" />
+                          </span>
+                        ) : null}
+                      </button>
+                    </li>
+                  )
+                })}
               </ul>
             ) : null}
           </div>
