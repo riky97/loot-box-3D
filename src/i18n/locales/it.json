@@ -373,14 +373,14 @@
         {
           "id": "cleaning",
           "title": "Pulizia",
-          "description": "Togliamo i supporti di stampa e puliamo il pezzo.",
+          "description": "Rimuoviamo i supporti di stampa ed effettuiamo una prima pulizia del pezzo.",
           "products": "",
           "mediaAlt": ""
         },
         {
           "id": "sanding",
           "title": "Carteggiatura",
-          "description": "Leviamo i segni degli strati per una superficie uniforme.",
+          "description": "Se necessario, con appositi strumenti, levighiamo e lisciamo ulteriormente la superficie, ad esempio per preparare il pezzo alla successiva fase di pittura.",
           "products": "",
           "mediaAlt": ""
         },
