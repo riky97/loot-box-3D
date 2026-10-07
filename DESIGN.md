@@ -64,7 +64,8 @@ assumed.
 
   /* Accent — decorative only, NEVER text (see Color Rules) */
   --accent-vivid:   #FF3366;   /* the seed magenta: gradients, glows, shadow tints */
-  --gold:           #FFD700;   /* fills and rules only */
+  --highlight:      #64CE99;   /* fills and rules only: the highlight (see below) */
+  --gold:           #FFD700;   /* fills and rules only: the gadget tier */
   --green-vivid:    #00CC88;   /* fills and rules only */
   --violet-vivid:   #945FDD;   /* fills and rules only: the Film & Fantasy tier */
 
@@ -101,6 +102,7 @@ assumed.
 | white on `--primary-hover` | 9.11 | AAA |
 | `--green` on `--bg` | 5.10 | AA |
 | `--gold-ink` on `--bg` | 4.67 | AA |
+| `--text` on `--highlight` fill | 8.15 | AAA |
 | `--text` on `--gold` fill | 11.22 | AAA |
 | `--text` on `--surface-alt` | 13.90 | AAA |
 | `--accent-vivid` on `--bg` | 3.37 | **large text only — decorative** |
@@ -108,8 +110,8 @@ assumed.
 ### Color Rules
 
 1. **Zero hardcoded hex outside `_tokens.scss`.** Every colour is referenced through a custom property. A `grep` for `#[0-9a-fA-F]{6}` outside the token file must return nothing.
-2. **`--accent-vivid`, `--gold`, `--green-vivid` and `--violet-vivid` are decoration, never text.** They fail AA on cream at body size. Use them as fills, rules, gradient stops, glow tints and shadow colours. When their hue must carry words, use `--primary`, `--gold-ink` and `--green` instead.
-3. **Gold is a background, not a foreground.** `--text` on a `--gold` fill is 11.22 and excellent. `--gold` on cream is 1.33 and invisible.
+2. **`--accent-vivid`, `--highlight`, `--gold`, `--green-vivid` and `--violet-vivid` are decoration, never text.** They fail AA on cream at body size. Use them as fills, rules, gradient stops, glow tints and shadow colours. When their hue must carry words, use `--primary`, `--gold-ink` and `--green` instead.
+3. **The highlight is a background, not a foreground.** `--text` on a `--highlight` fill is 8.15 and excellent; `--highlight` on cream is 1.84 and unreadable as text. The highlight is a light sister of the primary green (`#64CE99`), chosen by the client on 2026-10-07 over the yellow it replaced. It is the hero title's offset shadow, the bar behind the last word of every section heading, the hover fill of outline buttons and contact rows, the "Il più veloce" chip and the text selection. Yellow (`--gold`) is left only as the gadget tier colour, so it still reads as a category, not as the brand's highlight.
 4. **One accent per section.** Forest green leads; gold and green appear as the category coding and as small punctuation. Never all three competing in one viewport.
 5. **The category colour coding is fixed**: anime → `--accent-vivid`, film → `--violet-vivid`, gadget → `--gold`, gaming → `--green-vivid`, other → `--text-tertiary`. These tint borders, chips and card glows only; the card's own text stays `--text` / `--text-secondary`.
 
@@ -155,9 +157,9 @@ Decisions run against the skill's decision table for Playful Creative:
 
 - **Hero H1 — layered drop shadow, no gradient.** The table permits both, but stacking them is explicitly forbidden, so one is chosen. Layered shadow wins: gradient text on a light ground makes contrast vary across the glyph, which conflicts with the AA bar in `plan.md` §7. The hard offset shadow also reads as sticker/toy, which is the point.
   ```css
-  text-shadow: 3px 3px 0 var(--gold), 6px 6px 0 rgba(var(--text-rgb), 0.12);
+  text-shadow: 3px 3px 0 var(--highlight), 6px 6px 0 rgba(var(--text-rgb), 0.12);
   ```
-- **Section H2 — no gradient, no shadow.** Instead a `--gold` highlight bar animates in behind the last word on scroll. Keeps H2 readable and gives the scroll reveal something to do.
+- **Section H2 — no gradient, no shadow.** Instead a `--highlight` bar animates in behind the last word on scroll. Keeps H2 readable and gives the scroll reveal something to do.
 - **Eyebrow labels** — `border-bottom: 2px solid var(--primary)`, inline-block, sized to the text.
 - **Body paragraphs — no decoration of any kind.** Non-negotiable.
 
@@ -204,7 +206,7 @@ Decisions run against the skill's decision table for Playful Creative:
 /* Secondary — outlined */
 .btn--outline            { background: transparent; color: var(--text);
                            border-color: var(--text); box-shadow: 0 4px 0 0 var(--border); }
-.btn--outline:hover      { background: var(--gold); border-color: var(--text);
+.btn--outline:hover      { background: var(--highlight); border-color: var(--text);
                            transform: translateY(-2px); box-shadow: 0 6px 0 0 var(--border); }
 .btn--outline:active     { transform: translateY(2px); box-shadow: 0 2px 0 0 var(--border); }
 .btn--outline:focus-visible { outline: none;
@@ -347,7 +349,7 @@ toy/sticker vocabulary, and it costs nothing to paint.
 Chip text is always `--text`, never the tier colour — that is what keeps the
 rarity coding legible at 11px.
 
-### Section heading with gold highlight
+### Section heading with the highlight bar
 
 ```css
 .heading__mark {
@@ -363,7 +365,7 @@ rarity coding legible at 11px.
   block-size: 0.42em;
   z-index: -1;
   border-radius: 3px;
-  background: var(--gold);
+  background: var(--highlight);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform var(--dur-slow) var(--ease-bounce);
@@ -495,7 +497,7 @@ CSS keyframes         → entrances, marquee, gradient drift
 | # | Category | Placement | Implementation |
 | --- | --- | --- | --- |
 | 1 | Text — Hero H1 | hero headline | per-word mask reveal: `clip-path` inset + `translateY`, 60ms stagger |
-| 2 | Text — Section H2 | every section heading | gold highlight bar scales in behind the last word on enter |
+| 2 | Text — Section H2 | every section heading | highlight bar scales in behind the last word on enter |
 | 3 | Text — body / label | eyebrows and lead paragraphs | blur-to-sharp is **banned** (moving blur); use opacity + 12px rise, 40ms stagger |
 | 4 | Element | primary CTA | magnetic hover — button translates up to 6px toward the cursor, rAF-throttled, `(hover: hover)` only |
 | 5 | Component | category + showcase cards | SpotlightCard — `--mx/--my` radial gradient follows the pointer |
@@ -632,7 +634,7 @@ its final state — nothing is hidden behind an animation that will not run.
 ### Do
 
 - ✅ Reference every colour, size, radius and duration through a token. `_tokens.scss` is the only file allowed to contain a literal design value.
-- ✅ Keep `--text` on top of `--gold` and `--accent-vivid` fills. Those hues are backgrounds.
+- ✅ Keep `--text` on top of `--highlight`, `--gold` and `--accent-vivid` fills. Those hues are backgrounds.
 - ✅ Give every interactive element a visible hover **and** a visible `:focus-visible`.
 - ✅ Use the solid offset shadow vocabulary (`0 4px 0`) as the default depth cue; save blurred shadows for the elevated level.
 - ✅ Cap hover movement at 4px and 1.02 scale.
@@ -901,7 +903,7 @@ channel name, handle, arrow.
 ```
 
 - The panel carries `--shadow-glow`; it is the only element on the page permitted to use it.
-- Only the Instagram row is filled, as the fastest channel, with a gold "Il più veloce" chip from `sm:`; email and Stimalo are outlined rows with the pop shadow.
+- Only the Instagram row is filled, as the fastest channel, with a highlight-green "Il più veloce" chip from `sm:`; email and Stimalo are outlined rows with the pop shadow.
 - The email row is two controls side by side, never nested: the address as the mailto link, and a square copy button (a mailto link often opens a mail program nobody uses). It confirms with a check icon and a polite live region for two seconds, and falls back to a selected textarea where the async clipboard is refused.
 - The location is information, not a channel, so it sits with the text and links to Maps.
 - Below `lg:` everything stacks, text first. The email address wraps only after the "@".

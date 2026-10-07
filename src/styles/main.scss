@@ -46,7 +46,7 @@
   }
 
   ::selection {
-    background: hsl(var(--gold));
+    background: hsl(var(--highlight));
     color: hsl(var(--foreground));
   }
 }
@@ -71,7 +71,7 @@
     // Layered drop shadow, no gradient — stacking the two is forbidden, and a
     // gradient would make contrast vary across the glyph. See DESIGN.md 3.
     text-shadow:
-      3px 3px 0 hsl(var(--gold)),
+      3px 3px 0 hsl(var(--highlight)),
       6px 6px 0 hsl(var(--foreground) / 0.12);
   }
 
@@ -214,7 +214,7 @@
 
   .btn-pop-outline:hover {
     transform: translateY(-2px);
-    background-color: hsl(var(--gold));
+    background-color: hsl(var(--highlight));
     box-shadow: 0 6px 0 0 hsl(var(--border));
   }
 
@@ -252,7 +252,7 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Section heading — gold bar scales in behind the marked word
+  // Section heading — highlight bar scales in behind the marked word
   // ---------------------------------------------------------------------------
   .heading-mark {
     position: relative;
@@ -268,7 +268,7 @@
     block-size: 0.42em;
     z-index: -1;
     border-radius: 3px;
-    background: hsl(var(--gold));
+    background: hsl(var(--highlight));
     transform: scaleX(0);
     transform-origin: left center;
     transition: transform var(--dur-slow) var(--ease-bounce);

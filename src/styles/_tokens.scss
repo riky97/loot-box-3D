@@ -48,6 +48,10 @@ $color-accent-vivid: 345 100% 60%; // #FF3366   3.37 — fills, glows, gradients
 $color-gold: 51 100% 50%; // #FFD700   1.33 — fills and rules only
 $color-green-vivid: 160 100% 40%; // #00CC88   2.00 — fills and rules only
 $color-violet-vivid: 265 65% 62%; // #945FDD   4.04 — fills and rules only
+// The highlight: hero title shadow, heading marker, hover fill, chips. A light
+// sister of the primary green, chosen by the client (2026-10-07) over the
+// yellow it replaced; yellow ($color-gold) now only codes the gadget tier.
+$color-highlight: 150 52% 60%; // #64CE99   1.84 — fills and rules only
 
 // -- Text-safe counterparts of the decorative accents -------------------------
 $color-gold-ink: 47 100% 27%; // #8A6D00   4.67 AA
@@ -189,6 +193,7 @@ $dur-shelf-b: 42s; // deliberately not a multiple of A, so the rows never sync
   --primary-hover: #{$color-primary-hover};
   --primary-deep: #{$color-primary-deep};
   --accent-vivid: #{$color-accent-vivid};
+  --highlight: #{$color-highlight};
   --gold: #{$color-gold};
   --gold-ink: #{$color-gold-ink};
   --green: #{$color-green};

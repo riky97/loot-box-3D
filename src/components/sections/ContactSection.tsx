@@ -81,7 +81,7 @@ export function ContactSection() {
                   value={t("contact.instagramHandle")}
                   valueClassName="text-primary-foreground/85"
                 />
-                <span className="type-chip hidden rounded-pill bg-gold px-sp-2 py-sp-1 text-foreground sm:inline">
+                <span className="type-chip hidden rounded-pill bg-highlight px-sp-2 py-sp-1 text-foreground sm:inline">
                   {t("contact.instagramNote")}
                 </span>
                 <ArrowUpRight className="size-5 shrink-0" aria-hidden="true" />
@@ -145,7 +145,7 @@ function EmailRow() {
     <div className="flex items-stretch overflow-hidden rounded-lg border-2 border-foreground bg-surface text-foreground shadow-pop">
       <a
         href={`mailto:${BRAND_LINKS.email}`}
-        className="flex min-w-0 flex-1 items-center gap-sp-4 px-sp-4 py-sp-3 transition-colors duration-fast ease-out hover:bg-gold"
+        className="flex min-w-0 flex-1 items-center gap-sp-4 px-sp-4 py-sp-3 transition-colors duration-fast ease-out hover:bg-highlight"
       >
         <ChannelIcon>
           <Mail className="size-5" aria-hidden="true" />
@@ -160,7 +160,7 @@ function EmailRow() {
         onClick={copy}
         aria-label={copyLabel}
         title={copyLabel}
-        className="flex w-14 shrink-0 items-center justify-center border-l-2 border-foreground transition-colors duration-fast ease-out hover:bg-gold"
+        className="flex w-14 shrink-0 items-center justify-center border-l-2 border-foreground transition-colors duration-fast ease-out hover:bg-highlight"
       >
         {state === "copied" ? (
           <Check className="size-5 text-primary" aria-hidden="true" />

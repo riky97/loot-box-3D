@@ -24,12 +24,12 @@
     "closeMenu": "Chiudi il menu"
   },
   "hero": {
-    "eyebrow": "Stampa 3D da collezione",
+    "eyebrow": "Stampa 3D su misura",
     "titleLead": "Il tuo fandom preferito, ",
     "titleHighlight": "stampato in 3D",
     "subtitle": "Loot Box 3D trasforma anime, videogiochi, film e mondi fantasy in pezzi fisici da tenere in mano: statuette, miniature, props, accessori per carte collezionabili, gadget e oggetti per la casa rifiniti a mano, pensati da appassionati per altri appassionati.",
-    "ctaPrimary": "Scopri la collezione",
-    "ctaSecondary": "Scrivici su Instagram",
+    "ctaPrimary": "Scopri cosa stampiamo",
+    "ctaSecondary": "Contattaci",
     "highlights": [
       {
         "value": "Su misura",
@@ -49,8 +49,8 @@
       }
     ],
     "annotation": "fatti a mano, uno alla volta",
-    "titleLine1": "Collezionabili",
-    "titleLine2": "stampati",
+    "titleLine1": "La tua idea,",
+    "titleLine2": "stampata",
     "titleLine3": "in 3D"
   },
   "about": {

@@ -1,12 +1,12 @@
+import { MessageCircle } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
 
-import { InstagramGlyph } from "@/components/common/InstagramGlyph"
 import { MainNav } from "@/components/layout/MainNav"
 import { MobileNav } from "@/components/layout/MobileNav"
+import { SectionLink } from "@/components/layout/SectionLink"
 import { Button } from "@/components/ui/button"
 import { Wordmark } from "@/components/common/Wordmark"
-import { BRAND_LINKS } from "@/data/brand"
 import { useActiveSection } from "@/hooks/useActiveSection"
 import { useScrollProgress } from "@/hooks/useScrollProgress"
 import { ROUTES, SECTION_IDS } from "@/routes/paths"
@@ -17,7 +17,7 @@ const WATCHED_SECTION_IDS = Object.values(SECTION_IDS)
 /**
  * Sticky site header: transparent over the hero, blurred once the reader
  * scrolls, with a 2px extrusion progress bar riding its bottom edge. From
- * 1280px it shows the full nav plus the Instagram CTA; from 1024px the nav
+ * 1280px it shows the full nav plus the "Contattaci" CTA; from 1024px the nav
  * alone; below that it collapses to the wordmark and a hamburger opening
  * `MobileNav`.
  */
@@ -37,10 +37,10 @@ export function SiteHeader() {
       )}
     >
       {/* From `lg:` to `xl:` there is room for the six nav entries but not for
-          the Instagram button too: with it, the entries wrapped onto two lines
-          and squeezed the wordmark below ~1120px. The button is repeated in
-          the hero and in Contatti, so it waits for `xl:`, and until then the
-          nav sits right of a wordmark kept at its natural width. */}
+          the "Contattaci" button too: with it, the entries wrapped onto two
+          lines and squeezed the wordmark below ~1120px. The button repeats the
+          hero's and the nav's own Contatti entry, so it waits for `xl:`; until
+          then the nav sits right of a wordmark kept at its natural width. */}
       <div className="shell grid h-full grid-cols-[1fr_auto] items-center lg:grid-cols-[auto_1fr] xl:grid-cols-[1fr_auto_1fr]">
         <a
           href={ROUTES.home}
@@ -56,10 +56,10 @@ export function SiteHeader() {
 
         <div className="hidden justify-self-end xl:block">
           <Button asChild size="sm" className="btn-pop">
-            <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
-              <InstagramGlyph className="size-4" />
+            <SectionLink sectionId={SECTION_IDS.contact}>
+              <MessageCircle className="size-4" aria-hidden="true" />
               {t("hero.ctaSecondary")}
-            </a>
+            </SectionLink>
           </Button>
         </div>
 

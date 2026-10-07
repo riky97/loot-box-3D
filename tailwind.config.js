@@ -39,6 +39,7 @@ export default {
 
         // Decorative only — never used for text. See DESIGN.md color rule 2.
         "accent-vivid": "hsl(var(--accent-vivid) / <alpha-value>)",
+        highlight: "hsl(var(--highlight) / <alpha-value>)",
         gold: "hsl(var(--gold) / <alpha-value>)",
         "green-vivid": "hsl(var(--green-vivid) / <alpha-value>)",
         "violet-vivid": "hsl(var(--violet-vivid) / <alpha-value>)",

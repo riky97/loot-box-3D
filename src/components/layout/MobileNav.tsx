@@ -85,7 +85,7 @@ export function MobileNav() {
           <Button asChild size="sm" className="btn-pop w-full">
             <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
               <InstagramGlyph className="size-4" />
-              {t("hero.ctaSecondary")}
+              {t("contact.instagramCta")}
             </a>
           </Button>
         </SheetFooter>

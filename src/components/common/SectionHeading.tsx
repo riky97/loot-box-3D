@@ -17,7 +17,7 @@ interface SectionHeadingProps {
 }
 
 /**
- * Eyebrow + H2. The H2 carries no gradient and no shadow; instead a gold bar
+ * Eyebrow + H2. The H2 carries no gradient and no shadow; instead a highlight bar
  * scales in behind its last word once the heading scrolls into view, which
  * keeps the heading at full contrast while still giving the reveal something
  * to do (DESIGN.md section 3).
@@ -69,7 +69,7 @@ export function SectionHeading({
 }
 
 /**
- * Splits the heading so only the final word carries the gold bar. Highlighting
+ * Splits the heading so only the final word carries the highlight bar. Highlighting
  * the whole line would read as a marker pen; highlighting one word reads as
  * emphasis.
  */

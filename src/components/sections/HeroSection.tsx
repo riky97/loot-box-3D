@@ -1,10 +1,9 @@
+import { MessageCircle } from "lucide-react"
 import type { CSSProperties } from "react"
 import { useTranslation } from "react-i18next"
 
 import { BrandMark } from "@/components/common/BrandMark"
-import { InstagramGlyph } from "@/components/common/InstagramGlyph"
 import { Button } from "@/components/ui/button"
-import { BRAND_LINKS } from "@/data/brand"
 import { useContentList } from "@/i18n/useContentList"
 import { SECTION_IDS } from "@/routes/paths"
 import type { HeroHighlight } from "@/types/content"
@@ -90,8 +89,8 @@ export function HeroSection() {
           style={{ "--enter-delay": "420ms" } as CSSProperties}
         >
           <Button asChild size="lg" className="btn-pop w-full sm:w-auto">
-            <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
-              <InstagramGlyph className="size-4" />
+            <a href={`#${SECTION_IDS.contact}`}>
+              <MessageCircle className="size-4" aria-hidden="true" />
               {t("hero.ctaSecondary")}
             </a>
           </Button>
@@ -101,12 +100,9 @@ export function HeroSection() {
             size="lg"
             className="btn-pop-outline w-full border-2 border-foreground sm:w-auto"
           >
-            {/* Targets the gallery, not the process section: the label reads
-                "Scopri la collezione", and a link has to land where its own
-                text says it does. "Come funziona" stays reachable from the
-                nav, and the gallery sits directly above it in the scroll
-                order anyway. */}
-            <a href={`#${SECTION_IDS.showcase}`}>{t("hero.ctaPrimary")}</a>
+            {/* Targets the categories, whose eyebrow reads "Cosa stampiamo":
+                a link has to land where its own text says it does. */}
+            <a href={`#${SECTION_IDS.categories}`}>{t("hero.ctaPrimary")}</a>
           </Button>
         </div>
       </div>
