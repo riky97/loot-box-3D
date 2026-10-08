@@ -129,14 +129,11 @@ export function LabPage() {
         intro={t("lab.finishing.intro")}
         className="bg-background"
       >
-        {/* Steps without a real photo (no AI images, by the client's choice)
-            pair up as text cards rather than showing an empty frame. */}
         <StepList
           steps={finishingSteps}
           tools={tools}
           productsLabel={t("lab.finishing.productsLabel")}
           toolsLabel={t("lab.finishing.toolsLabel")}
-          textStepsAsCards
         />
       </LabSection>
 
@@ -283,48 +280,28 @@ function LabSection({
 /**
  * The steps are a real sequence, so they are an ordered list with visible
  * numbers. A step with media splits into text and frame from `md:` up;
- * otherwise it stays a single column rather than leaving an empty half. With
- * `textStepsAsCards`, a step with neither media nor tools becomes a bordered
- * card taking half the row, so two such steps in a row sit side by side.
- * Tools, when a step has any, sit under it as small photo cards.
+ * otherwise it stays a single column rather than leaving an empty half. Tools, when a step has
+ * any, sit under it as small photo cards.
  */
 function StepList({
   steps,
   tools,
   productsLabel,
   toolsLabel,
-  textStepsAsCards = false,
 }: {
   steps: LabStep[]
   /** Every filled tool on the page; each step shows the ones naming it. */
   tools: LabTool[]
   productsLabel: string
   toolsLabel: string
-  textStepsAsCards?: boolean
 }) {
   return (
-    <ol
-      className={cn(
-        "list-none",
-        textStepsAsCards
-          ? "grid gap-sp-6 md:grid-cols-2 md:gap-x-sp-5 md:gap-y-sp-10"
-          : "flex flex-col gap-sp-10",
-      )}
-    >
+    <ol className="flex list-none flex-col gap-sp-10">
       {steps.map((step, index) => {
         const media = LAB_MEDIA[step.id]
         const stepTools = tools.filter((tool) => tool.step === step.id)
-        const isCard = textStepsAsCards && !media && stepTools.length === 0
         return (
-          <li
-            key={step.id}
-            className={cn(
-              "flex flex-col gap-sp-5",
-              textStepsAsCards && !isCard && "md:col-span-2",
-              isCard &&
-                "rounded-lg border-2 border-border bg-surface p-sp-6 shadow-raised",
-            )}
-          >
+          <li key={step.id} className="flex flex-col gap-sp-5">
             <div
               className={cn("grid items-center gap-sp-5", media && "md:grid-cols-2 md:gap-sp-8")}
             >
