@@ -389,7 +389,7 @@
           "id": "painting",
           "title": "Pittura a mano",
           "description": "Dipingiamo il pezzo a mano, curando i dettagli.",
-          "products": "Acrilici The Army Painter",
+          "products": "",
           "mediaAlt": "Il busto di Kratos dipinto a mano che ruota su un piatto girevole: pelle, barba, tatuaggio rosso e armatura dorata."
         },
         {
@@ -441,13 +441,13 @@
         {
           "step": "painting",
           "id": "acrylics",
-          "name": "Colori acrilici",
-          "description": "The Army Painter"
+          "name": "",
+          "description": ""
         },
         {
           "step": "painting",
           "id": "brushes",
-          "name": "Pennelli",
+          "name": "",
           "description": ""
         },
         {
