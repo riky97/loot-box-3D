@@ -90,6 +90,7 @@ export const ORIGINAL_DESIGNS: ReadonlySet<string> = new Set(["samehada", "cat-g
  */
 export const SHOWCASE_EXTRA_IMAGES: Record<string, readonly string[]> = {
   "league-of-legends-logo": ["/showcase/league-of-legends-logo-2.webp"],
+  "guinea-pig-keychain": ["/showcase/guinea-pig-keychain-2.webp"],
 }
 
 /**
