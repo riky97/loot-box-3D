@@ -134,7 +134,7 @@ export function LabPage() {
           tools={tools}
           productsLabel={t("lab.finishing.productsLabel")}
           toolsLabel={t("lab.finishing.toolsLabel")}
-          pairTextSteps
+          resultCaption={t("lab.finishing.resultCaption")}
         />
       </LabSection>
 
@@ -279,81 +279,127 @@ function LabSection({
 }
 
 /**
- * The steps are a real sequence, so they are an ordered list with visible
+ * The steps are a real sequence, so they are ordered lists with visible
  * numbers. A step with media splits into text and frame from `md:` up;
- * otherwise it stays a single column rather than leaving an empty half.
- * With `pairTextSteps`, a step with neither media nor tools takes half the row
- * from `md:` up, so two such steps in a row sit side by side. Tools, when a step has
- * any, sit under it as small photo cards.
+ * otherwise it stays a single column rather than leaving an empty half. Tools,
+ * when a step has any, sit under it as small photo cards.
+ *
+ * With `resultCaption`, the steps up to the first one with media form one
+ * block: their texts stacked on the left, that media on the right, captioned as
+ * the finished piece they all lead to. The remaining steps follow as usual,
+ * their numbering continued.
  */
 function StepList({
   steps,
   tools,
   productsLabel,
   toolsLabel,
-  pairTextSteps = false,
+  resultCaption,
 }: {
   steps: LabStep[]
   /** Every filled tool on the page; each step shows the ones naming it. */
   tools: LabTool[]
   productsLabel: string
   toolsLabel: string
-  pairTextSteps?: boolean
+  resultCaption?: string
+}) {
+  const toolsOf = (step: LabStep) => tools.filter((tool) => tool.step === step.id)
+  const resultIndex = resultCaption ? steps.findIndex((step) => LAB_MEDIA[step.id]) : -1
+  const grouped = resultIndex >= 0 ? steps.slice(0, resultIndex + 1) : []
+  const rest = steps.slice(grouped.length)
+
+  return (
+    <div className="flex flex-col gap-sp-10">
+      {grouped.length > 0 ? (
+        <div className="flex flex-col gap-sp-5">
+          <div className="grid items-center gap-sp-8 md:grid-cols-2">
+            <ol className="flex list-none flex-col gap-sp-8">
+              {grouped.map((step, index) => (
+                <li key={step.id}>
+                  <StepText step={step} number={index + 1} productsLabel={productsLabel} />
+                </li>
+              ))}
+            </ol>
+            <figure className="flex flex-col gap-sp-2">
+              <MediaFrame
+                media={LAB_MEDIA[grouped[resultIndex].id]}
+                alt={grouped[resultIndex].mediaAlt || grouped[resultIndex].title}
+              />
+              <figcaption className="type-meta text-foreground-dim">{resultCaption}</figcaption>
+            </figure>
+          </div>
+          <StepTools tools={grouped.flatMap(toolsOf)} label={toolsLabel} />
+        </div>
+      ) : null}
+
+      {rest.length > 0 ? (
+        <ol start={grouped.length + 1} className="flex list-none flex-col gap-sp-10">
+          {rest.map((step, index) => {
+            const media = LAB_MEDIA[step.id]
+            return (
+              <li key={step.id} className="flex flex-col gap-sp-5">
+                <div
+                  className={cn("grid items-center gap-sp-5", media && "md:grid-cols-2 md:gap-sp-8")}
+                >
+                  <StepText
+                    step={step}
+                    number={grouped.length + index + 1}
+                    productsLabel={productsLabel}
+                  />
+                  {media ? <MediaFrame media={media} alt={step.mediaAlt || step.title} /> : null}
+                </div>
+                <StepTools tools={toolsOf(step)} label={toolsLabel} />
+              </li>
+            )
+          })}
+        </ol>
+      ) : null}
+    </div>
+  )
+}
+
+function StepText({
+  step,
+  number,
+  productsLabel,
+}: {
+  step: LabStep
+  number: number
+  productsLabel: string
 }) {
   return (
-    <ol
-      className={cn(
-        "list-none gap-sp-10",
-        pairTextSteps ? "grid md:grid-cols-2 md:gap-x-sp-8" : "flex flex-col",
-      )}
-    >
-      {steps.map((step, index) => {
-        const media = LAB_MEDIA[step.id]
-        const stepTools = tools.filter((tool) => tool.step === step.id)
-        const fullRow = pairTextSteps && (Boolean(media) || stepTools.length > 0)
-        return (
-          <li key={step.id} className={cn("flex flex-col gap-sp-5", fullRow && "md:col-span-2")}>
-            <div
-              className={cn("grid items-center gap-sp-5", media && "md:grid-cols-2 md:gap-sp-8")}
-            >
-              <div className="flex gap-sp-4">
-                <span
-                  aria-hidden="true"
-                  className="type-display text-h3 tabular-nums leading-none text-primary"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div className="flex flex-col gap-sp-2">
-                  <h3 className="type-h3 text-foreground">{step.title}</h3>
-                  {isFilled(step.description) ? (
-                    <p className="max-w-measure-body text-foreground-dim">{step.description}</p>
-                  ) : null}
-                  {isFilled(step.products) ? (
-                    <dl>
-                      <Fact label={productsLabel}>{step.products}</Fact>
-                    </dl>
-                  ) : null}
-                </div>
-              </div>
-              {media ? <MediaFrame media={media} alt={step.mediaAlt || step.title} /> : null}
-            </div>
+    <div className="flex gap-sp-4">
+      <span aria-hidden="true" className="type-display text-h3 tabular-nums leading-none text-primary">
+        {String(number).padStart(2, "0")}
+      </span>
+      <div className="flex flex-col gap-sp-2">
+        <h3 className="type-h3 text-foreground">{step.title}</h3>
+        {isFilled(step.description) ? (
+          <p className="max-w-measure-body text-foreground-dim">{step.description}</p>
+        ) : null}
+        {isFilled(step.products) ? (
+          <dl>
+            <Fact label={productsLabel}>{step.products}</Fact>
+          </dl>
+        ) : null}
+      </div>
+    </div>
+  )
+}
 
-            {stepTools.length > 0 ? (
-              <div className="md:pl-sp-10">
-                <h4 className="type-eyebrow text-muted-foreground">{toolsLabel}</h4>
-                <ul className="mt-sp-3 grid list-none grid-cols-2 gap-sp-4 sm:grid-cols-3 lg:grid-cols-4">
-                  {stepTools.map((tool) => (
-                    <li key={tool.id}>
-                      <ToolCard tool={tool} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
+function StepTools({ tools, label }: { tools: LabTool[]; label: string }) {
+  if (tools.length === 0) return null
+  return (
+    <div className="md:pl-sp-10">
+      <h4 className="type-eyebrow text-muted-foreground">{label}</h4>
+      <ul className="mt-sp-3 grid list-none grid-cols-2 gap-sp-4 sm:grid-cols-3 lg:grid-cols-4">
+        {tools.map((tool) => (
+          <li key={tool.id}>
+            <ToolCard tool={tool} />
           </li>
-        )
-      })}
-    </ol>
+        ))}
+      </ul>
+    </div>
   )
 }
 

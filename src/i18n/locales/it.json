@@ -369,6 +369,7 @@
       "title": "Rifinitura a mano",
       "intro": "Dopo la stampa ogni pezzo viene pulito, carteggiato e, se richiesto, dipinto a mano da noi, un pezzo alla volta.",
       "productsLabel": "Cosa usiamo",
+      "resultCaption": "Il risultato: il busto di Kratos, pulito, carteggiato e dipinto a mano.",
       "steps": [
         {
           "id": "cleaning",
