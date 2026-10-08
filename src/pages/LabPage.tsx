@@ -129,14 +129,14 @@ export function LabPage() {
         intro={t("lab.finishing.intro")}
         className="bg-background"
       >
-        {/* Finishing is where photos matter most, so each step keeps a frame
-            for its photo or timelapse, showing the placeholder until one exists. */}
+        {/* Steps without a real photo (no AI images, by the client's choice)
+            pair up as text cards rather than showing an empty frame. */}
         <StepList
           steps={finishingSteps}
           tools={tools}
           productsLabel={t("lab.finishing.productsLabel")}
           toolsLabel={t("lab.finishing.toolsLabel")}
-          showMediaPlaceholder
+          textStepsAsCards
         />
       </LabSection>
 
@@ -282,37 +282,51 @@ function LabSection({
 
 /**
  * The steps are a real sequence, so they are an ordered list with visible
- * numbers. A step with media (or, with `showMediaPlaceholder`, one still
- * waiting for it) splits into text and frame from `md:` up; otherwise it stays
- * a single column rather than leaving an empty half. Tools, when a step has
- * any, sit under it as small photo cards.
+ * numbers. A step with media splits into text and frame from `md:` up;
+ * otherwise it stays a single column rather than leaving an empty half. With
+ * `textStepsAsCards`, a step with neither media nor tools becomes a bordered
+ * card taking half the row, so two such steps in a row sit side by side.
+ * Tools, when a step has any, sit under it as small photo cards.
  */
 function StepList({
   steps,
   tools,
   productsLabel,
   toolsLabel,
-  showMediaPlaceholder = false,
+  textStepsAsCards = false,
 }: {
   steps: LabStep[]
   /** Every filled tool on the page; each step shows the ones naming it. */
   tools: LabTool[]
   productsLabel: string
   toolsLabel: string
-  showMediaPlaceholder?: boolean
+  textStepsAsCards?: boolean
 }) {
-  const { t } = useTranslation()
-
   return (
-    <ol className="flex list-none flex-col gap-sp-10">
+    <ol
+      className={cn(
+        "list-none",
+        textStepsAsCards
+          ? "grid gap-sp-6 md:grid-cols-2 md:gap-x-sp-5 md:gap-y-sp-10"
+          : "flex flex-col gap-sp-10",
+      )}
+    >
       {steps.map((step, index) => {
         const media = LAB_MEDIA[step.id]
-        const hasFrame = Boolean(media) || showMediaPlaceholder
         const stepTools = tools.filter((tool) => tool.step === step.id)
+        const isCard = textStepsAsCards && !media && stepTools.length === 0
         return (
-          <li key={step.id} className="flex flex-col gap-sp-5">
+          <li
+            key={step.id}
+            className={cn(
+              "flex flex-col gap-sp-5",
+              textStepsAsCards && !isCard && "md:col-span-2",
+              isCard &&
+                "rounded-lg border-2 border-border bg-surface p-sp-6 shadow-raised",
+            )}
+          >
             <div
-              className={cn("grid items-center gap-sp-5", hasFrame && "md:grid-cols-2 md:gap-sp-8")}
+              className={cn("grid items-center gap-sp-5", media && "md:grid-cols-2 md:gap-sp-8")}
             >
               <div className="flex gap-sp-4">
                 <span
@@ -333,14 +347,7 @@ function StepList({
                   ) : null}
                 </div>
               </div>
-              {media ? (
-                <MediaFrame media={media} alt={step.mediaAlt || step.title} />
-              ) : showMediaPlaceholder ? (
-                <PhotoPlaceholder
-                  label={t("lab.photoPlaceholder")}
-                  className="aspect-video rounded-lg border-2 border-border"
-                />
-              ) : null}
+              {media ? <MediaFrame media={media} alt={step.mediaAlt || step.title} /> : null}
             </div>
 
             {stepTools.length > 0 ? (
