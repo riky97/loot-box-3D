@@ -955,22 +955,30 @@ detail lives one click away for the visitor who wants it. Reached from the
   the turning colour wheel of filament samples.
 - Printers are cards with a 4:3 photo from `LAB_PRINTER_PHOTOS` (keyed by
   `LabPrinter.id`, alt in `photoAlt`), or the placeholder until one exists.
-- Tools and products (acrylics, brushes, later the airbrush) are listed in
-  `lab.tools.items`, each naming the step it sits under, with a photo from
-  `LAB_TOOL_PHOTOS`. Flat on purpose: nested inside the steps they pushed
-  i18next's key typing past TypeScript's depth limit.
+- Tools and products are listed in `lab.tools.items`, each naming the step
+  it sits under, with a photo from `LAB_TOOL_PHOTOS`. Flat on purpose: nested
+  inside the steps they pushed i18next's key typing past TypeScript's depth
+  limit. The acrylics and brushes entries are blanked (hidden, photos kept)
+  since 2026-10-08, as is Painting's `products`; naming them again brings them
+  back.
 - Until a photo exists, `PhotoPlaceholder` stands in: a green hatch with the
   brand mark and a "Foto in arrivo" chip, the treatment the gallery used before
-  its photography arrived. Finishing steps always keep a photo frame, so the
-  placeholder shows there too. Adding the file and its entry in brand.ts
-  replaces it; nothing else changes.
+  its photography arrived. Adding the file and its entry in brand.ts replaces
+  it; nothing else changes. Steps never show it: a step without media is text
+  alone. No AI-generated images anywhere on the site, by the client's choice
+  (2026-10-08).
 - A step can carry a timelapse or photo through `LAB_MEDIA` in brand.ts;
   `MediaFrame` (shared with the section openings and the piece pages) loads a
   video only near the screen, plays it muted and looped while visible, pauses
   it off screen, and under reduced motion shows the poster with controls
-  instead of autoplaying. Painting shows the Kratos turntable and Polishing the
-  cat glasses stand. Portrait footage that cannot fill the 16:9 frame without
-  losing the piece is fitted whole over a blurred enlargement of itself.
+  instead of autoplaying. Polishing shows the cat glasses stand. Portrait
+  footage that cannot fill the 16:9 frame without losing the piece is fitted
+  whole over a blurred enlargement of itself.
+- Hand finishing opens as one block (`StepList` with `resultCaption`): the
+  steps up to the first one with media (Cleaning, Sanding, Painting) stacked on
+  the left, that step's clip, the Kratos turntable, on the right, captioned as
+  the finished piece all three lead to. Later steps follow as usual, numbering
+  continued through a second `<ol start>`.
 - Clips are re-encoded before they ship: H.264 MP4, audio track and metadata
   removed, `+faststart`, about 0.5-2 MB each, first frame saved as the poster.
 
