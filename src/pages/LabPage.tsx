@@ -134,6 +134,7 @@ export function LabPage() {
           tools={tools}
           productsLabel={t("lab.finishing.productsLabel")}
           toolsLabel={t("lab.finishing.toolsLabel")}
+          pairTextSteps
         />
       </LabSection>
 
@@ -280,7 +281,9 @@ function LabSection({
 /**
  * The steps are a real sequence, so they are an ordered list with visible
  * numbers. A step with media splits into text and frame from `md:` up;
- * otherwise it stays a single column rather than leaving an empty half. Tools, when a step has
+ * otherwise it stays a single column rather than leaving an empty half.
+ * With `pairTextSteps`, a step with neither media nor tools takes half the row
+ * from `md:` up, so two such steps in a row sit side by side. Tools, when a step has
  * any, sit under it as small photo cards.
  */
 function StepList({
@@ -288,20 +291,28 @@ function StepList({
   tools,
   productsLabel,
   toolsLabel,
+  pairTextSteps = false,
 }: {
   steps: LabStep[]
   /** Every filled tool on the page; each step shows the ones naming it. */
   tools: LabTool[]
   productsLabel: string
   toolsLabel: string
+  pairTextSteps?: boolean
 }) {
   return (
-    <ol className="flex list-none flex-col gap-sp-10">
+    <ol
+      className={cn(
+        "list-none gap-sp-10",
+        pairTextSteps ? "grid md:grid-cols-2 md:gap-x-sp-8" : "flex flex-col",
+      )}
+    >
       {steps.map((step, index) => {
         const media = LAB_MEDIA[step.id]
         const stepTools = tools.filter((tool) => tool.step === step.id)
+        const fullRow = pairTextSteps && (Boolean(media) || stepTools.length > 0)
         return (
-          <li key={step.id} className="flex flex-col gap-sp-5">
+          <li key={step.id} className={cn("flex flex-col gap-sp-5", fullRow && "md:col-span-2")}>
             <div
               className={cn("grid items-center gap-sp-5", media && "md:grid-cols-2 md:gap-sp-8")}
             >
