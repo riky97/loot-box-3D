@@ -1,9 +1,10 @@
+import { MessageCircle } from "lucide-react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
 
-import { InstagramGlyph } from "@/components/common/InstagramGlyph"
 import { NAV_ITEMS, NavItemLink, isNavItemCurrent } from "@/components/layout/MainNav"
+import { SectionLink } from "@/components/layout/SectionLink"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -12,8 +13,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { BRAND_LINKS } from "@/data/brand"
 import { cn } from "@/lib/utils"
+import { SECTION_IDS } from "@/routes/paths"
 
 /** Three-bar menu glyph, drawn inline rather than a stock icon so the middle bar can carry the brand orange. */
 function HamburgerIcon() {
@@ -26,7 +27,7 @@ function HamburgerIcon() {
   )
 }
 
-/** Mobile hamburger trigger + right-hand sheet with the full-voice nav and Instagram CTA. */
+/** Mobile hamburger trigger + right-hand sheet with the full-voice nav and the Contattaci CTA. */
 export function MobileNav() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
@@ -83,10 +84,12 @@ export function MobileNav() {
 
         <SheetFooter className="relative z-10 px-gutter pb-sp-6 pt-sp-3 sm:flex-col sm:space-x-0">
           <Button asChild size="sm" className="btn-pop w-full">
-            <a href={BRAND_LINKS.instagram} target="_blank" rel="noreferrer noopener">
-              <InstagramGlyph className="size-4" />
-              {t("contact.instagramCta")}
-            </a>
+            {/* Same label and target as the header and hero CTA: the contact
+                section, which lists every channel. */}
+            <SectionLink sectionId={SECTION_IDS.contact} onClick={() => setOpen(false)}>
+              <MessageCircle className="size-4" aria-hidden="true" />
+              {t("hero.ctaSecondary")}
+            </SectionLink>
           </Button>
         </SheetFooter>
       </SheetContent>
